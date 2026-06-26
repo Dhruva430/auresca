@@ -1,0 +1,535 @@
+<!-- ============================ HERO SLIDER ============================ -->
+<section
+  class="hero relative isolate overflow-hidden bg-cream"
+  data-hero
+  aria-roledescription="carousel"
+  aria-label="Featured treatments"
+>
+  <!-- slides track (draggable) -->
+  <div class="hero-viewport relative overflow-hidden min-h-[88vh] lg:min-h-[calc(100vh-8.5rem)]">
+    <div class="hero-track flex" data-hero-track>
+      <% heroSlides.forEach(function(slide, i){ %>
+        <%
+          var src = slide.local ? slide.image : img(slide.image, 1680, 980);
+          var sset = slide.local ? '' : srcset(slide.image, [900, 1280, 1680], 980);
+          var eager = !!slide.primary;
+        %>
+        <article
+          class="hero-slide relative w-full shrink-0 basis-full"
+          data-hero-slide
+          role="group"
+          aria-roledescription="slide"
+          aria-label="<%= (i+1) + ' of ' + heroSlides.length %>"
+        >
+          <!-- background image -->
+          <img
+            src="<%= src %>"
+            <% if (sset) { %>srcset="<%= sset %>" sizes="100vw"<% } %>
+            alt="<%= slide.eyebrow %> at Auresca Care"
+            width="1680" height="980"
+            <%= eager ? 'fetchpriority="high"' : 'loading="lazy"' %> decoding="async" draggable="false"
+            class="hero-img pointer-events-none absolute inset-0 h-full w-full object-cover <%= slide.objectClass || 'object-[70%_center] lg:object-center' %>"
+          />
+          <!-- copy -->
+          <%
+            var muted = slide.dark ? 'text-white/85' : 'text-charcoal/70';
+            var strong = slide.dark ? 'text-white' : 'text-olive';
+          %>
+          <div class="container-wide relative flex min-h-[88vh] items-center lg:min-h-[calc(100vh-8.5rem)]">
+            <div class="hero-copy max-w-xl py-16 <%= slide.align === 'right' ? 'lg:ml-auto lg:text-left' : '' %>">
+              <h1 class="font-display text-5xl font-semibold leading-[1.05] <%= slide.headingClass || 'text-sage' %> sm:text-6xl lg:text-7xl text-balance">
+                <%= slide.lead %> <em class="font-normal italic"><%= slide.accent %></em> <%= slide.tail %>
+              </h1>
+              <p class="mt-5 max-w-md text-lg leading-relaxed <%= muted %>"><%= slide.desc %></p>
+
+              <div class="mt-7 flex flex-wrap items-center gap-3">
+                <a href="<%= heroMeta.primaryCta.href %>" class="btn-primary">
+                  <%= heroMeta.primaryCta.label %>
+                  <%- include('../partials/icon', { name: 'arrow', cls: 'w-4 h-4' }) %>
+                </a>
+                <a href="<%= heroMeta.secondaryCta.href %>" class="<%= slide.dark ? 'btn border border-white/70 bg-white/10 text-white hover:bg-white/20' : 'btn-outline' %>">
+                  <%= heroMeta.secondaryCta.label %>
+                </a>
+              </div>
+
+              <!-- feature checks -->
+              <div class="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm <%= muted %>">
+                <% heroMeta.features.forEach(function(f){ %>
+                  <span class="inline-flex items-center gap-1.5">
+                    <%- include('../partials/icon', { name: 'check', cls: 'w-4 h-4 text-gold' }) %><%= f %>
+                  </span>
+                <% }) %>
+              </div>
+
+              <!-- trust row -->
+              <div class="mt-8 flex items-center gap-3">
+                <div class="flex -space-x-3">
+                  <% testimonials.forEach(function(t){ %>
+                    <img
+                      src="<%= img(t.avatar, 80, 80) %>"
+                      alt=""
+                      width="80" height="80" loading="lazy" decoding="async"
+                      class="h-10 w-10 rounded-full border-2 border-ivory object-cover"
+                    />
+                  <% }) %>
+                </div>
+                <p class="text-sm <%= muted %>"><span class="font-semibold <%= strong %>"><%= heroMeta.trust %></span></p>
+              </div>
+            </div>
+          </div>
+        </article>
+      <% }) %>
+    </div>
+  </div>
+
+  <!-- dots / labels -->
+  <div class="absolute inset-x-0 bottom-6 z-20 flex flex-wrap items-center justify-center gap-2 px-4">
+    <% heroSlides.forEach(function(slide, i){ %>
+      <button
+        type="button"
+        data-hero-dot
+        data-index="<%= i %>"
+        class="hero-dot rounded-full border border-gold/40 bg-white/70 px-4 py-1.5 text-xs font-medium text-olive/80 backdrop-blur transition hover:text-gold"
+        aria-label="Go to <%= slide.eyebrow %> slide"
+        <%= i === 0 ? 'aria-current="true"' : '' %>
+      ><%= slide.eyebrow %></button>
+    <% }) %>
+  </div>
+</section>
+
+<!-- ===================== STATS STRIP ===================== -->
+<section class="border-y border-beige bg-ivory">
+  <div class="container-wide grid grid-cols-2 gap-6 py-10 lg:grid-cols-4">
+    <% stats.forEach(function(s){ %>
+      <div class="text-center reveal">
+        <p class="font-display text-4xl font-semibold text-gold lg:text-5xl"><%= s.value %></p>
+        <p class="mt-1 text-sm font-medium text-charcoal/65"><%= s.label %></p>
+      </div>
+    <% }) %>
+  </div>
+</section>
+
+<!-- ======================= SERVICES ======================= -->
+<section id="services" class="section bg-ivory bg-grain">
+  <div class="container-wide">
+    <div class="mx-auto max-w-2xl text-center">
+      <h2 class="font-display text-4xl font-medium text-olive sm:text-5xl text-balance">Treatments &amp; <em class="font-normal italic text-gold">Rituals</em></h2>
+      <p class="mt-4 text-charcoal/70">Browse by category — every treatment is medically supervised and tailored to your skin, body and hair goals.</p>
+    </div>
+
+    <!-- category tabs -->
+    <div class="mt-8 flex flex-wrap items-center justify-center gap-2.5" role="tablist" aria-label="Service categories">
+      <% serviceCategories.forEach(function(cat, i){ %>
+        <button
+          type="button"
+          role="tab"
+          data-service-tab
+          data-cat="<%= cat %>"
+          class="service-tab<%= i === 0 ? ' is-active' : '' %>"
+          <%= i === 0 ? 'aria-current="true"' : '' %>
+        ><%= cat %></button>
+      <% }) %>
+    </div>
+
+    <!-- cards -->
+    <div class="mt-12 grid gap-x-7 gap-y-12 sm:grid-cols-2 lg:grid-cols-3" data-service-grid>
+      <% services.forEach(function(s){ %>
+        <article
+          data-service-card
+          data-cat="<%= s.category %>"
+          class="service-card group<%= s.category === serviceCategories[0] ? '' : ' hidden' %>"
+        >
+          <a href="/#appointment" class="block overflow-hidden rounded-[1.75rem] shadow-card ring-1 ring-white/60">
+            <img
+              src="<%= img(s.image, 760, 560) %>"
+              <% if (!s.local) { %>srcset="<%= srcset(s.image, [480, 760], 560) %>" sizes="(max-width: 1024px) 90vw, 30vw"<% } %>
+              alt="<%= s.title %> at Auresca Care"
+              width="760" height="560" loading="lazy" decoding="async"
+              class="aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-105"
+            />
+          </a>
+          <h3 class="mt-5 font-display text-2xl text-olive"><%= s.title %></h3>
+          <p class="mt-2 text-sm leading-relaxed text-charcoal/70"><%= s.desc %></p>
+          <a href="/#appointment" class="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-gold transition-all hover:gap-2.5">
+            Book this <%- include('../partials/icon', { name: 'arrow', cls: 'w-4 h-4' }) %>
+          </a>
+        </article>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== WHY US ====================== -->
+<section class="section bg-cream">
+  <div class="container-content grid items-center gap-14 lg:grid-cols-2">
+    <div class="relative reveal">
+      <img
+        src="<%= img(services[2].image, 680, 760) %>"
+        srcset="<%= srcset(services[2].image, [480, 680, 900], 760) %>"
+        sizes="(max-width: 1024px) 90vw, 42vw"
+        alt="Calm, luxurious treatment room at Auresca Care"
+        width="680" height="760" loading="lazy" decoding="async"
+        class="h-[460px] w-full rounded-[2rem] object-cover shadow-card"
+      />
+      <div class="absolute -bottom-6 right-6 rounded-2xl bg-white/95 px-5 py-4 shadow-soft ring-1 ring-beige">
+        <div class="flex items-center gap-2 text-gold">
+          <%- include('../partials/icon', { name: 'shield', cls: 'w-5 h-5' }) %>
+          <span class="text-sm font-semibold text-olive">Safe · Medical-grade</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <span class="eyebrow"><span class="h-px w-6 bg-gold"></span>Why Auresca</span>
+      <h2 class="mt-4 font-display text-4xl font-medium text-olive sm:text-5xl text-balance">Quiet luxury, clinical precision</h2>
+      <p class="mt-4 text-charcoal/70">We blend medical expertise with a deeply calming experience — so you leave looking refreshed and feeling truly cared for.</p>
+
+      <div class="mt-8 grid gap-5 sm:grid-cols-2">
+        <% whyUs.forEach(function(w){ %>
+          <div class="reveal flex gap-4">
+            <span class="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-white text-gold shadow-soft">
+              <%- include('../partials/icon', { name: w.icon, cls: 'w-6 h-6' }) %>
+            </span>
+            <div>
+              <h3 class="font-display text-xl text-olive"><%= w.title %></h3>
+              <p class="mt-1 text-sm leading-relaxed text-charcoal/65"><%= w.desc %></p>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== REAL RESULTS (before / after) ==================== -->
+<section id="results" class="section bg-cream bg-grain overflow-hidden">
+  <div class="container-wide">
+    <div class="mx-auto max-w-2xl text-center">
+      <h2 class="font-display text-4xl font-medium text-olive sm:text-5xl text-balance">What Results Actually Look Like</h2>
+      <p class="mt-3 text-charcoal/70">Photos taken at follow-up visits. No filters.</p>
+    </div>
+
+    <!-- category tabs -->
+    <div class="mt-8 flex flex-wrap items-center justify-center gap-2.5" role="tablist" aria-label="Result categories">
+      <% resultCategories.forEach(function(cat, i){ %>
+        <button
+          type="button"
+          role="tab"
+          data-result-tab
+          data-cat="<%= cat %>"
+          class="result-tab<%= i === 0 ? ' is-active' : '' %>"
+          <%= i === 0 ? 'aria-current="true"' : '' %>
+        ><%= cat %></button>
+      <% }) %>
+    </div>
+
+    <!-- carousel -->
+    <div class="relative mt-10">
+      <button type="button" data-result-prev aria-label="Previous results"
+        class="absolute left-0 top-1/2 z-20 grid h-11 w-11 -translate-y-1/2 -translate-x-1/2 place-items-center rounded-full border border-beige bg-white text-olive shadow-soft transition hover:text-gold lg:-translate-x-1/2">
+        <span class="block rotate-180"><%- include('../partials/icon', { name: 'arrow', cls: 'w-5 h-5' }) %></span>
+      </button>
+      <button type="button" data-result-next aria-label="More results"
+        class="absolute right-0 top-1/2 z-20 grid h-11 w-11 -translate-y-1/2 translate-x-1/2 place-items-center rounded-full border border-beige bg-white text-olive shadow-soft transition hover:text-gold">
+        <%- include('../partials/icon', { name: 'arrow', cls: 'w-5 h-5' }) %>
+      </button>
+
+      <div class="overflow-hidden px-1 py-2">
+        <div class="result-track flex gap-6" data-result-track>
+        <% beforeAfter.forEach(function(ba){ %>
+          <figure
+            data-result-card
+            data-cat="<%= ba.category %>"
+            class="result-card<%= ba.category === resultCategories[0] ? '' : ' hidden' %> shrink-0 basis-[88%] sm:basis-[calc(50%-12px)]"
+          >
+            <div class="ba-slider relative aspect-[4/5] select-none overflow-hidden rounded-[1.75rem] shadow-card ring-1 ring-white/60" data-ba style="--pos:50%">
+              <!-- after (base) -->
+              <img
+                src="<%= img(ba.after, 760, 950) %>"
+                alt="After — <%= ba.concern %>"
+                width="760" height="950" loading="lazy" decoding="async" draggable="false"
+                class="absolute inset-0 h-full w-full object-cover"
+              />
+              <span class="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-black/35 px-2 py-3 text-[11px] font-semibold tracking-[0.2em] text-white [writing-mode:vertical-rl] rotate-180">AFTER</span>
+
+              <!-- before (clipped overlay) -->
+              <div class="ba-before absolute inset-0" style="clip-path: inset(0 calc(100% - var(--pos)) 0 0)">
+                <img
+                  src="<%= img(ba.before, 760, 950) %>"
+                  alt="Before — <%= ba.concern %>"
+                  width="760" height="950" loading="lazy" decoding="async" draggable="false"
+                  class="absolute inset-0 h-full w-full object-cover"
+                />
+                <span class="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-black/35 px-2 py-3 text-[11px] font-semibold tracking-[0.2em] text-white [writing-mode:vertical-rl] rotate-180">BEFORE</span>
+              </div>
+
+              <!-- handle -->
+              <input type="range" min="0" max="100" value="50" aria-label="Reveal before and after for <%= ba.concern %>"
+                class="ba-range absolute inset-0 h-full w-full cursor-ew-resize opacity-0" />
+              <div class="ba-line pointer-events-none absolute inset-y-0" style="left:var(--pos)">
+                <span class="absolute inset-y-0 -ml-px w-0.5 bg-white shadow"></span>
+                <span class="absolute top-1/2 -ml-5 -mt-5 grid h-10 w-10 place-items-center rounded-full bg-white text-olive shadow-card">
+                  <%- include('../partials/icon', { name: 'arrows-h', cls: 'w-5 h-5' }) %>
+                </span>
+              </div>
+            </div>
+            <figcaption class="mt-4 flex items-center justify-between gap-3 px-1">
+              <span class="font-display text-lg text-olive"><%= ba.concern %></span>
+              <span class="rounded-full bg-white px-3 py-1 text-xs font-medium text-charcoal/70 ring-1 ring-beige"><%= ba.duration %></span>
+            </figcaption>
+          </figure>
+        <% }) %>
+        </div>
+      </div>
+    </div>
+    <p class="mt-6 text-center text-xs text-charcoal/50">Results vary from person to person. Images are representative of typical outcomes.</p>
+  </div>
+</section>
+
+<!-- ======================= REVIEWS ======================= -->
+<section id="reviews" class="section bg-ivory bg-grain">
+  <div class="container-wide">
+    <h2 class="font-display text-4xl font-medium text-olive sm:text-5xl text-balance">What Our Clients <em class="font-normal italic text-gold">Say</em></h2>
+
+    <div class="mt-10 grid items-start gap-8 lg:grid-cols-[340px_1fr]">
+      <!-- summary card -->
+      <%
+        var maxCount = reviewSummary.breakdown[0].count;
+      %>
+      <div class="rounded-[1.75rem] bg-white p-7 shadow-card ring-1 ring-beige">
+        <div class="flex items-center gap-2 font-display text-2xl text-olive">
+          <%= site.name %><span class="text-gold">.</span>
+        </div>
+
+        <div class="mt-5 flex items-center gap-3">
+          <span class="font-display text-5xl font-semibold leading-none text-olive"><%= reviewSummary.rating %></span>
+          <div>
+            <div class="flex items-center gap-0.5 text-gold">
+              <% for (let i=0;i<5;i++){ %><%- include('../partials/icon', { name: 'star', cls: 'w-4 h-4 fill-current', sw: 0 }) %><% } %>
+            </div>
+            <p class="mt-0.5 text-sm font-semibold text-olive"><%= reviewSummary.label %>!</p>
+          </div>
+        </div>
+
+        <p class="mt-3 text-sm text-charcoal/60"><%= reviewSummary.totalLabel %></p>
+        <p class="mt-4 flex items-center gap-1.5 text-sm text-charcoal/50">
+          powered by
+          <span class="font-semibold"><span style="color:#4285F4">G</span><span style="color:#EA4335">o</span><span style="color:#FBBC05">o</span><span style="color:#4285F4">g</span><span style="color:#34A853">l</span><span style="color:#EA4335">e</span></span>
+        </p>
+
+        <!-- breakdown -->
+        <div class="mt-5 space-y-2">
+          <% reviewSummary.breakdown.forEach(function(b){ %>
+            <div class="flex items-center gap-3">
+              <span class="inline-flex w-4 items-center text-xs font-medium text-charcoal/60"><%= b.stars %></span>
+              <%- include('../partials/icon', { name: 'star', cls: 'w-3.5 h-3.5 fill-gold text-gold', sw: 0 }) %>
+              <span class="h-2 flex-1 overflow-hidden rounded-full bg-cream">
+                <span class="block h-full rounded-full bg-gold-grad" style="width: <%= Math.round(b.count / maxCount * 100) %>%"></span>
+              </span>
+              <span class="w-7 text-right text-xs text-charcoal/50"><%= b.count %></span>
+            </div>
+          <% }) %>
+        </div>
+
+        <a href="/#appointment" class="btn-primary mt-7 w-full">Leave a review</a>
+      </div>
+
+      <!-- review cards in one line -->
+      <div class="no-scrollbar -mx-1 flex gap-6 overflow-x-auto px-1 py-1">
+        <% reviews.forEach(function(r){ %>
+          <figure class="flex shrink-0 basis-[340px] flex-col rounded-[1.75rem] bg-white p-6 shadow-soft ring-1 ring-beige sm:basis-[380px]">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-0.5 text-gold">
+                <% for (let i=0;i<5;i++){ %><%- include('../partials/icon', { name: 'star', cls: (i < r.rating ? 'w-4 h-4 fill-current' : 'w-4 h-4 fill-beige text-beige'), sw: 0 }) %><% } %>
+              </div>
+              <span class="text-xs text-charcoal/45"><%= r.timeAgo %></span>
+            </div>
+
+            <blockquote class="mt-4 flex-1 text-[15px] leading-relaxed text-charcoal/80"><%= r.quote %></blockquote>
+
+            <figcaption class="mt-6 flex items-center gap-3 border-t border-beige pt-5">
+              <img src="<%= img(r.avatar, 96, 96) %>" alt="<%= r.name %>" width="96" height="96" loading="lazy" decoding="async" class="h-11 w-11 rounded-full object-cover" />
+              <div>
+                <p class="flex items-center gap-1.5 font-semibold text-olive">
+                  <%= r.name %>
+                  <% if (r.verified) { %><span class="grid h-4 w-4 place-items-center rounded-full bg-gold text-white"><%- include('../partials/icon', { name: 'check', cls: 'w-2.5 h-2.5', sw: 2.5 }) %></span><% } %>
+                </p>
+                <p class="text-xs text-charcoal/50"><%= r.meta %></p>
+              </div>
+            </figcaption>
+          </figure>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== BLOG ======================== -->
+<section id="blog" class="section bg-ivory bg-grain">
+  <div class="container-wide">
+    <div class="mx-auto max-w-2xl text-center">
+      <span class="eyebrow justify-center"><span class="h-px w-6 bg-gold"></span>Blogs &amp; Tips<span class="h-px w-6 bg-gold"></span></span>
+      <h2 class="mt-3 font-display text-4xl font-medium text-olive sm:text-5xl text-balance">Insights For Your Glow</h2>
+    </div>
+
+    <div class="mt-12 grid gap-7 sm:grid-cols-2 lg:grid-cols-4">
+      <% posts.forEach(function(p){ %>
+        <article class="reveal group flex flex-col overflow-hidden rounded-2xl bg-white shadow-soft ring-1 ring-beige/60 transition duration-300 hover:-translate-y-1 hover:shadow-card">
+          <a href="/blog/<%= p.slug %>" class="relative block overflow-hidden">
+            <img
+              src="<%= img(p.coverImage, 560, 380) %>"
+              srcset="<%= srcset(p.coverImage, [400, 560, 760], 380) %>"
+              sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 22vw"
+              alt="<%= p.title %>"
+              width="560" height="380" loading="lazy" decoding="async"
+              class="h-52 w-full object-cover transition duration-500 group-hover:scale-105"
+            />
+            <span class="absolute bottom-3 left-4 rounded-full bg-rose px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white shadow-soft">
+              <%= p.category %>
+            </span>
+          </a>
+          <div class="flex flex-1 flex-col p-5">
+            <p class="text-right text-xs font-medium text-charcoal/45"><%= formatDate(p.publishedAt) %></p>
+            <h3 class="mt-2 font-display text-xl leading-snug text-olive">
+              <a href="/blog/<%= p.slug %>" class="transition hover:text-gold"><%= p.title %></a>
+            </h3>
+            <a href="/blog/<%= p.slug %>" class="mt-auto inline-flex items-center gap-1.5 pt-4 text-xs font-semibold uppercase tracking-[0.14em] text-gold transition-all hover:gap-2.5">
+              Read more <%- include('../partials/icon', { name: 'arrow', cls: 'w-4 h-4' }) %>
+            </a>
+          </div>
+        </article>
+      <% }) %>
+    </div>
+
+    <div class="mt-10 text-center">
+      <a href="/blog" class="btn-outline">View all articles</a>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= FAQ ========================= -->
+<section id="faq" class="section relative overflow-hidden bg-cream bg-grain">
+  <!-- soft ambient backdrop -->
+  <div class="pointer-events-none absolute -left-24 top-12 h-72 w-72 rounded-full bg-rose-blush/30 blur-3xl"></div>
+  <div class="pointer-events-none absolute -right-20 bottom-0 h-80 w-80 rounded-full bg-sage-soft/30 blur-3xl"></div>
+
+  <div class="container-content relative grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+    <div class="lg:pt-4">
+      <span class="eyebrow"><span class="h-px w-6 bg-gold"></span>Good to Know</span>
+      <h2 class="mt-4 font-display text-4xl font-medium text-olive sm:text-5xl text-balance">Frequently Asked <em class="font-normal italic text-gold">Questions</em></h2>
+      <p class="mt-4 max-w-md text-charcoal/70">Everything you might be wondering before your first visit — answered honestly.</p>
+
+      <!-- quiet contact card (no button) -->
+      <div class="mt-8 inline-flex items-center gap-4 rounded-2xl bg-white/70 p-4 pr-6 shadow-soft ring-1 ring-beige backdrop-blur">
+        <span class="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-gold-grad text-white shadow-gold">
+          <%- include('../partials/icon', { name: 'phone', cls: 'w-5 h-5' }) %>
+        </span>
+        <div>
+          <p class="text-xs uppercase tracking-[0.18em] text-charcoal/50">Still have a question?</p>
+          <a href="<%= site.phoneHref %>" class="font-display text-xl text-olive transition-colors hover:text-gold"><%= site.phone %></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="space-y-3">
+      <% faqs.forEach(function(f, i){ %>
+        <div class="faq-item rounded-2xl bg-white shadow-soft ring-1 ring-beige transition duration-300 hover:ring-gold/40" data-faq>
+          <button type="button" class="faq-trigger flex w-full items-center justify-between gap-4 px-6 py-5 text-left" aria-expanded="<%= i===0 ? 'true':'false' %>">
+            <span class="faq-q font-display text-lg text-olive transition-colors sm:text-xl"><%= f.q %></span>
+            <span class="faq-icon grid h-9 w-9 shrink-0 place-items-center rounded-full bg-cream text-gold transition-all duration-300">
+              <%- include('../partials/icon', { name: 'chevron', cls: 'w-5 h-5' }) %>
+            </span>
+          </button>
+          <div class="faq-panel overflow-hidden px-6 transition-all duration-300" style="<%= i===0 ? '' : 'max-height:0' %>">
+            <p class="pb-5 text-sm leading-relaxed text-charcoal/70"><%= f.a %></p>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== APPOINTMENT ===================== -->
+<section id="appointment" class="section bg-sage bg-grain">
+  <div class="container-content overflow-hidden rounded-[2.4rem] bg-white shadow-card ring-1 ring-olive/10">
+    <div class="grid lg:grid-cols-5">
+      <!-- left: assurance (solid panel — no image overlap) -->
+      <div class="relative flex flex-col justify-center gap-8 bg-olive p-8 sm:p-10 lg:col-span-2">
+        <div>
+          <span class="eyebrow text-gold-champagne"><span class="h-px w-6 bg-gold-champagne"></span>Your Visit</span>
+          <h3 class="mt-4 font-display text-3xl font-medium text-balance text-ivory sm:text-4xl">A consultation that puts you first</h3>
+          <p class="mt-4 max-w-sm text-sm leading-relaxed text-ivory/75">
+            Tell us a little about your skin and goals. Our medical team reviews every request personally and confirms your slot within one business day.
+          </p>
+        </div>
+
+        <ul class="space-y-4 text-sm text-ivory/90">
+          <% ['Complimentary, no-obligation first consult','A personalised plan for your skin &amp; goals','Honest, transparent pricing — always'].forEach(function(point){ %>
+            <li class="flex items-start gap-3">
+              <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-sage/50 text-gold-champagne">
+                <%- include('../partials/icon', { name: 'check', cls: 'w-4 h-4' }) %>
+              </span>
+              <span><%- point %></span>
+            </li>
+          <% }) %>
+        </ul>
+
+        <div class="border-t border-ivory/15 pt-6">
+          <p class="text-xs uppercase tracking-[0.2em] text-ivory/50">Prefer to talk?</p>
+          <a href="<%= site.phoneHref %>" class="mt-1 inline-flex items-center gap-2 font-display text-2xl text-gold-champagne hover:text-gold transition-colors">
+            <%- include('../partials/icon', { name: 'phone', cls: 'w-5 h-5' }) %>
+            <%= site.phone %>
+          </a>
+        </div>
+      </div>
+
+      <!-- right: form -->
+      <div class="p-7 sm:p-10 lg:col-span-3">
+        <h2 class="font-display text-3xl font-medium text-olive sm:text-4xl">Book your appointment</h2>
+        <p class="mt-2 text-sm text-charcoal/65">Fill in the form and our team will confirm your slot within one business day.</p>
+
+        <form id="appointment-form" action="/appointments" method="POST" class="mt-7 space-y-5" novalidate>
+          <div class="grid gap-5 sm:grid-cols-2">
+            <div>
+              <label for="name" class="field-label">Full name <span class="text-gold">*</span></label>
+              <input id="name" name="name" type="text" required autocomplete="name" class="field" placeholder="Your name" />
+            </div>
+            <div>
+              <label for="phone" class="field-label">Phone <span class="text-gold">*</span></label>
+              <input id="phone" name="phone" type="tel" required autocomplete="tel" inputmode="tel" class="field" placeholder="+91 ..." />
+            </div>
+          </div>
+          <div>
+            <label for="email" class="field-label">Email <span class="text-gold">*</span></label>
+            <input id="email" name="email" type="email" required autocomplete="email" inputmode="email" class="field" placeholder="you@email.com" />
+          </div>
+          <div class="grid gap-5 sm:grid-cols-2">
+            <div>
+              <label for="service" class="field-label">Service <span class="text-gold">*</span></label>
+              <select id="service" name="service" required class="field">
+                <option value="" disabled selected>Choose a service</option>
+                <% serviceOptions.forEach(function(s){ %><option value="<%= s %>"><%= s %></option><% }) %>
+              </select>
+            </div>
+            <div>
+              <label for="preferredDate" class="field-label">Preferred date</label>
+              <input id="preferredDate" name="preferredDate" type="date" class="field" />
+            </div>
+          </div>
+          <div>
+            <label for="message" class="field-label">Anything we should know? <span class="text-charcoal/40">(optional)</span></label>
+            <textarea id="message" name="message" rows="3" class="field resize-none" placeholder="Tell us about your skin goals..."></textarea>
+          </div>
+
+          <p id="form-status" class="hidden rounded-2xl px-4 py-3 text-sm" role="status" aria-live="polite"></p>
+
+          <button type="submit" class="btn-primary w-full">
+            Request appointment
+            <%- include('../partials/icon', { name: 'arrow', cls: 'w-4 h-4' }) %>
+          </button>
+          <p class="text-center text-xs text-charcoal/50">By submitting you agree to be contacted about your appointment.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

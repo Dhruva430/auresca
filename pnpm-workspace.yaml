@@ -1,0 +1,6 @@
+# pnpm 10+ reads these settings here (not from .npmrc / package.json).
+# Allow esbuild (used by tsx) to run its install script.
+allowBuilds:
+  esbuild: true
+# Skip the pre-run `pnpm install` verification before every `pnpm run`.
+verifyDepsBeforeRun: false

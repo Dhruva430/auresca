@@ -1,0 +1,28 @@
+<section class="bg-cream bg-grain">
+  <div class="container-content py-16 text-center lg:py-20">
+    <span class="eyebrow justify-center"><span class="h-px w-6 bg-gold"></span>The Journal<span class="h-px w-6 bg-gold"></span></span>
+    <h1 class="mt-4 font-display text-5xl font-semibold text-olive sm:text-6xl">Skin wisdom &amp; clinic notes</h1>
+    <p class="mx-auto mt-4 max-w-xl text-charcoal/70">Evidence-based skincare, treatment guides and honest advice from the Auresca Care team.</p>
+  </div>
+</section>
+
+<section class="section bg-ivory bg-grain">
+  <div class="container-content grid gap-7 md:grid-cols-2 lg:grid-cols-3">
+    <% posts.forEach(function(p){ %>
+      <article class="group flex flex-col overflow-hidden rounded-3xl bg-white shadow-soft ring-1 ring-beige transition hover:-translate-y-1 hover:shadow-card">
+        <a href="/blog/<%= p.slug %>" class="block overflow-hidden">
+          <img src="<%= img(p.coverImage, 560, 360) %>" srcset="<%= srcset(p.coverImage, [400,560,760], 360) %>" sizes="(max-width:768px) 90vw, 30vw" alt="<%= p.title %>" width="560" height="360" loading="lazy" decoding="async" class="h-52 w-full object-cover transition duration-500 group-hover:scale-105" />
+        </a>
+        <div class="flex flex-1 flex-col p-6">
+          <div class="flex items-center gap-3 text-xs text-charcoal/55">
+            <span class="rounded-full bg-cream px-3 py-1 font-medium text-olive"><%= p.category %></span>
+            <span><%= p.readMinutes %> min read</span>
+          </div>
+          <h2 class="mt-3 font-display text-2xl leading-snug text-olive"><a href="/blog/<%= p.slug %>" class="hover:text-gold transition"><%= p.title %></a></h2>
+          <p class="mt-2 flex-1 text-sm leading-relaxed text-charcoal/70"><%= p.excerpt %></p>
+          <a href="/blog/<%= p.slug %>" class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-gold hover:gap-2.5 transition-all">Read article <%- include('../partials/icon', { name: 'arrow', cls: 'w-4 h-4' }) %></a>
+        </div>
+      </article>
+    <% }) %>
+  </div>
+</section>
