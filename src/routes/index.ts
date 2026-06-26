@@ -4,6 +4,7 @@ import { isDbConnected } from "../config/db";
 import {
   heroSlides,
   heroMeta,
+  about,
   services,
   serviceCategories,
   beforeAfter,
@@ -39,6 +40,7 @@ homeRouter.get("/", async (_req, res) => {
     bodyClass: "home",
     heroSlides,
     heroMeta,
+    about,
     services,
     serviceCategories,
     beforeAfter,

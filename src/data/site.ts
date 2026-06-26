@@ -79,6 +79,8 @@ export const heroSlides: HeroSlide[] = [
     image: "/images/hero-hair.jpg",
     local: true,
     headingClass: "text-olive",
+    objectClass: "object-left",
+    align: "right",
     lead: "Restore Your",
     accent: "Natural",
     tail: "Hair",
@@ -127,6 +129,22 @@ export const heroSlides: HeroSlide[] = [
     cta: { label: "Book free consultation", href: "/#appointment" },
   },
 ];
+
+/** About-us band: intro copy + the four "why choose us" highlights. */
+export const about = {
+  eyebrow: "About Us",
+  heading: { lead: "Beauty That Begins", tail: "With Care" },
+  body: "At Auresca Care, we believe true beauty is a reflection of inner balance and self-care. Our treatments are designed to nourish, restore and enhance your natural glow.",
+  image: "/images/about-clinic.jpg",
+  local: true,
+  cta: { label: "Learn More", href: "/#services" },
+  features: [
+    { icon: "stethoscope", title: "Expert Therapists" },
+    { icon: "laser", title: "Advanced Technology" },
+    { icon: "shield", title: "Safe & Effective" },
+    { icon: "leaf", title: "Natural & Premium Products" },
+  ],
+};
 
 export const stats = [
   { value: "12+", label: "Years of expertise" },
@@ -357,15 +375,15 @@ export const testimonials: Testimonial[] = [
 
 /** Google-style review summary + individual reviews for the Reviews section. */
 export const reviewSummary = {
-  rating: "4.9",
+  rating: "5.0",
   label: "Excellent",
   totalLabel: "2,438 reviews",
   breakdown: [
-    { stars: 5, count: 2210 },
-    { stars: 4, count: 168 },
-    { stars: 3, count: 38 },
-    { stars: 2, count: 14 },
-    { stars: 1, count: 8 },
+    { stars: 5, count: 2438 },
+    { stars: 4, count: 0 },
+    { stars: 3, count: 0 },
+    { stars: 2, count: 0 },
+    { stars: 1, count: 0 },
   ],
 };
 
@@ -443,12 +461,12 @@ export const reviews: Review[] = [
   {
     name: "Devika Rao",
     avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2",
-    rating: 4,
+    rating: 5,
     timeAgo: "2 months ago",
     meta: "Local Guide · 16 reviews",
     verified: true,
     quote:
-      "Lovely results from my anti-ageing treatment — subtle and natural. Booking and follow-up were effortless.",
+      "Stunning results from my anti-ageing treatment — subtle, natural and exactly what I wanted. Booking and follow-up were effortless.",
   },
 ];
 

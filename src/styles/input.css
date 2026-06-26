@@ -50,10 +50,10 @@
     @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold transition-all duration-300;
   }
   .btn-primary {
-    @apply btn bg-gold-grad text-white shadow-gold hover:-translate-y-0.5 hover:shadow-soft;
+    @apply btn bg-gold-grad text-white hover:-translate-y-0.5;
   }
   .btn-outline {
-    @apply btn border border-white/70 bg-white/85 text-olive shadow-soft backdrop-blur-sm hover:bg-white hover:border-gold hover:text-gold;
+    @apply btn border border-white/70 bg-white/85 text-olive backdrop-blur-sm hover:bg-white hover:border-gold hover:text-gold;
   }
   .btn-rose {
     @apply btn bg-rose text-white hover:bg-rose/90 hover:-translate-y-0.5;
@@ -115,7 +115,7 @@
   .js .hero-slide.is-active .hero-copy > *:nth-child(5) { transition-delay: 0.32s; }
 
   .hero-dot.is-active {
-    @apply bg-sage text-white border-transparent shadow-soft;
+    @apply bg-sage text-white border-transparent;
   }
 
   /* Real Results carousel track — paged one card per arrow click */
@@ -136,6 +136,16 @@
   }
   .faq-item:has(.faq-trigger[aria-expanded="true"]) {
     @apply ring-gold/40 shadow-card;
+  }
+
+  /* Reviews row — drag to scroll */
+  .js .reviews-track {
+    cursor: grab;
+  }
+  .js .reviews-track.is-dragging {
+    cursor: grabbing;
+    scroll-behavior: auto;
+    user-select: none;
   }
 
   /* Filter pills (Real Results + Services categories) */
