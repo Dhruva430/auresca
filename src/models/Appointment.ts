@@ -7,6 +7,7 @@ const appointmentSchema = new Schema(
     phone: { type: String, required: true, trim: true },
     service: { type: String, required: true },
     preferredDate: { type: String, default: "" },
+    preferredTime: { type: String, default: "" },
     message: { type: String, default: "", maxlength: 1000 },
     status: {
       type: String,

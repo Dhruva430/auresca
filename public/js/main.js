@@ -368,6 +368,20 @@
     });
   }
 
+  /* ---------- Newsletter form (footer) ---------- */
+  var nlForm = document.getElementById("newsletter-form");
+  var nlStatus = document.getElementById("newsletter-status");
+  if (nlForm) {
+    nlForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (nlStatus) {
+        nlStatus.textContent = "Thank you — you're subscribed!";
+        nlStatus.classList.remove("hidden");
+      }
+      nlForm.reset();
+    });
+  }
+
   /* ---------- Appointment form (AJAX) ---------- */
   var form = document.getElementById("appointment-form");
   var status = document.getElementById("form-status");

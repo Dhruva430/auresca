@@ -10,7 +10,8 @@ function isEmail(v: string): boolean {
 }
 
 appointmentRouter.post("/", async (req, res) => {
-  const { name, email, phone, service, preferredDate, message } = req.body ?? {};
+  const { name, email, phone, service, preferredDate, preferredTime, message } =
+    req.body ?? {};
   const wantsJson =
     req.xhr || (req.headers.accept ?? "").includes("application/json");
 
@@ -33,6 +34,7 @@ appointmentRouter.post("/", async (req, res) => {
     phone: String(phone).trim(),
     service: String(service),
     preferredDate: preferredDate ? String(preferredDate) : "",
+    preferredTime: preferredTime ? String(preferredTime) : "",
     message: message ? String(message).slice(0, 1000) : "",
   };
 

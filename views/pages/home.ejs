@@ -98,7 +98,7 @@
 </section>
 
 <!-- ===================== STATS STRIP ===================== -->
-<section class="border-y border-beige bg-ivory">
+<section class="border-y border-beige bg-cream">
   <div class="container-wide grid grid-cols-2 gap-6 py-10 lg:grid-cols-4">
     <% stats.forEach(function(s){ %>
       <div class="text-center reveal">
@@ -126,16 +126,11 @@
 
     <!-- heading + copy + cta -->
     <div class="reveal lg:col-span-4">
-      <span class="text-xs font-semibold uppercase tracking-[0.25em] text-gold"><%= about.eyebrow %></span>
-      <h2 class="mt-3 font-display text-4xl font-medium leading-tight text-olive sm:text-[2.75rem] text-balance">
-        <%= about.heading.lead %> <%= about.heading.tail %>
+      <span class="eyebrow"><span class="h-px w-6 bg-gold"></span><%= about.eyebrow %></span>
+      <h2 class="mt-4 font-display text-4xl font-medium text-olive sm:text-5xl text-balance">
+        <%= about.heading.lead %> <em class="font-normal italic text-gold"><%= about.heading.tail %></em>
       </h2>
-      <div class="mt-5 flex items-center gap-2">
-        <span class="h-px w-10 bg-gold/40"></span>
-        <%- include('../partials/icon', { name: 'sparkle', cls: 'w-4 h-4 text-gold' }) %>
-        <span class="h-px w-10 bg-gold/40"></span>
-      </div>
-      <p class="mt-5 max-w-md text-sm leading-relaxed text-charcoal/70"><%= about.body %></p>
+      <p class="mt-4 max-w-md text-charcoal/70"><%= about.body %></p>
       <a href="<%= about.cta.href %>" class="btn-outline mt-7 uppercase tracking-[0.12em]"><%= about.cta.label %></a>
     </div>
 
@@ -156,10 +151,11 @@
 </section>
 
 <!-- ======================= SERVICES ======================= -->
-<section id="services" class="section bg-ivory bg-grain">
+<section id="services" class="section bg-cream bg-grain">
   <div class="container-wide">
     <div class="mx-auto max-w-2xl text-center">
-      <h2 class="font-display text-4xl font-medium text-olive sm:text-5xl text-balance">Treatments &amp; <em class="font-normal italic text-gold">Rituals</em></h2>
+      <span class="eyebrow justify-center"><span class="h-px w-6 bg-gold"></span>Our Services<span class="h-px w-6 bg-gold"></span></span>
+      <h2 class="mt-4 font-display text-4xl font-medium text-olive sm:text-5xl text-balance">Treatments &amp; <em class="font-normal italic text-gold">Rituals</em></h2>
       <p class="mt-4 text-charcoal/70">Browse by category — every treatment is medically supervised and tailored to your skin, body and hair goals.</p>
     </div>
 
@@ -227,7 +223,7 @@
 
     <div>
       <span class="eyebrow"><span class="h-px w-6 bg-gold"></span>Why Auresca</span>
-      <h2 class="mt-4 font-display text-4xl font-medium text-olive sm:text-5xl text-balance">Quiet luxury, clinical precision</h2>
+      <h2 class="mt-4 font-display text-4xl font-medium text-olive sm:text-5xl text-balance">Quiet luxury, <em class="font-normal italic text-gold">clinical precision</em></h2>
       <p class="mt-4 text-charcoal/70">We blend medical expertise with a deeply calming experience — so you leave looking refreshed and feeling truly cared for.</p>
 
       <div class="mt-8 grid gap-5 sm:grid-cols-2">
@@ -251,8 +247,9 @@
 <section id="results" class="section bg-cream bg-grain overflow-hidden">
   <div class="container-wide">
     <div class="mx-auto max-w-2xl text-center">
-      <h2 class="font-display text-4xl font-medium text-olive sm:text-5xl text-balance">What Results Actually Look Like</h2>
-      <p class="mt-3 text-charcoal/70">Photos taken at follow-up visits. No filters.</p>
+      <span class="eyebrow justify-center"><span class="h-px w-6 bg-gold"></span>Real Results<span class="h-px w-6 bg-gold"></span></span>
+      <h2 class="mt-4 font-display text-4xl font-medium text-olive sm:text-5xl text-balance">What <em class="font-normal italic text-gold">Results</em> Actually Look Like</h2>
+      <p class="mt-4 text-charcoal/70">Photos taken at follow-up visits. No filters.</p>
     </div>
 
     <!-- category tabs -->
@@ -333,11 +330,12 @@
 </section>
 
 <!-- ======================= REVIEWS ======================= -->
-<section id="reviews" class="section bg-ivory bg-grain">
+<section id="reviews" class="section bg-cream bg-grain">
   <div class="container-wide">
     <div class="mx-auto max-w-2xl text-center">
-      <h2 class="font-display text-4xl font-medium text-olive sm:text-5xl text-balance">Loved by Our <em class="font-normal italic text-gold">Clients</em></h2>
-      <p class="mt-3 text-charcoal/70">Real, verified five-star reviews from people who've experienced Auresca Care.</p>
+      <span class="eyebrow justify-center"><span class="h-px w-6 bg-gold"></span>Testimonials<span class="h-px w-6 bg-gold"></span></span>
+      <h2 class="mt-4 font-display text-4xl font-medium text-olive sm:text-5xl text-balance">Loved by Our <em class="font-normal italic text-gold">Clients</em></h2>
+      <p class="mt-4 text-charcoal/70">Real, verified five-star reviews from people who've experienced Auresca Care.</p>
     </div>
 
     <div class="mt-12 grid items-start gap-8 lg:grid-cols-[340px_1fr]">
@@ -397,11 +395,11 @@
 </section>
 
 <!-- ======================== BLOG ======================== -->
-<section id="blog" class="section bg-ivory bg-grain">
+<section id="blog" class="section bg-cream bg-grain">
   <div class="container-wide">
     <div class="mx-auto max-w-2xl text-center">
       <span class="eyebrow justify-center"><span class="h-px w-6 bg-gold"></span>Blogs &amp; Tips<span class="h-px w-6 bg-gold"></span></span>
-      <h2 class="mt-3 font-display text-4xl font-medium text-olive sm:text-5xl text-balance">Insights For Your Glow</h2>
+      <h2 class="mt-4 font-display text-4xl font-medium text-olive sm:text-5xl text-balance">Insights For Your <em class="font-normal italic text-gold">Glow</em></h2>
     </div>
 
     <div class="mt-12 grid gap-7 sm:grid-cols-2 lg:grid-cols-4">
@@ -481,87 +479,71 @@
   </div>
 </section>
 
-<!-- ===================== APPOINTMENT ===================== -->
-<section id="appointment" class="section bg-sage bg-grain">
-  <div class="container-content overflow-hidden rounded-[2.4rem] bg-white shadow-card ring-1 ring-olive/10">
-    <div class="grid lg:grid-cols-5">
-      <!-- left: assurance (solid panel — no image overlap) -->
-      <div class="relative flex flex-col justify-center gap-8 bg-olive p-8 sm:p-10 lg:col-span-2">
-        <div>
-          <span class="eyebrow text-gold-champagne"><span class="h-px w-6 bg-gold-champagne"></span>Your Visit</span>
-          <h3 class="mt-4 font-display text-3xl font-medium text-balance text-ivory sm:text-4xl">A consultation that puts you first</h3>
-          <p class="mt-4 max-w-sm text-sm leading-relaxed text-ivory/75">
-            Tell us a little about your skin and goals. Our medical team reviews every request personally and confirms your slot within one business day.
-          </p>
-        </div>
+<!-- ============ APPOINTMENT (full-bleed, flows into footer) ============ -->
+<section id="appointment" class="bg-sage text-ivory">
+  <div class="grid lg:grid-cols-2">
+    <!-- left: form card on sage -->
+    <div class="flex items-center px-6 py-12 sm:px-10 lg:py-16 lg:pl-16 lg:pr-10">
+      <div class="w-full rounded-[2rem] bg-white p-8 text-charcoal shadow-card sm:p-10 lg:p-12">
+        <h2 class="font-display text-4xl font-medium text-olive sm:text-5xl">Book an <em class="font-normal italic text-gold">Appointment</em></h2>
+        <p class="mt-3 text-charcoal/70 sm:text-lg">Choose your ritual, and we'll prepare the rest.</p>
+        <hr class="my-7 border-beige" />
 
-        <ul class="space-y-4 text-sm text-ivory/90">
-          <% ['Complimentary, no-obligation first consult','A personalised plan for your skin &amp; goals','Honest, transparent pricing — always'].forEach(function(point){ %>
-            <li class="flex items-start gap-3">
-              <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-sage/50 text-gold-champagne">
-                <%- include('../partials/icon', { name: 'check', cls: 'w-4 h-4' }) %>
-              </span>
-              <span><%- point %></span>
-            </li>
-          <% }) %>
-        </ul>
-
-        <div class="border-t border-ivory/15 pt-6">
-          <p class="text-xs uppercase tracking-[0.2em] text-ivory/50">Prefer to talk?</p>
-          <a href="<%= site.phoneHref %>" class="mt-1 inline-flex items-center gap-2 font-display text-2xl text-gold-champagne hover:text-gold transition-colors">
-            <%- include('../partials/icon', { name: 'phone', cls: 'w-5 h-5' }) %>
-            <%= site.phone %>
-          </a>
-        </div>
-      </div>
-
-      <!-- right: form -->
-      <div class="p-7 sm:p-10 lg:col-span-3">
-        <h2 class="font-display text-3xl font-medium text-olive sm:text-4xl">Book your appointment</h2>
-        <p class="mt-2 text-sm text-charcoal/65">Fill in the form and our team will confirm your slot within one business day.</p>
-
-        <form id="appointment-form" action="/appointments" method="POST" class="mt-7 space-y-5" novalidate>
-          <div class="grid gap-5 sm:grid-cols-2">
+        <form id="appointment-form" action="/appointments" method="POST" class="space-y-6" novalidate>
+          <div class="grid gap-x-6 gap-y-5 sm:grid-cols-2">
             <div>
-              <label for="name" class="field-label">Full name <span class="text-gold">*</span></label>
-              <input id="name" name="name" type="text" required autocomplete="name" class="field" placeholder="Your name" />
+              <label for="name" class="field-label">Full Name</label>
+              <input id="name" name="name" type="text" required autocomplete="name" class="field" placeholder="e.g. John Smith" />
             </div>
             <div>
-              <label for="phone" class="field-label">Phone <span class="text-gold">*</span></label>
-              <input id="phone" name="phone" type="tel" required autocomplete="tel" inputmode="tel" class="field" placeholder="+91 ..." />
+              <label for="email" class="field-label">Email</label>
+              <input id="email" name="email" type="email" required autocomplete="email" inputmode="email" class="field" placeholder="youremail@example.com" />
             </div>
-          </div>
-          <div>
-            <label for="email" class="field-label">Email <span class="text-gold">*</span></label>
-            <input id="email" name="email" type="email" required autocomplete="email" inputmode="email" class="field" placeholder="you@email.com" />
-          </div>
-          <div class="grid gap-5 sm:grid-cols-2">
             <div>
-              <label for="service" class="field-label">Service <span class="text-gold">*</span></label>
+              <label for="phone" class="field-label">Telephone Number</label>
+              <input id="phone" name="phone" type="tel" required autocomplete="tel" inputmode="tel" class="field" placeholder="e.g. +91 12345 67890" />
+            </div>
+            <div>
+              <label for="service" class="field-label">Treatment Type</label>
               <select id="service" name="service" required class="field">
-                <option value="" disabled selected>Choose a service</option>
+                <option value="" disabled selected>Select treatment</option>
                 <% serviceOptions.forEach(function(s){ %><option value="<%= s %>"><%= s %></option><% }) %>
               </select>
             </div>
             <div>
-              <label for="preferredDate" class="field-label">Preferred date</label>
+              <label for="preferredDate" class="field-label">Date</label>
               <input id="preferredDate" name="preferredDate" type="date" class="field" />
             </div>
-          </div>
-          <div>
-            <label for="message" class="field-label">Anything we should know? <span class="text-charcoal/40">(optional)</span></label>
-            <textarea id="message" name="message" rows="3" class="field resize-none" placeholder="Tell us about your skin goals..."></textarea>
+            <div>
+              <label for="preferredTime" class="field-label">Time</label>
+              <select id="preferredTime" name="preferredTime" class="field">
+                <option value="" disabled selected>Select a time</option>
+                <% ['10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM','6:00 PM','7:00 PM'].forEach(function(t){ %><option value="<%= t %>"><%= t %></option><% }) %>
+              </select>
+            </div>
+            <div class="sm:col-span-2">
+              <label for="message" class="field-label">Message <span class="font-normal text-charcoal/40">(optional)</span></label>
+              <textarea id="message" name="message" rows="3" maxlength="1000" class="field resize-none" placeholder="Tell us about your skin goals or anything we should know…"></textarea>
+            </div>
           </div>
 
           <p id="form-status" class="hidden rounded-2xl px-4 py-3 text-sm" role="status" aria-live="polite"></p>
 
-          <button type="submit" class="btn-primary w-full">
-            Request appointment
-            <%- include('../partials/icon', { name: 'arrow', cls: 'w-4 h-4' }) %>
+          <button type="submit" class="btn bg-olive text-ivory shadow-soft hover:-translate-y-0.5 hover:bg-olive/90">
+            Reserve My Session
           </button>
-          <p class="text-center text-xs text-charcoal/50">By submitting you agree to be contacted about your appointment.</p>
         </form>
       </div>
+    </div>
+
+    <!-- right: full-height image -->
+    <div class="relative isolate min-h-[280px] overflow-hidden lg:min-h-full">
+      <img
+        src="<%= img('/images/service-skin-facial.jpg', 1100, 1100) %>"
+        alt="A calming facial treatment at Auresca Care"
+        width="1100" height="1100" loading="lazy" decoding="async"
+        class="absolute inset-0 h-full w-full object-cover object-center"
+      />
     </div>
   </div>
 </section>
