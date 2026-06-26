@@ -30,6 +30,8 @@
             <%= eager ? 'fetchpriority="high"' : 'loading="lazy"' %> decoding="async" draggable="false"
             class="hero-img pointer-events-none absolute inset-0 h-full w-full object-cover <%= slide.objectClass || 'object-[70%_center] lg:object-center' %>"
           />
+          <!-- mobile readability scrim (hidden on desktop where copy sits clear of the subject) -->
+          <div class="pointer-events-none absolute inset-0 lg:hidden <%= slide.dark ? 'bg-gradient-to-r from-black/70 via-black/45 to-black/15' : 'bg-gradient-to-r from-ivory/95 via-ivory/80 to-ivory/35' %>"></div>
           <!-- copy -->
           <%
             var muted = slide.dark ? 'text-white/85' : 'text-charcoal/70';

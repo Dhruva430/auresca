@@ -15,9 +15,14 @@
     "start": "node dist/server.js",
     "seed": "tsx src/scripts/seed.ts"
   },
-  "keywords": ["dermatology", "clinic", "healthcare"],
+  "keywords": [
+    "dermatology",
+    "clinic",
+    "healthcare"
+  ],
   "license": "MIT",
   "dependencies": {
+    "@ngrok/ngrok": "^1.7.0",
     "compression": "^1.7.5",
     "dotenv": "^16.4.7",
     "ejs": "^3.1.10",

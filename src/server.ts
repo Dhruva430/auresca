@@ -76,8 +76,43 @@ app.use((req, res) => {
   res.status(404).render("pages/404", { title: "Page not found — " + site.name });
 });
 
+/**
+ * In development, optionally expose the site through an ngrok tunnel so it can
+ * be shared with others. Enabled when NODE_ENV=development (set ENABLE_NGROK=false
+ * to opt out). Requires a free NGROK_AUTHTOKEN — https://dashboard.ngrok.com.
+ */
+async function startNgrok(port: number) {
+  const enabled =
+    process.env.NODE_ENV === "development" &&
+    process.env.ENABLE_NGROK !== "false";
+  if (!enabled) return;
+
+  const authtoken = process.env.NGROK_AUTHTOKEN;
+  if (!authtoken) {
+    console.log(
+      "[ngrok] disabled — add NGROK_AUTHTOKEN to your .env to share a public URL " +
+        "(get a free token at https://dashboard.ngrok.com/get-started/your-authtoken)."
+    );
+    return;
+  }
+
+  try {
+    const ngrok = await import("@ngrok/ngrok");
+    const listener = await ngrok.forward({
+      addr: port,
+      authtoken,
+      ...(process.env.NGROK_DOMAIN ? { domain: process.env.NGROK_DOMAIN } : {}),
+    });
+    console.log(`[ngrok] 🌍 Public URL → ${listener.url()}`);
+    console.log("[ngrok]    Share this link to let others view the site.");
+  } catch (err) {
+    console.warn("[ngrok] failed to start tunnel:", (err as Error).message);
+  }
+}
+
 connectDB().finally(() => {
   app.listen(PORT, () => {
     console.log(`[server] Auresca Care running at http://localhost:${PORT}`);
+    void startNgrok(PORT);
   });
 });
