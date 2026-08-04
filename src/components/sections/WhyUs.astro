@@ -1,10 +1,9 @@
 ---
 import Icon from "@/components/Icon.astro";
-import { services, whyUs } from "@/data/site";
+import { whyUs, whyUsImage } from "@/data/site";
 import { img, srcset } from "@/lib/helpers";
 
-const feature = services[2];
-const sset = srcset(feature.image, [480, 680, 900], 760);
+const sset = srcset(whyUsImage, [480, 680, 900], 760);
 ---
 
 <!-- ====================== WHY US ====================== -->
@@ -12,7 +11,7 @@ const sset = srcset(feature.image, [480, 680, 900], 760);
   <div class="container-content grid items-center gap-14 lg:grid-cols-2">
     <div class="relative reveal">
       <img
-        src={img(feature.image, 680, 760)}
+        src={img(whyUsImage, 680, 760)}
         srcset={sset || undefined}
         sizes={sset ? "(max-width: 1024px) 90vw, 42vw" : undefined}
         alt="Calm, luxurious treatment room at Auresca Care"

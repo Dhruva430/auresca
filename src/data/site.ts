@@ -104,8 +104,8 @@ export const heroSlides: HeroSlide[] = [
     cta: { label: "Book free consultation", href: "/#appointment" },
   },
   {
-    name: "Laser Hair Removal",
-    eyebrow: "Laser Hair Removal",
+    name: "Laser Hair Reduction",
+    eyebrow: "Laser Hair Reduction",
     image: "/images/hero-laser.jpg",
     local: true,
     headingClass: "text-olive",
@@ -153,94 +153,218 @@ export const stats = [
   { value: "96%", label: "Would recommend us" },
 ];
 
-/** Service filter categories (first = default active). */
-export const serviceCategories = ["Skin", "Laser", "Body", "Hair"];
-
-export type Service = {
-  category: string;
-  title: string;
-  desc: string;
-  image: string;
-  local?: boolean;
+/**
+ * The full treatment menu. Each category becomes a tab in the Services section
+ * and an <optgroup> in the appointment form, so adding a treatment here is the
+ * only edit needed for it to appear in both places.
+ */
+export type ServiceGroup = {
+  /** Optional sub-heading — omit for a single flat list. */
+  title?: string;
+  items: string[];
 };
 
-export const services: Service[] = [
-  // --- Skin ---
+export type ServiceCategory = {
+  slug: string;
+  /** Short label for the tab + the form's optgroup. */
+  label: string;
+  title: string;
+  tagline: string;
+  image: string;
+  local?: boolean;
+  groups: ServiceGroup[];
+};
+
+/** Service filter categories (first = default active). */
+export const serviceCategories: ServiceCategory[] = [
   {
-    category: "Skin",
-    title: "Signature Facial",
-    desc: "A bespoke medical facial that deep-cleanses, hydrates and leaves skin visibly glowing.",
+    slug: "laser-hair-reduction",
+    label: "Laser Hair Reduction",
+    title: "Laser Hair Reduction",
+    tagline:
+      "Comfortable, downtime-free laser for smooth, beautifully even skin — every area, from a single upper lip to full body.",
+    image: "/images/hero-laser.jpg",
+    local: true,
+    groups: [
+      {
+        title: "Face & neck",
+        items: [
+          "Full Face",
+          "Lower Face",
+          "Upper Lip",
+          "Chin",
+          "Side Locks",
+          "Earlobes",
+          "Beard Shaping",
+        ],
+      },
+      {
+        title: "Arms & legs",
+        items: ["Full Arms", "Half Arms", "Full Legs", "Half Legs"],
+      },
+      {
+        title: "Body",
+        items: [
+          "Full Body",
+          "Underarms",
+          "Bikini",
+          "Glutes",
+          "Front",
+          "Half Front",
+          "Back",
+          "Half Back",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "facials",
+    label: "Facials",
+    title: "Facials & Medi-Facials",
+    tagline:
+      "Clinical facials tailored to your skin barrier — from a quick radiance boost to a full medi-facial protocol.",
     image: "/images/service-skin-facial.jpg",
     local: true,
+    groups: [
+      {
+        items: [
+          "Hydra Facial",
+          "Carbon Facial",
+          "Q-Switch / Instabright",
+          "Medi Facial (Peel + Hydra)",
+          "Mud Facial",
+          "RF Facial",
+          "Fruit Facial",
+        ],
+      },
+    ],
   },
   {
-    category: "Skin",
-    title: "HydraFacial & Glow",
-    desc: "Painless resurfacing that clears congestion and infuses serums for an instant radiance boost.",
-    image: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881",
-  },
-  {
-    category: "Skin",
-    title: "Anti-Ageing & Injectables",
-    desc: "Subtle wrinkle relaxers, fillers and skin boosters that refresh — never overdone.",
-    image: "https://images.unsplash.com/photo-1612817288484-6f916006741a",
-  },
-  // --- Laser ---
-  {
-    category: "Laser",
-    title: "Laser Hair Removal",
-    desc: "Comfortable, downtime-free laser that leaves skin smooth and beautifully even.",
-    image: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908",
-  },
-  {
-    category: "Laser",
-    title: "Laser Skin Resurfacing",
-    desc: "Targeted light therapy for pigmentation, tone and texture — for clear, refined skin.",
-    image: "https://images.unsplash.com/photo-1556228578-8c89e6adf883",
-  },
-  // --- Body ---
-  {
-    category: "Body",
-    title: "Body Polish & Hydration",
-    desc: "Full-body exfoliation and deep nourishment that reveal soft, luminous skin.",
-    image: "/images/service-body-cream.jpg",
-    local: true,
-  },
-  {
-    category: "Body",
-    title: "Body Contouring",
-    desc: "Non-invasive sculpting and skin tightening that define and refine on your timeline.",
+    slug: "body-contouring",
+    label: "Body Contouring",
+    title: "Body Contouring & Slimming",
+    tagline:
+      "Non-invasive sculpting, fat reduction and skin tightening that define and refine on your own timeline.",
     image: "/images/service-body-contour.jpg",
     local: true,
+    groups: [
+      {
+        items: [
+          "Coolsculpt",
+          "Lipo Laser",
+          "G5",
+          "Udvartana",
+          "AVT Therapy",
+          "Tummy Tuck",
+          "NMS",
+          "FDS",
+          "Curve Expert",
+          "M-Tone",
+          "Slimzone",
+        ],
+      },
+    ],
   },
   {
-    category: "Body",
-    title: "Relaxation Massage",
-    desc: "Restorative therapeutic massage to release tension and reset body and mind.",
-    image: "/images/service-body-massage.jpg",
+    slug: "advanced-aesthetics",
+    label: "Advanced Aesthetics",
+    title: "Advanced Aesthetics & Injectables",
+    tagline:
+      "Regenerative therapy, expert-administered injectables and precision resurfacing — supervised by qualified medical professionals.",
+    image: "/images/hero-antiageing.jpg",
     local: true,
+    groups: [
+      {
+        title: "Regenerative therapy",
+        items: [
+          "PRP — Hair",
+          "PRP — Skin (Vampire Facial)",
+          "GFC — Hair",
+          "GFC — Skin (Advanced Vampire Facial)",
+          "Exosomes — Face",
+          "Exosomes — Hair",
+        ],
+      },
+      {
+        title: "Injectables",
+        items: [
+          "Botox",
+          "Fillers",
+          "Skin Booster",
+          "Profhilo",
+          "Hyaluronic",
+          "PDRN",
+          "Mounjaro 2.5 mg",
+          "Mounjaro 5 mg",
+        ],
+      },
+      {
+        title: "IV drips",
+        items: ["Vitamin Drip", "Miracle White Drip"],
+      },
+      {
+        title: "Resurfacing & removal",
+        items: [
+          "Dermapen / Microneedling",
+          "Cautery — Mole, Wart & Skin Tag Removal",
+          "Tattoo Removal (1 inch)",
+          "Fractional Laser — Face",
+          "Fractional Laser — Abdomen / Large Area",
+        ],
+      },
+    ],
   },
-  // --- Hair ---
   {
-    category: "Hair",
-    title: "Scalp & Hair Therapy",
-    desc: "Nourishing scalp treatments and massage that revitalise roots and soothe the senses.",
-    image: "/images/service-hair-scalp.jpg",
-    local: true,
-  },
-  {
-    category: "Hair",
-    title: "Hair Regrowth (PRP)",
-    desc: "Evidence-based PRP and mesotherapy that bring density and strength back to your hair.",
-    image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be",
+    slug: "peels",
+    label: "Peels & Pigmentation",
+    title: "Peels & Pigmentation",
+    tagline:
+      "Targeted chemical peels and deep colour correction for even, luminous tone — face and body.",
+    image: "https://images.unsplash.com/photo-1556228578-8c89e6adf883",
+    groups: [
+      {
+        title: "Glycolic peels",
+        items: [
+          "Glycolic Peel — Face",
+          "Glycolic Peel — Arms",
+          "Glycolic Peel — Back",
+          "Glycolic Peel — Bikini",
+        ],
+      },
+      {
+        title: "Targeted peels",
+        items: ["Lip Peel", "Under-Eye Peel", "Underarm Peel"],
+      },
+      {
+        title: "Deep colour correction peels",
+        items: [
+          "Deep Colour Correction — Face",
+          "Deep Colour Correction — Lip",
+          "Deep Colour Correction — Under Eye",
+          "Deep Colour Correction — Underarms",
+          "Deep Colour Correction — Full Arms",
+          "Deep Colour Correction — Half Arms",
+          "Deep Colour Correction — Legs",
+          "Deep Colour Correction — Half Legs",
+          "Deep Colour Correction — Front",
+          "Deep Colour Correction — Back",
+          "Deep Colour Correction — Bikini",
+          "Deep Colour Correction — Full Body",
+        ],
+      },
+    ],
   },
 ];
+
+/** Image used by the "Why Auresca" band. */
+export const whyUsImage =
+  "https://images.unsplash.com/photo-1612817288484-6f916006741a";
 
 /** Treatment categories used for the Real Results filter tabs (first = default). */
 export const resultCategories = [
   "Skin",
-  "Laser Hair Removal",
-  "Full Body Hair Removal",
+  "Laser Hair Reduction",
+  "Full Body Hair Reduction",
   "Hair Regrowth",
   "Anti-Ageing Injectables",
 ];
@@ -278,14 +402,14 @@ export const beforeAfter: BeforeAfter[] = [
   },
   // --- Laser Hair Removal ---
   {
-    category: "Laser Hair Removal",
+    category: "Laser Hair Reduction",
     concern: "Facial hair reduction",
     duration: "After 5 sessions",
     before: "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c",
     after: "https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453",
   },
   {
-    category: "Laser Hair Removal",
+    category: "Laser Hair Reduction",
     concern: "Underarm smoothness",
     duration: "After 6 sessions",
     before: "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2",
@@ -293,14 +417,14 @@ export const beforeAfter: BeforeAfter[] = [
   },
   // --- Full Body Hair Removal ---
   {
-    category: "Full Body Hair Removal",
+    category: "Full Body Hair Reduction",
     concern: "Legs & arms",
     duration: "After 7 sessions",
     before: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881",
     after: "https://images.unsplash.com/photo-1556228578-8c89e6adf883",
   },
   {
-    category: "Full Body Hair Removal",
+    category: "Full Body Hair Reduction",
     concern: "Back & shoulders",
     duration: "After 8 sessions",
     before: "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9",
@@ -532,4 +656,20 @@ export const timeSlots = [
   "7:00 PM",
 ];
 
-export const serviceOptions = services.map((s) => s.title);
+/**
+ * Grouped options for the appointment form — one <optgroup> per category. The
+ * submitted value carries the category so a bare "Full Body" or "Back" is never
+ * ambiguous in the clinic's inbox.
+ */
+export const serviceOptions = serviceCategories.map((cat) => ({
+  label: cat.label,
+  options: cat.groups.flatMap((group) =>
+    group.items.map((item) => ({ label: item, value: `${cat.label}: ${item}` }))
+  ),
+}));
+
+/** Total number of treatments on the menu. */
+export const serviceCount = serviceOptions.reduce(
+  (total, group) => total + group.options.length,
+  0
+);

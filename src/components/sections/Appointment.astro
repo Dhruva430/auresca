@@ -75,7 +75,15 @@ import { serviceOptions, timeSlots } from "@/data/site";
               <label for="service" class="field-label">Treatment Type</label>
               <select id="service" name="service" required class="field">
                 <option value="" disabled selected>Select treatment</option>
-                {serviceOptions.map((s) => <option value={s}>{s}</option>)}
+                {
+                  serviceOptions.map((group) => (
+                    <optgroup label={group.label}>
+                      {group.options.map((o) => (
+                        <option value={o.value}>{o.label}</option>
+                      ))}
+                    </optgroup>
+                  ))
+                }
               </select>
             </div>
             <div>
