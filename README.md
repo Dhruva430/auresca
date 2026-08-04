@@ -63,6 +63,28 @@ Frontmatter is schema-validated in `src/content.config.ts`, so a typo fails the
 build instead of shipping a broken page. `coverImage` may be a remote URL
 (sized automatically for Unsplash) or a path under `public/images/`.
 
+## The treatment menu
+
+Every service lives in `serviceCategories` in `src/data/site.ts` — a list of
+categories, each with optional sub-groups of treatment names. Adding a treatment
+there makes it appear in **both** the Services section and the appointment
+form's dropdown (grouped by category), so there is only ever one list to edit.
+
+```ts
+{
+  slug: "facials",
+  label: "Facials",              // tab label + <optgroup> label
+  title: "Facials & Medi-Facials",
+  tagline: "Clinical facials tailored to your skin barrier…",
+  image: "/images/service-skin-facial.jpg",
+  local: true,
+  groups: [{ title: "Optional sub-heading", items: ["Hydra Facial", …] }],
+}
+```
+
+Submitted values are prefixed with the category (`"Laser Hair Reduction: Full
+Body"`) so a bare "Full Body" or "Back" is never ambiguous in the inbox.
+
 ## Appointment requests
 
 `POST /api/appointments` is the only on-demand route. It validates the request,
