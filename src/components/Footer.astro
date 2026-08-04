@@ -1,16 +1,13 @@
 ---
 import Icon from "@/components/Icon.astro";
-import { site } from "@/data/site";
+import { site, serviceCategories } from "@/data/site";
 
 const year = new Date().getFullYear();
 
-const footerTreatments = [
-  { label: "Skincare", href: "/#services" },
-  { label: "Hair Regrowth", href: "/#services" },
-  { label: "Anti-Ageing Injectables", href: "/#services" },
-  { label: "Laser Hair Removal", href: "/#services" },
-  { label: "Body Shaping", href: "/#services" },
-];
+const footerTreatments = serviceCategories.map((cat) => ({
+  label: cat.label,
+  href: "/#services",
+}));
 const footerExplore = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/#about" },
