@@ -1,0 +1,80 @@
+---
+import { Font } from "astro:assets";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import { site } from "@/data/site";
+import "@/styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  bodyClass?: string;
+}
+
+const {
+  title = `${site.name} — Reveal · Restore · Radiate`,
+  description = site.shortPitch,
+  bodyClass = "",
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#F9F7F2" />
+    <link rel="canonical" href={canonical} />
+    <meta name="generator" content={Astro.generator} />
+    <!-- Enable JS-only entrance animations early to avoid a flash -->
+    <script is:inline>document.documentElement.classList.add("js");</script>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:url" content={canonical} />
+
+    <!-- Favicon (inline lotus mark — no extra request) -->
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234E5645'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%23E8D2A3' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E"
+    />
+
+    <!-- Self-hosted fonts (see `fonts` in astro.config.mjs) -->
+    <Font cssVariable="--font-display" preload />
+    <Font cssVariable="--font-sans" preload />
+  </head>
+  <body class={`${bodyClass} bg-ivory text-charcoal`}>
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-olive focus:px-5 focus:py-2 focus:text-white"
+      >Skip to content</a
+    >
+
+    <Header />
+
+    <main id="main"><slot /></main>
+
+    <Footer />
+
+    <script>
+      // Every interactive feature is a small, self-contained module that runs
+      // on import and no-ops when its markup is not on the page.
+      import "../scripts/nav.js";
+      import "../scripts/hero.js";
+      import "../scripts/services.js";
+      import "../scripts/before-after.js";
+      import "../scripts/results.js";
+      import "../scripts/reviews.js";
+      import "../scripts/faq.js";
+      import "../scripts/appointment.js";
+      import "../scripts/reveal.js";
+    </script>
+  </body>
+</html>

@@ -1,0 +1,152 @@
+---
+import Icon from "@/components/Icon.astro";
+import { site } from "@/data/site";
+
+const year = new Date().getFullYear();
+
+const footerTreatments = [
+  { label: "Skincare", href: "/#services" },
+  { label: "Hair Regrowth", href: "/#services" },
+  { label: "Anti-Ageing Injectables", href: "/#services" },
+  { label: "Laser Hair Removal", href: "/#services" },
+  { label: "Body Shaping", href: "/#services" },
+];
+const footerExplore = [
+  { label: "Home", href: "/" },
+  { label: "About Us", href: "/#about" },
+  { label: "Results", href: "/#results" },
+  { label: "Reviews", href: "/#reviews" },
+  { label: "Blog", href: "/#blog" },
+  { label: "FAQ", href: "/#faq" },
+];
+const footerSocials = [
+  { name: "instagram", href: site.socials.instagram },
+  { name: "facebook", href: site.socials.facebook },
+  { name: "youtube", href: site.socials.youtube },
+];
+---
+
+<footer class="bg-sage text-white/85">
+  <div class="container-wide py-16 lg:py-20">
+    <div class="grid gap-12 lg:grid-cols-12 lg:gap-10">
+      <!-- Brand + big logo + socials -->
+      <div class="lg:col-span-4">
+        <a href="/" class="inline-flex" aria-label={`${site.name} home`}>
+          <img
+            src="/images/auresca-logo.svg"
+            alt={`${site.name} — ${site.tagline}`}
+            width="1254"
+            height="1254"
+            loading="lazy"
+            class="h-28 w-auto brightness-0 invert sm:h-36"
+          />
+        </a>
+        <p class="mt-5 max-w-xs text-sm leading-relaxed text-white/75">
+          {site.shortPitch}
+        </p>
+        <div class="mt-7 flex items-center gap-3">
+          {
+            footerSocials.map((s) => (
+              <a
+                href={s.href}
+                aria-label={s.name}
+                target="_blank"
+                rel="noopener"
+                class="grid h-10 w-10 place-items-center rounded-full border border-white/25 text-white/85 transition hover:border-white hover:bg-white/10 hover:text-white"
+              >
+                <Icon name={s.name} cls="w-5 h-5" />
+              </a>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Treatments -->
+      <div class="lg:col-span-3">
+        <h3
+          class="text-xs font-semibold uppercase tracking-[0.2em] text-white"
+        >
+          Treatments
+        </h3>
+        <ul class="mt-5 space-y-3 text-sm">
+          {
+            footerTreatments.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class="text-white/75 transition hover:text-white"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- Explore -->
+      <div class="lg:col-span-2">
+        <h3
+          class="text-xs font-semibold uppercase tracking-[0.2em] text-white"
+        >
+          Explore
+        </h3>
+        <ul class="mt-5 space-y-3 text-sm">
+          {
+            footerExplore.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class="text-white/75 transition hover:text-white"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div class="lg:col-span-3">
+        <h3
+          class="text-xs font-semibold uppercase tracking-[0.2em] text-white"
+        >
+          Get in Touch
+        </h3>
+        <ul class="mt-5 space-y-4 text-sm">
+          <li class="flex items-start gap-3 text-white/75">
+            <Icon name="location" cls="w-5 h-5 shrink-0 text-white/60" />
+            <span>{site.address}</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <Icon name="phone" cls="w-5 h-5 shrink-0 text-white/60" />
+            <a
+              href={site.phoneHref}
+              class="text-white/75 transition hover:text-white">{site.phone}</a
+            >
+          </li>
+          <li class="flex items-center gap-3">
+            <Icon name="mail" cls="w-5 h-5 shrink-0 text-white/60" />
+            <a
+              href={`mailto:${site.email}`}
+              class="text-white/75 transition hover:text-white">{site.email}</a
+            >
+          </li>
+          <li class="flex items-center gap-3 text-white/75">
+            <Icon name="clock" cls="w-5 h-5 shrink-0 text-white/60" />
+            <span>{site.hours}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div
+      class="mt-14 flex flex-col items-center justify-between gap-3 border-t border-white/15 pt-6 text-xs text-white/60 sm:flex-row"
+    >
+      <p>© {year} {site.name}. All rights reserved.</p>
+      <p class="tracking-wide">{site.tagline}</p>
+    </div>
+  </div>
+</footer>

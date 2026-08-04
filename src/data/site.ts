@@ -1,7 +1,8 @@
 /**
  * Site-wide static content for Auresca Care.
- * Marketing copy + structured content that rarely changes lives here so the
- * homepage renders instantly without a DB round-trip.
+ * Marketing copy + structured content that rarely changes lives here so every
+ * page can be prerendered at build time. Blog posts come from Markdown files
+ * in `src/content/blog/` (see `src/content.config.ts`).
  */
 
 export const site = {
@@ -45,6 +46,7 @@ export type HeroSlide = {
   accent: string;
   tail: string;
   desc: string;
+  cta?: { label: string; href: string };
 };
 
 /** Shared hero copy reused on every slide (matches the reference layout). */
@@ -516,52 +518,18 @@ export const whyUs = [
   },
 ];
 
-/** Fallback blog content used when the database has no posts yet. */
-export const blogFallback = [
-  {
-    title: "The 5-step evening routine your skin barrier actually wants",
-    slug: "evening-routine-skin-barrier",
-    excerpt:
-      "Forget the 12-step trend. Here is the minimal, dermatologist-approved routine that repairs and protects while you sleep.",
-    category: "Skincare",
-    coverImage: "https://images.unsplash.com/photo-1612817288484-6f916006741a",
-    readMinutes: 5,
-    author: "Dr. Kavya Rao",
-    publishedAt: "2026-06-10",
-  },
-  {
-    title: "Pigmentation, explained: why it happens and what truly fades it",
-    slug: "pigmentation-explained",
-    excerpt:
-      "From melasma to sun spots — understand the real causes and the treatments that deliver lasting, even tone.",
-    category: "Treatments",
-    coverImage: "https://images.unsplash.com/photo-1515377905703-c4788e51af15",
-    readMinutes: 6,
-    author: "Auresca Care Team",
-    publishedAt: "2026-05-28",
-  },
-  {
-    title: "Is laser hair reduction worth it? An honest clinic guide",
-    slug: "laser-hair-reduction-guide",
-    excerpt:
-      "Sessions, sensations, results and myths — everything we wish every client knew before their first appointment.",
-    category: "Laser",
-    coverImage: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be",
-    readMinutes: 4,
-    author: "Dr. Kavya Rao",
-    publishedAt: "2026-05-12",
-  },
-  {
-    title: "HydraFacial: the secret behind that instant, lit-from-within glow",
-    slug: "hydrafacial-instant-radiance",
-    excerpt:
-      "Cleanse, extract, hydrate — how this gentle three-step ritual leaves skin plumper and brighter in under an hour.",
-    category: "Beauty",
-    coverImage: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881",
-    readMinutes: 5,
-    author: "Auresca Care Team",
-    publishedAt: "2026-04-30",
-  },
+/** Time slots offered in the appointment form. */
+export const timeSlots = [
+  "10:00 AM",
+  "11:00 AM",
+  "12:00 PM",
+  "1:00 PM",
+  "2:00 PM",
+  "3:00 PM",
+  "4:00 PM",
+  "5:00 PM",
+  "6:00 PM",
+  "7:00 PM",
 ];
 
 export const serviceOptions = services.map((s) => s.title);

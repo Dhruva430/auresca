@@ -1,0 +1,87 @@
+---
+import Icon from "@/components/Icon.astro";
+import { site, faqs } from "@/data/site";
+---
+
+<!-- ========================= FAQ ========================= -->
+<section id="faq" class="section relative overflow-hidden bg-cream bg-grain">
+  <!-- soft ambient backdrop -->
+  <div
+    class="pointer-events-none absolute -left-24 top-12 h-72 w-72 rounded-full bg-rose-blush/30 blur-3xl"
+  >
+  </div>
+  <div
+    class="pointer-events-none absolute -right-20 bottom-0 h-80 w-80 rounded-full bg-sage-soft/30 blur-3xl"
+  >
+  </div>
+
+  <div
+    class="container-content relative grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16"
+  >
+    <div class="lg:pt-4">
+      <span class="eyebrow"
+        ><span class="h-px w-6 bg-gold"></span>Good to Know</span
+      >
+      <h2
+        class="mt-4 font-display text-4xl font-medium text-olive sm:text-5xl text-balance"
+      >
+        Frequently Asked <em class="font-normal italic text-gold">Questions</em>
+      </h2>
+      <p class="mt-4 max-w-md text-charcoal/70">
+        Everything you might be wondering before your first visit — answered
+        honestly.
+      </p>
+
+      <!-- quiet contact card (no button) -->
+      <div
+        class="mt-8 inline-flex items-center gap-4 rounded-2xl bg-white/70 p-4 pr-6 shadow-soft ring-1 ring-beige backdrop-blur"
+      >
+        <span
+          class="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-gold-grad text-white shadow-gold"
+        >
+          <Icon name="phone" cls="w-5 h-5" />
+        </span>
+        <div>
+          <p class="text-xs uppercase tracking-[0.18em] text-charcoal/50">
+            Still have a question?
+          </p>
+          <a
+            href={site.phoneHref}
+            class="font-display text-xl text-olive transition-colors hover:text-gold"
+            >{site.phone}</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="space-y-3">
+      {
+        faqs.map((f, i) => (
+          <div
+            class="faq-item rounded-2xl bg-white shadow-soft ring-1 ring-beige transition duration-300 hover:ring-gold/40"
+            data-faq
+          >
+            <button
+              type="button"
+              class="faq-trigger flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
+              aria-expanded={i === 0 ? "true" : "false"}
+            >
+              <span class="faq-q font-display text-lg text-olive transition-colors sm:text-xl">
+                {f.q}
+              </span>
+              <span class="faq-icon grid h-9 w-9 shrink-0 place-items-center rounded-full bg-cream text-gold transition-all duration-300">
+                <Icon name="chevron" cls="w-5 h-5" />
+              </span>
+            </button>
+            <div
+              class="faq-panel overflow-hidden px-6 transition-all duration-300"
+              style={i === 0 ? undefined : "max-height:0"}
+            >
+              <p class="pb-5 text-sm leading-relaxed text-charcoal/70">{f.a}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,145 @@
+---
+import { serviceOptions, timeSlots } from "@/data/site";
+---
+
+<!-- ============ APPOINTMENT (full-bleed, flows into footer) ============ -->
+<section id="appointment" class="bg-sage text-ivory">
+  <div class="grid lg:grid-cols-2">
+    <!-- left: form card on sage -->
+    <div
+      class="flex items-center px-6 py-12 sm:px-10 lg:py-16 lg:pl-16 lg:pr-10"
+    >
+      <div
+        class="w-full rounded-[2rem] bg-white p-8 text-charcoal shadow-card sm:p-10 lg:p-12"
+      >
+        <h2 class="font-display text-4xl font-medium text-olive sm:text-5xl">
+          Book an <em class="font-normal italic text-gold">Appointment</em>
+        </h2>
+        <p class="mt-3 text-charcoal/70 sm:text-lg">
+          Choose your ritual, and we'll prepare the rest.
+        </p>
+        <hr class="my-7 border-beige" />
+
+        <!--
+          Posts to the /api/appointments endpoint. With JS the submit is
+          intercepted and answered inline; without it the browser posts the form
+          normally and the endpoint redirects to /appointment-success.
+        -->
+        <form
+          id="appointment-form"
+          action="/api/appointments"
+          method="POST"
+          class="space-y-6"
+          novalidate
+        >
+          <div class="grid gap-x-6 gap-y-5 sm:grid-cols-2">
+            <div>
+              <label for="name" class="field-label">Full Name</label>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                required
+                autocomplete="name"
+                class="field"
+                placeholder="e.g. John Smith"
+              />
+            </div>
+            <div>
+              <label for="email" class="field-label">Email</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                required
+                autocomplete="email"
+                inputmode="email"
+                class="field"
+                placeholder="youremail@example.com"
+              />
+            </div>
+            <div>
+              <label for="phone" class="field-label">Telephone Number</label>
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                required
+                autocomplete="tel"
+                inputmode="tel"
+                class="field"
+                placeholder="e.g. +91 12345 67890"
+              />
+            </div>
+            <div>
+              <label for="service" class="field-label">Treatment Type</label>
+              <select id="service" name="service" required class="field">
+                <option value="" disabled selected>Select treatment</option>
+                {serviceOptions.map((s) => <option value={s}>{s}</option>)}
+              </select>
+            </div>
+            <div>
+              <label for="preferredDate" class="field-label">Date</label>
+              <input
+                id="preferredDate"
+                name="preferredDate"
+                type="date"
+                class="field"
+              />
+            </div>
+            <div>
+              <label for="preferredTime" class="field-label">Time</label>
+              <select id="preferredTime" name="preferredTime" class="field">
+                <option value="" disabled selected>Select a time</option>
+                {timeSlots.map((t) => <option value={t}>{t}</option>)}
+              </select>
+            </div>
+            <div class="sm:col-span-2">
+              <label for="message" class="field-label"
+                >Message <span class="font-normal text-charcoal/40"
+                  >(optional)</span
+                ></label
+              >
+              <textarea
+                id="message"
+                name="message"
+                rows="3"
+                maxlength="1000"
+                class="field resize-none"
+                placeholder="Tell us about your skin goals or anything we should know…"
+              ></textarea>
+            </div>
+          </div>
+
+          <p
+            id="form-status"
+            class="hidden rounded-2xl px-4 py-3 text-sm"
+            role="status"
+            aria-live="polite"
+          >
+          </p>
+
+          <button
+            type="submit"
+            class="btn bg-olive text-ivory shadow-soft hover:-translate-y-0.5 hover:bg-olive/90"
+          >
+            Reserve My Session
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- right: full-height image -->
+    <div class="relative isolate min-h-[280px] overflow-hidden lg:min-h-full">
+      <img
+        src="/images/appointment-facial.jpg"
+        alt="A calming facial treatment at Auresca Care"
+        width="1400"
+        height="933"
+        loading="lazy"
+        decoding="async"
+        class="absolute inset-0 h-full w-full object-cover object-center"
+      />
+    </div>
+  </div>
+</section>

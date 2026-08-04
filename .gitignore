@@ -1,12 +1,17 @@
 # Dependencies
 node_modules/
 
-# Build output
+# Astro build output & generated types
 dist/
-public/css/styles.css
+.astro/
+.output/
+
+# Vercel
+.vercel/
 
 # Environment
 .env
+.env.production
 .env.local
 .env.*.local
 

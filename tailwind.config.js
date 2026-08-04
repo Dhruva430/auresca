@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: ["./views/**/*.ejs", "./public/js/**/*.js", "./src/data/**/*.ts"],
+export default {
+  content: ["./src/**/*.{astro,html,js,ts,md}"],
   theme: {
     extend: {
       colors: {
@@ -27,8 +27,10 @@ module.exports = {
         olive: "#4E5645",
       },
       fontFamily: {
-        display: ['"Cormorant Garamond"', "Georgia", "serif"],
-        sans: ["Manrope", "system-ui", "-apple-system", "sans-serif"],
+        // Both families are self-hosted by Astro's font pipeline, which exposes
+        // them as CSS variables (see `fonts` in astro.config.mjs).
+        display: ["var(--font-display)", "Georgia", "serif"],
+        sans: ["var(--font-sans)", "system-ui", "-apple-system", "sans-serif"],
       },
       maxWidth: {
         content: "1320px",

@@ -1,6 +1,7 @@
 /**
- * Build a responsive Unsplash URL. Centralised so every image is requested at
- * the right size with auto format/compression (good for LCP + page score).
+ * Build a responsive image URL. Remote (Unsplash) images get sizing +
+ * auto-format params so every request is the right size; local files under
+ * /public are returned untouched.
  */
 export function img(
   base: string,
@@ -8,6 +9,8 @@ export function img(
   height?: number,
   quality = 68
 ): string {
+  if (!/^https?:\/\//.test(base)) return base;
+
   const params = new URLSearchParams({
     w: String(width),
     q: String(quality),
@@ -19,10 +22,18 @@ export function img(
   return `${base}${sep}${params.toString()}`;
 }
 
-/** Build a srcset string for crisp images on high-DPR screens. */
+/**
+ * Build a srcset string for crisp images on high-DPR screens. Returns an empty
+ * string for local files, which are served as-is.
+ */
 export function srcset(base: string, widths: number[], height?: number): string {
+  if (!/^https?:\/\//.test(base)) return "";
+
   return widths
-    .map((w) => `${img(base, w, height ? Math.round((height / widths[0]) * w) : undefined)} ${w}w`)
+    .map(
+      (w) =>
+        `${img(base, w, height ? Math.round((height / widths[0]) * w) : undefined)} ${w}w`
+    )
     .join(", ");
 }
 
