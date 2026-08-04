@@ -1,6 +1,5 @@
 import { Router } from "express";
-import { Blog } from "../models/Blog";
-import { isDbConnected } from "../config/db";
+import { prisma, isDbConnected } from "../config/db";
 import {
   heroSlides,
   heroMeta,
@@ -26,10 +25,11 @@ homeRouter.get("/", async (_req, res) => {
 
   if (isDbConnected()) {
     try {
-      const dbPosts = await Blog.find({ published: true })
-        .sort({ publishedAt: -1 })
-        .limit(4)
-        .lean();
+      const dbPosts = await prisma.blog.findMany({
+        where: { published: true },
+        orderBy: { publishedAt: "desc" },
+        take: 4,
+      });
       if (dbPosts.length) posts = dbPosts;
     } catch {
       /* fall back to static posts */

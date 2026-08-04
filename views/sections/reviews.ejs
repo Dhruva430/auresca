@@ -1,0 +1,64 @@
+<!-- ======================= REVIEWS ======================= -->
+<section id="reviews" class="section bg-cream bg-grain">
+  <div class="container-wide">
+    <div class="mx-auto max-w-2xl text-center">
+      <span class="eyebrow justify-center"><span class="h-px w-6 bg-gold"></span>Testimonials<span class="h-px w-6 bg-gold"></span></span>
+      <h2 class="mt-4 font-display text-4xl font-medium text-olive sm:text-5xl text-balance">Loved by Our <em class="font-normal italic text-gold">Clients</em></h2>
+      <p class="mt-4 text-charcoal/70">Real, verified five-star reviews from people who've experienced Auresca Care.</p>
+    </div>
+
+    <div class="mt-12 grid items-start gap-8 lg:grid-cols-[340px_1fr]">
+      <!-- summary card -->
+      <div class="rounded-[1.75rem] bg-white p-7 shadow-card ring-1 ring-beige">
+        <div class="flex items-center gap-2 font-display text-2xl text-olive">
+          <%= site.name %><span class="text-gold">.</span>
+        </div>
+
+        <div class="mt-5 flex items-center gap-3">
+          <span class="font-display text-5xl font-semibold leading-none text-olive"><%= reviewSummary.rating %></span>
+          <div>
+            <div class="flex items-center gap-0.5 text-gold">
+              <% for (let i=0;i<5;i++){ %><%- include('../components/icon', { name: 'star', cls: 'w-4 h-4 fill-current', sw: 0 }) %><% } %>
+            </div>
+            <p class="mt-0.5 text-sm font-semibold text-olive"><%= reviewSummary.label %>!</p>
+          </div>
+        </div>
+
+        <p class="mt-3 text-sm text-charcoal/60"><%= reviewSummary.totalLabel %></p>
+        <p class="mt-4 flex items-center gap-1.5 text-sm text-charcoal/50">
+          powered by
+          <span class="font-semibold"><span style="color:#4285F4">G</span><span style="color:#EA4335">o</span><span style="color:#FBBC05">o</span><span style="color:#4285F4">g</span><span style="color:#34A853">l</span><span style="color:#EA4335">e</span></span>
+        </p>
+
+        <a href="/#appointment" class="btn-primary mt-7 w-full">Leave a review</a>
+      </div>
+
+      <!-- review cards in one line -->
+      <div class="reviews-track no-scrollbar -mx-1 flex gap-6 overflow-x-auto px-1 py-1" data-reviews-track>
+        <% reviews.filter(function(r){ return r.rating === 5; }).forEach(function(r){ %>
+          <figure class="flex shrink-0 basis-[340px] flex-col rounded-[1.75rem] bg-white p-6 shadow-soft ring-1 ring-beige sm:basis-[380px]">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-0.5 text-gold">
+                <% for (let i=0;i<5;i++){ %><%- include('../components/icon', { name: 'star', cls: 'w-4 h-4 fill-current', sw: 0 }) %><% } %>
+              </div>
+              <span class="text-xs text-charcoal/45"><%= r.timeAgo %></span>
+            </div>
+
+            <blockquote class="mt-4 flex-1 text-[15px] leading-relaxed text-charcoal/80"><%= r.quote %></blockquote>
+
+            <figcaption class="mt-6 flex items-center gap-3 border-t border-beige pt-5">
+              <img src="<%= img(r.avatar, 96, 96) %>" alt="<%= r.name %>" width="96" height="96" loading="lazy" decoding="async" class="h-11 w-11 rounded-full object-cover" />
+              <div>
+                <p class="flex items-center gap-1.5 font-semibold text-olive">
+                  <%= r.name %>
+                  <% if (r.verified) { %><span class="grid h-4 w-4 place-items-center rounded-full bg-gold text-white"><%- include('../components/icon', { name: 'check', cls: 'w-2.5 h-2.5', sw: 2.5 }) %></span><% } %>
+                </p>
+                <p class="text-xs text-charcoal/50"><%= r.meta %></p>
+              </div>
+            </figcaption>
+          </figure>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+</section>

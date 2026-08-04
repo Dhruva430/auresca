@@ -1,7 +1,8 @@
 import "dotenv/config";
-import mongoose from "mongoose";
-import { Blog } from "../models/Blog";
+import { PrismaClient } from "@prisma/client";
 import { blogFallback } from "../data/site";
+
+const prisma = new PrismaClient();
 
 const longBody = (intro: string) => `
 <p>${intro}</p>
@@ -14,30 +15,36 @@ const longBody = (intro: string) => `
 `;
 
 async function run() {
-  const uri = process.env.MONGODB_URI;
-  if (!uri) {
-    console.error("MONGODB_URI is not set. Add it to your .env file.");
+  if (!process.env.DATABASE_URL) {
+    console.error("DATABASE_URL is not set. Add it to your .env file.");
     process.exit(1);
   }
 
-  await mongoose.connect(uri);
+  await prisma.$connect();
   console.log("[seed] connected");
 
-  await Blog.deleteMany({});
+  await prisma.blog.deleteMany({});
   const docs = blogFallback.map((p) => ({
-    ...p,
+    title: p.title,
+    slug: p.slug,
+    excerpt: p.excerpt,
     body: longBody(p.excerpt),
+    coverImage: p.coverImage,
+    category: p.category,
+    author: p.author,
+    readMinutes: p.readMinutes,
     publishedAt: new Date(p.publishedAt),
   }));
-  await Blog.insertMany(docs);
+  await prisma.blog.createMany({ data: docs });
   console.log(`[seed] inserted ${docs.length} blog posts`);
 
-  await mongoose.disconnect();
+  await prisma.$disconnect();
   console.log("[seed] done");
   process.exit(0);
 }
 
-run().catch((err) => {
+run().catch(async (err) => {
   console.error("[seed] failed:", err);
+  await prisma.$disconnect();
   process.exit(1);
 });

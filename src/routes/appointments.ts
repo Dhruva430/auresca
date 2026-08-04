@@ -1,6 +1,5 @@
 import { Router } from "express";
-import { Appointment } from "../models/Appointment";
-import { isDbConnected } from "../config/db";
+import { prisma, isDbConnected } from "../config/db";
 import { serviceOptions } from "../data/site";
 
 export const appointmentRouter = Router();
@@ -40,7 +39,7 @@ appointmentRouter.post("/", async (req, res) => {
 
   try {
     if (isDbConnected()) {
-      await Appointment.create(payload);
+      await prisma.appointment.create({ data: payload });
     } else {
       console.log("[appointment] (no DB) received:", payload);
     }

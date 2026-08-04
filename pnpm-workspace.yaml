@@ -1,6 +1,9 @@
 # pnpm 10+ reads these settings here (not from .npmrc / package.json).
-# Allow esbuild (used by tsx) to run its install script.
+# Allow install/build scripts for the deps that need them.
 allowBuilds:
   esbuild: true
+  prisma: true
+  '@prisma/client': true
+  '@prisma/engines': true
 # Skip the pre-run `pnpm install` verification before every `pnpm run`.
 verifyDepsBeforeRun: false

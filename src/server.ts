@@ -38,7 +38,7 @@ app.use(compression());
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "..", "views"));
 app.use(expressLayouts);
-app.set("layout", "layout");
+app.set("layout", "layouts/layout");
 
 // ----- Static assets with long cache in prod -----
 app.use(
@@ -110,9 +110,10 @@ async function startNgrok(port: number) {
   }
 }
 
-connectDB().finally(() => {
-  app.listen(PORT, () => {
-    console.log(`[server] Auresca Care running at http://localhost:${PORT}`);
-    void startNgrok(PORT);
-  });
+// Start serving immediately; connect to the DB in the background so a slow or
+// unreachable database never blocks startup (pages fall back to static content).
+app.listen(PORT, () => {
+  console.log(`[server] Auresca Care running at http://localhost:${PORT}`);
+  void startNgrok(PORT);
 });
+void connectDB();

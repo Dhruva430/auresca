@@ -1,0 +1,11 @@
+<!-- ===================== STATS STRIP ===================== -->
+<section class="border-y border-beige bg-cream">
+  <div class="container-wide grid grid-cols-2 gap-6 py-10 lg:grid-cols-4">
+    <% stats.forEach(function(s){ %>
+      <div class="text-center reveal">
+        <p class="font-display text-4xl font-semibold text-gold lg:text-5xl"><%= s.value %></p>
+        <p class="mt-1 text-sm font-medium text-charcoal/65"><%= s.label %></p>
+      </div>
+    <% }) %>
+  </div>
+</section>

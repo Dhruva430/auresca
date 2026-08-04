@@ -1,28 +1,38 @@
-import mongoose from "mongoose";
+import { PrismaClient } from "@prisma/client";
+
+// Reuse a single PrismaClient across tsx-watch reloads to avoid exhausting
+// the connection pool in development.
+const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
+
+export const prisma: PrismaClient =
+  globalForPrisma.prisma ?? new PrismaClient();
+
+if (process.env.NODE_ENV !== "production") {
+  globalForPrisma.prisma = prisma;
+}
 
 let connected = false;
 
 export function isDbConnected(): boolean {
-  return connected && mongoose.connection.readyState === 1;
+  return connected;
 }
 
 /**
- * Connect to MongoDB. Non-fatal: if the DB is unreachable we log and continue
- * so the marketing pages still render (they fall back to seed/static content).
+ * Connect to MongoDB through Prisma. Non-fatal: if the DB is unreachable we
+ * log and continue so the marketing pages still render from static content.
  */
 export async function connectDB(): Promise<void> {
-  const uri = process.env.MONGODB_URI;
-  if (!uri) {
-    console.warn("[db] MONGODB_URI not set — running without a database.");
+  if (!process.env.DATABASE_URL) {
+    console.warn("[db] DATABASE_URL not set — running without a database.");
     return;
   }
 
-  mongoose.set("strictQuery", true);
-
   try {
-    await mongoose.connect(uri, { serverSelectionTimeoutMS: 4000 });
+    await prisma.$connect();
+    // Probe the connection so we only flag "connected" if queries actually work.
+    await prisma.$runCommandRaw({ ping: 1 });
     connected = true;
-    console.log("[db] Connected to MongoDB");
+    console.log("[db] Connected to MongoDB via Prisma");
   } catch (err) {
     connected = false;
     console.warn(
@@ -30,11 +40,4 @@ export async function connectDB(): Promise<void> {
       err instanceof Error ? err.message : err
     );
   }
-
-  mongoose.connection.on("disconnected", () => {
-    connected = false;
-  });
-  mongoose.connection.on("reconnected", () => {
-    connected = true;
-  });
 }

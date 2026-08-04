@@ -1,0 +1,42 @@
+<!-- ======================== BLOG ======================== -->
+<section id="blog" class="section bg-cream bg-grain">
+  <div class="container-wide">
+    <div class="mx-auto max-w-2xl text-center">
+      <span class="eyebrow justify-center"><span class="h-px w-6 bg-gold"></span>Blogs &amp; Tips<span class="h-px w-6 bg-gold"></span></span>
+      <h2 class="mt-4 font-display text-4xl font-medium text-olive sm:text-5xl text-balance">Insights For Your <em class="font-normal italic text-gold">Glow</em></h2>
+    </div>
+
+    <div class="mt-12 grid gap-7 sm:grid-cols-2 lg:grid-cols-4">
+      <% posts.forEach(function(p){ %>
+        <article class="reveal group flex flex-col overflow-hidden rounded-2xl bg-white shadow-soft ring-1 ring-beige/60 transition duration-300 hover:-translate-y-1 hover:shadow-card">
+          <a href="/blog/<%= p.slug %>" class="relative block overflow-hidden">
+            <img
+              src="<%= img(p.coverImage, 560, 380) %>"
+              srcset="<%= srcset(p.coverImage, [400, 560, 760], 380) %>"
+              sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 22vw"
+              alt="<%= p.title %>"
+              width="560" height="380" loading="lazy" decoding="async"
+              class="h-52 w-full object-cover transition duration-500 group-hover:scale-105"
+            />
+            <span class="absolute bottom-3 left-4 rounded-full bg-rose px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white shadow-soft">
+              <%= p.category %>
+            </span>
+          </a>
+          <div class="flex flex-1 flex-col p-5">
+            <p class="text-right text-xs font-medium text-charcoal/45"><%= formatDate(p.publishedAt) %></p>
+            <h3 class="mt-2 font-display text-xl leading-snug text-olive">
+              <a href="/blog/<%= p.slug %>" class="transition hover:text-gold"><%= p.title %></a>
+            </h3>
+            <a href="/blog/<%= p.slug %>" class="mt-auto inline-flex items-center gap-1.5 pt-4 text-xs font-semibold uppercase tracking-[0.14em] text-gold transition-all hover:gap-2.5">
+              Read more <%- include('../components/icon', { name: 'arrow', cls: 'w-4 h-4' }) %>
+            </a>
+          </div>
+        </article>
+      <% }) %>
+    </div>
+
+    <div class="mt-10 text-center">
+      <a href="/blog" class="btn-outline">View all articles</a>
+    </div>
+  </div>
+</section>

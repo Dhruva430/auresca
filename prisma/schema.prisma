@@ -1,0 +1,49 @@
+// Prisma schema — MongoDB connector for Auresca Care.
+// Generate the client:  pnpm db:generate
+// Push the schema:      pnpm db:push   (requires a running MongoDB)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Blog {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  slug        String   @unique
+  excerpt     String
+  body        String
+  coverImage  String
+  category    String   @default("Skincare")
+  author      String   @default("Auresca Care Team")
+  readMinutes Int      @default(4)
+  published   Boolean  @default(true)
+  publishedAt DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum AppointmentStatus {
+  new
+  contacted
+  booked
+  closed
+}
+
+model Appointment {
+  id            String            @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  email         String
+  phone         String
+  service       String
+  preferredDate String            @default("")
+  preferredTime String            @default("")
+  message       String            @default("")
+  status        AppointmentStatus @default(new)
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+}

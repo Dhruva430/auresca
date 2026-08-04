@@ -1,0 +1,98 @@
+<!-- ============================ HERO SLIDER ============================ -->
+<section
+  class="hero relative isolate overflow-hidden bg-cream"
+  data-hero
+  aria-roledescription="carousel"
+  aria-label="Featured treatments"
+>
+  <!-- slides track (draggable) -->
+  <div class="hero-viewport relative overflow-hidden lg:min-h-[calc(100vh-8.5rem)]">
+    <div class="hero-track flex" data-hero-track>
+      <% heroSlides.forEach(function(slide, i){ %>
+        <%
+          var src = slide.local ? slide.image : img(slide.image, 1680, 980);
+          var sset = slide.local ? '' : srcset(slide.image, [900, 1280, 1680], 980);
+          var eager = !!slide.primary;
+        %>
+        <article
+          class="hero-slide relative flex w-full shrink-0 basis-full flex-col bg-cream lg:block"
+          data-hero-slide
+          role="group"
+          aria-roledescription="slide"
+          aria-label="<%= (i+1) + ' of ' + heroSlides.length %>"
+        >
+          <!-- background image -->
+          <img
+            src="<%= src %>"
+            <% if (sset) { %>srcset="<%= sset %>" sizes="100vw"<% } %>
+            alt="<%= slide.eyebrow %> at Auresca Care"
+            width="1680" height="980"
+            <%= eager ? 'fetchpriority="high"' : 'loading="lazy"' %> decoding="async" draggable="false"
+            class="hero-img pointer-events-none relative h-[46vh] w-full object-cover lg:absolute lg:inset-0 lg:h-full <%= slide.objectClass || 'object-[70%_center] lg:object-center' %>"
+          />
+          <!-- copy -->
+          <%
+            var muted = slide.dark ? 'text-white/85' : 'text-charcoal/70';
+            var strong = slide.dark ? 'text-white' : 'text-olive';
+          %>
+          <div class="container-wide relative flex items-center py-10 pb-20 lg:min-h-[calc(100vh-8.5rem)] lg:py-0">
+            <div class="hero-copy max-w-xl lg:py-16 <%= slide.align === 'right' ? 'lg:ml-auto lg:text-left' : '' %>">
+              <h1 class="font-display text-5xl font-semibold leading-[1.05] <%= slide.headingClass || 'text-sage' %> sm:text-6xl lg:text-7xl text-balance">
+                <%= slide.lead %> <em class="font-normal italic"><%= slide.accent %></em> <%= slide.tail %>
+              </h1>
+              <p class="mt-5 max-w-md text-lg leading-relaxed <%= muted %>"><%= slide.desc %></p>
+
+              <div class="mt-7 flex flex-wrap items-center gap-3">
+                <a href="<%= heroMeta.primaryCta.href %>" class="btn-primary">
+                  <%= heroMeta.primaryCta.label %>
+                  <%- include('../components/icon', { name: 'move-right', cls: 'w-4 h-4' }) %>
+                </a>
+                <a href="<%= heroMeta.secondaryCta.href %>" class="<%= slide.dark ? 'btn border border-white/70 bg-white/10 text-white hover:bg-white/20' : 'btn-outline' %>">
+                  <%= heroMeta.secondaryCta.label %>
+                </a>
+              </div>
+
+              <!-- feature checks (desktop only) -->
+              <div class="mt-6 hidden flex-wrap gap-x-5 gap-y-2 text-sm lg:flex <%= muted %>">
+                <% heroMeta.features.forEach(function(f){ %>
+                  <span class="inline-flex items-center gap-1.5">
+                    <%- include('../components/icon', { name: 'check', cls: 'w-4 h-4 text-gold' }) %><%= f %>
+                  </span>
+                <% }) %>
+              </div>
+
+              <!-- trust row -->
+              <div class="mt-8 flex items-center gap-3">
+                <div class="flex -space-x-3">
+                  <% testimonials.forEach(function(t){ %>
+                    <img
+                      src="<%= img(t.avatar, 80, 80) %>"
+                      alt=""
+                      width="80" height="80" loading="lazy" decoding="async"
+                      class="h-10 w-10 rounded-full border-2 border-ivory object-cover"
+                    />
+                  <% }) %>
+                </div>
+                <p class="text-sm <%= muted %>"><span class="font-semibold <%= strong %>"><%= heroMeta.trust %></span></p>
+              </div>
+            </div>
+          </div>
+        </article>
+      <% }) %>
+    </div>
+  </div>
+
+  <!-- dots / labels -->
+  <div class="absolute inset-x-0 bottom-6 z-20 flex flex-wrap items-center justify-center gap-2 px-4">
+    <% heroSlides.forEach(function(slide, i){ %>
+      <button
+        type="button"
+        data-hero-dot
+        data-index="<%= i %>"
+        class="hero-dot rounded-full border border-gold/40 bg-white/70 px-4 py-1.5 text-xs font-medium text-olive/80 backdrop-blur transition hover:text-gold"
+        aria-label="Go to <%= slide.eyebrow %> slide"
+        <%= i === 0 ? 'aria-current="true"' : '' %>
+      ><%= slide.eyebrow %></button>
+    <% }) %>
+  </div>
+</section>

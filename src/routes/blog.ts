@@ -1,6 +1,5 @@
 import { Router } from "express";
-import { Blog } from "../models/Blog";
-import { isDbConnected } from "../config/db";
+import { prisma, isDbConnected } from "../config/db";
 import { blogFallback } from "../data/site";
 
 export const blogRouter = Router();
@@ -9,9 +8,10 @@ blogRouter.get("/", async (_req, res) => {
   let posts = blogFallback as any[];
   if (isDbConnected()) {
     try {
-      const dbPosts = await Blog.find({ published: true })
-        .sort({ publishedAt: -1 })
-        .lean();
+      const dbPosts = await prisma.blog.findMany({
+        where: { published: true },
+        orderBy: { publishedAt: "desc" },
+      });
       if (dbPosts.length) posts = dbPosts;
     } catch {
       /* use fallback */
@@ -30,7 +30,9 @@ blogRouter.get("/:slug", async (req, res) => {
 
   if (isDbConnected()) {
     try {
-      const dbPost = await Blog.findOne({ slug, published: true }).lean();
+      const dbPost = await prisma.blog.findFirst({
+        where: { slug, published: true },
+      });
       if (dbPost) post = dbPost;
     } catch {
       /* use fallback */
