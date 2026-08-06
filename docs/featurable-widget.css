@@ -1,190 +1,178 @@
 /* ═══════════════════════════════════════════════════════════════════════
    NOT LOADED BY THE SITE. This file is version control only.
 
-   The Google reviews in the Reviews section are rendered by Featurable,
-   which paints into a Shadow DOM. Page CSS cannot cross a shadow boundary,
-   so none of the site's stylesheets can reach the widget — importing this
-   file anywhere would do nothing.
+   The Google reviews are rendered by Featurable, which paints into a Shadow
+   DOM. Page CSS cannot cross a shadow boundary, so no stylesheet here can
+   reach the widget — importing this file would do nothing.
 
    To apply it:
-     Featurable dashboard → Widgets → Edit Widget → Add Custom CSS
-     → paste everything below the divider → save.
+     Featurable dashboard -> Widgets -> Edit Widget -> Add Custom CSS
+     -> replace the contents with everything below -> save.
 
-   Kept here so the styling survives if the widget is ever rebuilt, and so
-   changes to it show up in review alongside the rest of the site.
+   TWO THINGS FEATURABLE'S EDITOR DOES ON SAVE, which shape how this is written:
+
+     1. It strips every `!important`. Verified against the saved widget config:
+        zero survived. So each rule must out-specify the widget's own Tailwind
+        utilities (`text-gray-950`, `text-black`, `text-[#F8AF0D]`) on its own.
+        That is why class names are repeated — `.review.review` scores 0-2-0
+        and beats a single utility class at 0-1-0. Do not "tidy" them back to
+        a single class; the rule silently stops applying.
+
+     2. It strips comments, so none of this survives into the dashboard. That
+        is the point of keeping the annotated copy here.
+
+   Fonts use `var(--name, fallback)` with the fallback INSIDE the parens. The
+   outside form — `var(--name), Georgia, serif` — invalidates the whole
+   declaration when the variable is missing rather than falling back, which is
+   why the dashboard preview showed the wrong face.
+
+   Note the dashboard preview will never show the real typefaces: it does not
+   define --font-sans/--font-display and does not load Manrope or Cormorant
+   Garamond. Judge the fonts on the live site, not in the preview.
 
    Class names were read from the widget's live shadow DOM; Featurable also
-   exposes each one on a `data-featurable-classname` attribute if you need
-   to target something new.
+   exposes each one on a `data-featurable-classname` attribute.
    ═══════════════════════════════════════════════════════════════════════ */
 
-/* ── Auresca Care — match the site's design ───────────────────────────
-   Palette: gold #C89D42 · olive #4E5645 · charcoal #333 · beige #E9E2D5
-   Fonts inherit from the page (Manrope / Cormorant Garamond).
-   ------------------------------------------------------------------ */
-
-/* The page already has its own "Loved by Our Clients" heading above the
-   widget, so hide the widget's built-in title rather than show two.
-   (You can also just switch "Show title" off in the widget settings.) */
-.title {
-  display: none !important;
+.title.title {
+  display: none;
 }
 
-/* Equal-height cards — slick sizes slides to their content by default,
-   which leaves the row ragged. */
-.slick-track {
-  display: flex !important;
-  align-items: stretch !important;
+.slick-track.slick-track {
+  display: flex;
+  align-items: stretch;
 }
-.slick-slide {
-  height: auto !important;
+.slick-slide.slick-slide {
+  height: auto;
 }
 .slick-slide > div,
-.carousel__card {
-  height: 100% !important;
+.carousel__card.carousel__card {
+  height: 100%;
 }
-.carousel__card {
-  display: flex !important;
-}
-.review {
-  width: 100% !important;
+.carousel__card.carousel__card {
+  display: flex;
 }
 
-/* Inherit the site's typefaces. --font-sans/--font-display are defined on
-   the page and cross into the widget, so no extra font request is made. */
-.review,
-.summary-bar,
-.carousel {
-  font-family: var(--font-sans), "Manrope", system-ui, sans-serif;
+.review.review,
+.summary-bar.summary-bar,
+.carousel.carousel {
+  font-family: var(--font-sans, "Manrope", system-ui, sans-serif);
 }
 
-/* ── Summary bar ─────────────────────────────────────────────────── */
-.summary-bar {
-  background: #fff !important;
-  border: 1px solid #e9e2d5 !important;
-  border-radius: 1.75rem !important;
-  box-shadow: 0 10px 40px -12px rgba(78, 86, 69, 0.18) !important;
-  padding: 1.5rem 1.75rem !important;
+.summary-bar.summary-bar {
+  background: #fff;
+  border: 1px solid #e9e2d5;
+  border-radius: 1.75rem;
+  box-shadow: 0 10px 40px -12px rgba(78, 86, 69, 0.18);
+  padding: 1.5rem 1.75rem;
 }
 
-/* "Excellent" */
-.summary-bar__label,
-.summary-bar__label--light {
-  color: #4e5645 !important;
-  font-family: var(--font-display), Georgia, serif !important;
-  font-weight: 600 !important;
+.summary-bar__label.summary-bar__label.summary-bar__label,
+.summary-bar__label--light.summary-bar__label--light.summary-bar__label--light {
+  color: #4e5645;
+  font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
+  font-size: 1.5rem;
+  font-weight: 600;
   letter-spacing: 0.01em;
 }
 
-/* the 5.0 figure */
-.summary-bar__rating,
-.summary-bar__rating--light {
-  color: #4e5645 !important;
-  font-weight: 700 !important;
+.summary-bar__rating.summary-bar__rating,
+.summary-bar__rating--light.summary-bar__rating--light {
+  color: #4e5645;
+  font-weight: 700;
 }
 
-/* "Based on 3 reviews" */
-.summary-bar__sublabel,
-.summary-bar__sublabel--light {
-  color: rgba(51, 51, 51, 0.6) !important;
+.summary-bar__sublabel.summary-bar__sublabel,
+.summary-bar__sublabel--light.summary-bar__sublabel--light {
+  color: rgba(51, 51, 51, 0.6);
 }
 
-/* "Google Rating" wordmark label */
-.summary-bar__logo-label,
-.summary-bar__logo-label--light {
-  color: rgba(51, 51, 51, 0.7) !important;
+.summary-bar__logo-label.summary-bar__logo-label,
+.summary-bar__logo-label--light.summary-bar__logo-label--light {
+  color: rgba(51, 51, 51, 0.7);
 }
 
-/* ── "Write a review" button — matches .btn-primary ──────────────── */
-.summary-bar__btn {
-  background: linear-gradient(135deg, #d8b15b 0%, #c89d42 100%) !important;
-  color: #fff !important;
-  border: 0 !important;
-  border-radius: 9999px !important;
-  padding: 0.75rem 1.6rem !important;
-  font-weight: 600 !important;
+.summary-bar__btn.summary-bar__btn {
+  background: linear-gradient(135deg, #d8b15b 0%, #c89d42 100%);
+  color: #fff;
+  border: 0;
+  border-radius: 9999px;
+  padding: 0.75rem 1.6rem;
+  font-weight: 600;
   letter-spacing: 0.01em;
-  box-shadow: 0 14px 40px -14px rgba(200, 157, 66, 0.45) !important;
-  transition: transform 0.3s ease, filter 0.3s ease !important;
+  box-shadow: 0 14px 40px -14px rgba(200, 157, 66, 0.45);
+  transition: transform 0.3s ease, filter 0.3s ease;
 }
-.summary-bar__btn:hover {
+.summary-bar__btn.summary-bar__btn:hover {
   filter: brightness(1.05);
   transform: translateY(-1px);
 }
 
-/* ── Review cards ────────────────────────────────────────────────── */
-.review {
-  background: #fff !important;
-  border: 1px solid #e9e2d5 !important;
-  border-radius: 1.75rem !important;
-  box-shadow: 0 10px 40px -12px rgba(78, 86, 69, 0.18) !important;
-  padding: 1.5rem !important;
-  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+.review.review {
+  background: #fff;
+  border: 1px solid #e9e2d5;
+  border-radius: 1.75rem;
+  box-shadow: 0 10px 40px -12px rgba(78, 86, 69, 0.18);
+  padding: 1.5rem;
+  width: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.review:hover {
+.review.review:hover {
   transform: translateY(-2px);
-  box-shadow: 0 18px 50px -20px rgba(78, 86, 69, 0.22) !important;
+  box-shadow: 0 18px 50px -20px rgba(78, 86, 69, 0.22);
 }
 
-/* reviewer name */
-.review__reviewer-name,
-.review__reviewer-name--light {
-  color: #4e5645 !important;
-  font-weight: 600 !important;
+.review__reviewer-name.review__reviewer-name,
+.review__reviewer-name--light.review__reviewer-name--light {
+  color: #4e5645;
+  font-weight: 600;
 }
 
-/* date */
-.review__date--light {
-  color: rgba(51, 51, 51, 0.45) !important;
+.review__date--light.review__date--light {
+  color: rgba(51, 51, 51, 0.45);
 }
 
-/* review body copy */
-.review__text--light,
-.review__text--md {
-  color: rgba(51, 51, 51, 0.8) !important;
-  line-height: 1.65 !important;
+.review__text--light.review__text--light,
+.review__text--md.review__text--md {
+  color: rgba(51, 51, 51, 0.8);
+  line-height: 1.65;
 }
 
-/* avatar ring, echoing the old cards */
-.review__reviewer-img--md {
-  border: 2px solid #f9f7f2 !important;
+.review__reviewer-img--md.review__reviewer-img--md {
+  border: 2px solid #f9f7f2;
   box-shadow: 0 0 0 1px #e9e2d5;
 }
 
-/* footer hairline above the Google mark */
-.review__footer,
-.review__footer--md {
-  border-top: 1px solid #e9e2d5 !important;
-  padding-top: 0.9rem !important;
-  margin-top: 0.9rem !important;
+.review__footer.review__footer,
+.review__footer--md.review__footer--md {
+  border-top: 1px solid #e9e2d5;
+  padding-top: 0.9rem;
+  margin-top: 0.9rem;
 }
 
-/* ── Stars — Google amber → the brand's antique gold ─────────────── */
-.star-rating__star--filled {
-  color: #c89d42 !important;
+.star-rating__star--filled.star-rating__star--filled {
+  color: #c89d42;
 }
 
-/* ── Carousel arrows ─────────────────────────────────────────────── */
-.carousel__btn,
-.carousel__btn--light {
-  background: #fff !important;
-  border: 1px solid #e9e2d5 !important;
-  box-shadow: 0 10px 40px -12px rgba(78, 86, 69, 0.18) !important;
-  transition: border-color 0.3s ease, background 0.3s ease !important;
+.carousel__btn.carousel__btn,
+.carousel__btn--light.carousel__btn--light {
+  background: #fff;
+  border: 1px solid #e9e2d5;
+  box-shadow: 0 10px 40px -12px rgba(78, 86, 69, 0.18);
+  transition: border-color 0.3s ease, background 0.3s ease;
 }
-.carousel__btn:hover {
-  border-color: #c89d42 !important;
-  background: #f9f7f2 !important;
+.carousel__btn.carousel__btn:hover {
+  border-color: #c89d42;
+  background: #f9f7f2;
 }
-.carousel__btn-icon {
-  color: #4e5645 !important;
+.carousel__btn-icon.carousel__btn-icon {
+  color: #4e5645;
 }
 
-/* ── Spacing: the section already has its own vertical rhythm ────── */
-.carousel {
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
+.carousel.carousel {
+  padding-top: 0;
+  padding-bottom: 0;
 }
-.carousel__summary {
-  margin-bottom: 1.75rem !important;
+.carousel__summary.carousel__summary {
+  margin-bottom: 1.75rem;
 }
