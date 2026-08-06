@@ -277,11 +277,13 @@ export const serviceCategories: ServiceCategory[] = [
     local: true,
     groups: [
       {
-        title: "Body Peel & Deep Pigmentation Peel",
+        title: "Regenerative therapy and pigmentation",
         items: [
           "PRP — Skin (Vampire Facial)",
           "GFC — Skin (Advanced Vampire Facial)",
           "Exosomes — Face",
+          "Body Peel",
+          "Deep Pigmentation Peel",
         ],
       },
       {
