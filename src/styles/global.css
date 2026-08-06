@@ -125,6 +125,38 @@
     @apply btn text-olive hover:text-gold;
   }
 
+  /* Primary nav link — a gold hairline sweeps out from the centre on hover
+     and stays put while the link holds keyboard focus. */
+  .nav-link {
+    @apply relative inline-flex items-center rounded-full px-3 py-2.5 text-[15px] font-medium tracking-[0.01em] text-charcoal/85 transition-colors duration-300 xl:px-4 xl:text-[17px];
+  }
+  .nav-link::after {
+    content: "";
+    @apply pointer-events-none absolute inset-x-3 bottom-1 h-px origin-center scale-x-0 bg-gold-grad transition-transform duration-300 ease-out xl:inset-x-4;
+  }
+  .nav-link:hover,
+  .nav-link:focus-visible {
+    @apply text-olive;
+  }
+  .nav-link:hover::after,
+  .nav-link:focus-visible::after {
+    @apply scale-x-100;
+  }
+  .nav-link:focus-visible {
+    @apply outline-none ring-2 ring-gold/35 ring-offset-2 ring-offset-ivory;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .nav-link,
+    .nav-link::after {
+      @apply transition-none;
+    }
+  }
+
+  /* Same link at mobile-menu scale — a full-width row rather than a pill. */
+  .nav-link-mobile {
+    @apply flex items-center justify-between rounded-xl px-3 py-3.5 text-[17px] font-medium text-charcoal/85 transition-colors duration-200 hover:bg-cream hover:text-olive focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/35;
+  }
+
   .eyebrow {
     @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-gold;
   }

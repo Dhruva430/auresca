@@ -32,16 +32,13 @@ import { site, nav } from "@/data/site";
   class="sticky top-0 z-50 transition-all duration-300 bg-ivory/85 backdrop-blur-md border-b border-beige/70"
 >
   <div
-    class="container-wide grid grid-cols-2 items-center gap-6 py-3 lg:grid-cols-3"
+    class="container-wide grid grid-cols-2 items-center gap-6 py-3 lg:grid-cols-[1fr_auto_1fr] lg:gap-4"
   >
     <!-- Desktop nav (left) -->
-    <nav class="hidden items-center gap-7 lg:flex" aria-label="Primary">
+    <nav class="hidden items-center gap-1 lg:flex xl:gap-2" aria-label="Primary">
       {
         nav.map((item) => (
-          <a
-            href={item.href}
-            class="text-sm font-medium text-charcoal/80 hover:text-gold transition-colors"
-          >
+          <a href={item.href} class="nav-link">
             {item.label}
           </a>
         ))
@@ -91,11 +88,9 @@ import { site, nav } from "@/data/site";
     <nav class="container-wide flex flex-col py-4" aria-label="Mobile">
       {
         nav.map((item) => (
-          <a
-            href={item.href}
-            class="js-mobile-link border-b border-beige/60 py-3 text-base font-medium text-charcoal/85"
-          >
+          <a href={item.href} class="js-mobile-link nav-link-mobile">
             {item.label}
+            <Icon name="chevron" cls="w-4 h-4 -rotate-90 text-charcoal/35" />
           </a>
         ))
       }
