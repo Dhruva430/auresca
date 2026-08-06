@@ -10,13 +10,16 @@ export const site = {
   tagline: "Reveal • Restore • Radiate",
   shortPitch:
     "A boutique skin, hair & aesthetics clinic where medical precision meets quiet luxury.",
-  phone: "+91 98765 43210",
-  phoneHref: "tel:+919876543210",
-  email: "hello@aurescacare.com",
-  address: "12 Orchard Lane, Bandra West, Mumbai 400050",
+  phone: "+91 79823 45374",
+  phoneHref: "tel:+917982345374",
+  /** wa.me needs the number bare — country code, no +, spaces or dashes. */
+  whatsappHref: "https://wa.me/917982345374",
+  email: "aurescacare@gmail.com",
+  address:
+    "2nd Floor, 594 P, Golf Course Road, Sector-43, Gurugram, Haryana 122009",
   hours: "Mon–Sat · 10:00 AM – 8:00 PM",
   socials: {
-    instagram: "https://instagram.com",
+    instagram: "https://www.instagram.com/aurescacare/",
     facebook: "https://facebook.com",
     youtube: "https://youtube.com",
   },
@@ -148,7 +151,7 @@ export const about = {
 
 export const stats = [
   { value: "4+", label: "Years of expertise" },
-  { value: "1k", label: "Treatments delivered" },
+  { value: "1,000+", label: "Treatments delivered" },
   { value: "4.9★", label: "Average client rating" },
   { value: "96%", label: "Would recommend us" },
 ];

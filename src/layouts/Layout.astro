@@ -2,6 +2,7 @@
 import { Font } from "astro:assets";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
+import WhatsappButton from "@/components/WhatsappButton.astro";
 import { site } from "@/data/site";
 import "@/styles/global.css";
 
@@ -62,6 +63,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <main id="main"><slot /></main>
 
     <Footer />
+
+    <WhatsappButton />
 
     <script>
       // Every interactive feature is a small, self-contained module that runs
