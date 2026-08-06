@@ -15,6 +15,16 @@ export const site = {
   /** wa.me needs the number bare — country code, no +, spaces or dashes. */
   whatsappHref: "https://wa.me/917982345374",
   email: "aurescacare@gmail.com",
+  /**
+   * Google Business Profile. The place ID drives both links below — swap it
+   * and they both follow. `googleReviewUrl` opens Google's own write-a-review
+   * dialog (signing the visitor in first if they aren't already).
+   */
+  googlePlaceId: "ChIJwRwOVa8ZDTkRYy9_7Zh4dH4",
+  googleReviewUrl:
+    "https://search.google.com/local/writereview?placeid=ChIJwRwOVa8ZDTkRYy9_7Zh4dH4",
+  googleListingUrl:
+    "https://local.google.com/place?placeid=ChIJwRwOVa8ZDTkRYy9_7Zh4dH4",
   address:
     "2nd Floor, 594 P, Golf Course Road, Sector-43, Gurugram, Haryana 122009",
   hours: "Mon–Sat · 10:00 AM – 8:00 PM",

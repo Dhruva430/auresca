@@ -63,8 +63,11 @@ const fiveStar = reviews.filter((r) => r.rating === 5);
           >
         </p>
 
-        <a href="/#appointment" class="btn-primary mt-7 w-full"
-          >Leave a review</a
+        <a
+          href={site.googleReviewUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-primary mt-7 w-full">Leave a review</a
         >
       </div>
 
