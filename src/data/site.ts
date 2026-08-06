@@ -10,10 +10,10 @@ export const site = {
   tagline: "Reveal • Restore • Radiate",
   shortPitch:
     "A boutique skin, hair & aesthetics clinic where medical precision meets quiet luxury.",
-  phone: "+91 79823 45374",
-  phoneHref: "tel:+917982345374",
+  phone: "+91 89207 53013",
+  phoneHref: "tel:+918920753013",
   /** wa.me needs the number bare — country code, no +, spaces or dashes. */
-  whatsappHref: "https://wa.me/917982345374",
+  whatsappHref: "https://wa.me/918920753013",
   email: "aurescacare@gmail.com",
   /**
    * Google Business Profile. The place ID drives both links below — swap it
