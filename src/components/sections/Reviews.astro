@@ -7,6 +7,10 @@
  * The widget id belongs to the Featurable account; regenerate it there if the
  * widget is ever rebuilt. The embed script is third-party, hence `is:inline`
  * so Astro leaves it exactly as Featurable supplied it.
+ *
+ * The widget paints into a Shadow DOM, so no stylesheet here can reach it —
+ * its brand styling is pasted into Featurable's Custom CSS panel, with a copy
+ * kept at `docs/featurable-widget.css`.
  */
 import { site } from "@/data/site";
 

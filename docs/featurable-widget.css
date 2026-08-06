@@ -1,0 +1,190 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   NOT LOADED BY THE SITE. This file is version control only.
+
+   The Google reviews in the Reviews section are rendered by Featurable,
+   which paints into a Shadow DOM. Page CSS cannot cross a shadow boundary,
+   so none of the site's stylesheets can reach the widget — importing this
+   file anywhere would do nothing.
+
+   To apply it:
+     Featurable dashboard → Widgets → Edit Widget → Add Custom CSS
+     → paste everything below the divider → save.
+
+   Kept here so the styling survives if the widget is ever rebuilt, and so
+   changes to it show up in review alongside the rest of the site.
+
+   Class names were read from the widget's live shadow DOM; Featurable also
+   exposes each one on a `data-featurable-classname` attribute if you need
+   to target something new.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── Auresca Care — match the site's design ───────────────────────────
+   Palette: gold #C89D42 · olive #4E5645 · charcoal #333 · beige #E9E2D5
+   Fonts inherit from the page (Manrope / Cormorant Garamond).
+   ------------------------------------------------------------------ */
+
+/* The page already has its own "Loved by Our Clients" heading above the
+   widget, so hide the widget's built-in title rather than show two.
+   (You can also just switch "Show title" off in the widget settings.) */
+.title {
+  display: none !important;
+}
+
+/* Equal-height cards — slick sizes slides to their content by default,
+   which leaves the row ragged. */
+.slick-track {
+  display: flex !important;
+  align-items: stretch !important;
+}
+.slick-slide {
+  height: auto !important;
+}
+.slick-slide > div,
+.carousel__card {
+  height: 100% !important;
+}
+.carousel__card {
+  display: flex !important;
+}
+.review {
+  width: 100% !important;
+}
+
+/* Inherit the site's typefaces. --font-sans/--font-display are defined on
+   the page and cross into the widget, so no extra font request is made. */
+.review,
+.summary-bar,
+.carousel {
+  font-family: var(--font-sans), "Manrope", system-ui, sans-serif;
+}
+
+/* ── Summary bar ─────────────────────────────────────────────────── */
+.summary-bar {
+  background: #fff !important;
+  border: 1px solid #e9e2d5 !important;
+  border-radius: 1.75rem !important;
+  box-shadow: 0 10px 40px -12px rgba(78, 86, 69, 0.18) !important;
+  padding: 1.5rem 1.75rem !important;
+}
+
+/* "Excellent" */
+.summary-bar__label,
+.summary-bar__label--light {
+  color: #4e5645 !important;
+  font-family: var(--font-display), Georgia, serif !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.01em;
+}
+
+/* the 5.0 figure */
+.summary-bar__rating,
+.summary-bar__rating--light {
+  color: #4e5645 !important;
+  font-weight: 700 !important;
+}
+
+/* "Based on 3 reviews" */
+.summary-bar__sublabel,
+.summary-bar__sublabel--light {
+  color: rgba(51, 51, 51, 0.6) !important;
+}
+
+/* "Google Rating" wordmark label */
+.summary-bar__logo-label,
+.summary-bar__logo-label--light {
+  color: rgba(51, 51, 51, 0.7) !important;
+}
+
+/* ── "Write a review" button — matches .btn-primary ──────────────── */
+.summary-bar__btn {
+  background: linear-gradient(135deg, #d8b15b 0%, #c89d42 100%) !important;
+  color: #fff !important;
+  border: 0 !important;
+  border-radius: 9999px !important;
+  padding: 0.75rem 1.6rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.01em;
+  box-shadow: 0 14px 40px -14px rgba(200, 157, 66, 0.45) !important;
+  transition: transform 0.3s ease, filter 0.3s ease !important;
+}
+.summary-bar__btn:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+}
+
+/* ── Review cards ────────────────────────────────────────────────── */
+.review {
+  background: #fff !important;
+  border: 1px solid #e9e2d5 !important;
+  border-radius: 1.75rem !important;
+  box-shadow: 0 10px 40px -12px rgba(78, 86, 69, 0.18) !important;
+  padding: 1.5rem !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+.review:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 50px -20px rgba(78, 86, 69, 0.22) !important;
+}
+
+/* reviewer name */
+.review__reviewer-name,
+.review__reviewer-name--light {
+  color: #4e5645 !important;
+  font-weight: 600 !important;
+}
+
+/* date */
+.review__date--light {
+  color: rgba(51, 51, 51, 0.45) !important;
+}
+
+/* review body copy */
+.review__text--light,
+.review__text--md {
+  color: rgba(51, 51, 51, 0.8) !important;
+  line-height: 1.65 !important;
+}
+
+/* avatar ring, echoing the old cards */
+.review__reviewer-img--md {
+  border: 2px solid #f9f7f2 !important;
+  box-shadow: 0 0 0 1px #e9e2d5;
+}
+
+/* footer hairline above the Google mark */
+.review__footer,
+.review__footer--md {
+  border-top: 1px solid #e9e2d5 !important;
+  padding-top: 0.9rem !important;
+  margin-top: 0.9rem !important;
+}
+
+/* ── Stars — Google amber → the brand's antique gold ─────────────── */
+.star-rating__star--filled {
+  color: #c89d42 !important;
+}
+
+/* ── Carousel arrows ─────────────────────────────────────────────── */
+.carousel__btn,
+.carousel__btn--light {
+  background: #fff !important;
+  border: 1px solid #e9e2d5 !important;
+  box-shadow: 0 10px 40px -12px rgba(78, 86, 69, 0.18) !important;
+  transition: border-color 0.3s ease, background 0.3s ease !important;
+}
+.carousel__btn:hover {
+  border-color: #c89d42 !important;
+  background: #f9f7f2 !important;
+}
+.carousel__btn-icon {
+  color: #4e5645 !important;
+}
+
+/* ── Spacing: the section already has its own vertical rhythm ────── */
+.carousel {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+.carousel__summary {
+  margin-bottom: 1.75rem !important;
+}

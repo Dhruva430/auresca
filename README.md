@@ -95,6 +95,22 @@ The form works both ways: with JavaScript the submit is answered inline; without
 it the browser posts normally and lands on `/appointment-success`. Astro's
 origin check blocks cross-site form posts.
 
+## Google reviews
+
+The Reviews section is rendered by [Featurable](https://featurable.com), which
+pulls the clinic's real Google reviews from the connected Business Profile.
+Nothing about the reviews is authored in this repo — the rating, the count and
+the review text are all whatever Google reports.
+
+The widget id lives in `src/components/sections/Reviews.astro`. Regenerate it
+there if the widget is ever rebuilt in the Featurable dashboard.
+
+Its styling **cannot** come from this repo: the widget paints into a Shadow DOM,
+which page CSS cannot cross. The brand styling is pasted into
+**Widgets → Edit Widget → Add Custom CSS** in the Featurable dashboard, and a
+copy is kept at `docs/featurable-widget.css` so it survives a rebuild and shows
+up in review. Edit that file and re-paste it — importing it does nothing.
+
 ## Deploying to Vercel
 
 Import the repo — Astro is auto-detected, no `vercel.json` needed. Set
