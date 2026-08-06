@@ -54,7 +54,7 @@ export const heroMeta = {
   primaryCta: { label: "Book a Consultation", href: "/#appointment" },
   secondaryCta: { label: "Explore Services", href: "/#services" },
   features: ["Personalized treatment", "Expert practitioners", "Holistic approach"],
-  trust: "2,400+ clients who trust Auresca Care",
+  trust: "1,000+ clients who trust Auresca Care",
 };
 
 /**
@@ -147,8 +147,8 @@ export const about = {
 };
 
 export const stats = [
-  { value: "12+", label: "Years of expertise" },
-  { value: "28k", label: "Treatments delivered" },
+  { value: "4+", label: "Years of expertise" },
+  { value: "1k", label: "Treatments delivered" },
   { value: "4.9★", label: "Average client rating" },
   { value: "96%", label: "Would recommend us" },
 ];
