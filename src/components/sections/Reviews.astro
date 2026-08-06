@@ -1,10 +1,16 @@
 ---
-import Icon from "@/components/Icon.astro";
-import { site, reviews, reviewSummary } from "@/data/site";
-import { img } from "@/lib/helpers";
+/**
+ * Reviews — rendered by Featurable, which pulls the clinic's real Google
+ * reviews from the connected Business Profile. Nothing here is hand-authored,
+ * so the rating and review count on the page are always whatever Google says.
+ *
+ * The widget id belongs to the Featurable account; regenerate it there if the
+ * widget is ever rebuilt. The embed script is third-party, hence `is:inline`
+ * so Astro leaves it exactly as Featurable supplied it.
+ */
+import { site } from "@/data/site";
 
-const stars = [0, 1, 2, 3, 4];
-const fiveStar = reviews.filter((r) => r.rating === 5);
+const FEATURABLE_WIDGET_ID = "820e1986-3f76-46e8-904d-0b9a634b8206";
 ---
 
 <!-- ======================= REVIEWS ======================= -->
@@ -22,102 +28,34 @@ const fiveStar = reviews.filter((r) => r.rating === 5);
         Loved by Our <em class="font-normal italic text-gold">Clients</em>
       </h2>
       <p class="mt-4 text-charcoal/70">
-        Real, verified five-star reviews from people who've experienced Auresca
-        Care.
+        Real reviews from people who've experienced Auresca Care, straight from
+        our Google profile.
       </p>
     </div>
 
-    <div class="mt-12 grid items-start gap-8 lg:grid-cols-[340px_1fr]">
-      <!-- summary card -->
-      <div class="rounded-[1.75rem] bg-white p-7 shadow-card ring-1 ring-beige">
-        <div class="flex items-center gap-2 font-display text-2xl text-olive">
-          {site.name}<span class="text-gold">.</span>
-        </div>
-
-        <div class="mt-5 flex items-center gap-3">
-          <span
-            class="font-display text-5xl font-semibold leading-none text-olive"
-            >{reviewSummary.rating}</span
-          >
-          <div>
-            <div class="flex items-center gap-0.5 text-gold">
-              {stars.map(() => <Icon name="star" cls="w-4 h-4 fill-current" sw={0} />)}
-            </div>
-            <p class="mt-0.5 text-sm font-semibold text-olive">
-              {reviewSummary.label}!
-            </p>
-          </div>
-        </div>
-
-        <p class="mt-3 text-sm text-charcoal/60">{reviewSummary.totalLabel}</p>
-        <p class="mt-4 flex items-center gap-1.5 text-sm text-charcoal/50">
-          powered by
-          <span class="font-semibold"
-            ><span style="color:#4285F4">G</span><span style="color:#EA4335"
-              >o</span
-            ><span style="color:#FBBC05">o</span><span style="color:#4285F4"
-              >g</span
-            ><span style="color:#34A853">l</span><span style="color:#EA4335"
-              >e</span
-            ></span
-          >
-        </p>
-
-        <a
-          href={site.googleReviewUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="btn-primary mt-7 w-full">Leave a review</a
-        >
-      </div>
-
-      <!-- review cards in one line -->
-      <div
-        class="reviews-track no-scrollbar -mx-1 flex gap-6 overflow-x-auto px-1 py-1"
-        data-reviews-track
-      >
-        {
-          fiveStar.map((r) => (
-            <figure class="flex shrink-0 basis-[340px] flex-col rounded-[1.75rem] bg-white p-6 shadow-soft ring-1 ring-beige sm:basis-[380px]">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-0.5 text-gold">
-                  {stars.map(() => (
-                    <Icon name="star" cls="w-4 h-4 fill-current" sw={0} />
-                  ))}
-                </div>
-                <span class="text-xs text-charcoal/45">{r.timeAgo}</span>
-              </div>
-
-              <blockquote class="mt-4 flex-1 text-[15px] leading-relaxed text-charcoal/80">
-                {r.quote}
-              </blockquote>
-
-              <figcaption class="mt-6 flex items-center gap-3 border-t border-beige pt-5">
-                <img
-                  src={img(r.avatar, 96, 96)}
-                  alt={r.name}
-                  width="96"
-                  height="96"
-                  loading="lazy"
-                  decoding="async"
-                  class="h-11 w-11 rounded-full object-cover"
-                />
-                <div>
-                  <p class="flex items-center gap-1.5 font-semibold text-olive">
-                    {r.name}
-                    {r.verified && (
-                      <span class="grid h-4 w-4 place-items-center rounded-full bg-gold text-white">
-                        <Icon name="check" cls="w-2.5 h-2.5" sw={2.5} />
-                      </span>
-                    )}
-                  </p>
-                  <p class="text-xs text-charcoal/50">{r.meta}</p>
-                </div>
-              </figcaption>
-            </figure>
-          ))
-        }
+    <!-- Google reviews (Featurable) -->
+    <div class="mt-12">
+      <div id={`featurable-${FEATURABLE_WIDGET_ID}`} data-featurable-async>
+        <!-- Shown until the widget script paints over it, and left in place
+             if the third-party script fails or is blocked. -->
+        <noscript>
+          <p class="text-center text-charcoal/70">
+            <a
+              href={site.googleListingUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="font-semibold text-olive underline decoration-gold underline-offset-4"
+              >Read our reviews on Google</a
+            >
+          </p>
+        </noscript>
       </div>
     </div>
   </div>
 </section>
+
+<script
+  is:inline
+  src="https://cdn.featurable.com/widget/v2/embed.js"
+  defer
+  charset="UTF-8"></script>
