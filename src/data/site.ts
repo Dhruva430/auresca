@@ -79,11 +79,11 @@ export const heroSlides: HeroSlide[] = [
   {
     name: "Skincare",
     eyebrow: "Skincare",
-    image: "/images/hero-skincare.jpg",
+    image: "/images/hero-skincare.webp",
     local: true,
     primary: true,
     headingClass: "text-olive",
-    objectClass: "object-[70%_top] lg:object-top",
+    objectClass: "object-[78%_center] lg:object-center",
     lead: "Reveal Your",
     accent: "Radiant",
     tail: "Skin",
@@ -93,10 +93,10 @@ export const heroSlides: HeroSlide[] = [
   {
     name: "Hair Regrowth",
     eyebrow: "Hair Regrowth",
-    image: "/images/hero-hair-3.jpg",
+    image: "/images/hero-hair.webp",
     local: true,
     headingClass: "text-olive",
-    objectClass: "object-right",
+    objectClass: "object-[75%_center] lg:object-center",
     lead: "Restore Your",
     accent: "Natural",
     tail: "Hair",
@@ -106,10 +106,10 @@ export const heroSlides: HeroSlide[] = [
   {
     name: "Anti-Ageing Injectables",
     eyebrow: "Anti-Ageing",
-    image: "/images/hero-antiageing.jpg",
+    image: "/images/hero-antiageing.webp",
     local: true,
     headingClass: "text-olive",
-    objectClass: "object-right",
+    objectClass: "object-[75%_center] lg:object-center",
     lead: "Turn Back",
     accent: "Time,",
     tail: "Gracefully",
@@ -119,9 +119,10 @@ export const heroSlides: HeroSlide[] = [
   {
     name: "Laser Hair Reduction",
     eyebrow: "Laser Hair Reduction",
-    image: "/images/hero-laser.jpg",
+    image: "/images/hero-laser.webp",
     local: true,
     headingClass: "text-olive",
+    objectClass: "object-[65%_center] lg:object-center",
     lead: "Smooth,",
     accent: "Effortless",
     tail: "Confidence",
@@ -131,10 +132,10 @@ export const heroSlides: HeroSlide[] = [
   {
     name: "Body Shaping",
     eyebrow: "Body Shaping",
-    image: "/images/hero-body.jpg",
+    image: "/images/hero-body.webp",
     local: true,
     headingClass: "text-olive",
-    objectClass: "object-right",
+    objectClass: "object-[80%_center] lg:object-center",
     lead: "Sculpt the",
     accent: "Shape",
     tail: "You Love",
@@ -196,7 +197,7 @@ export const serviceCategories: ServiceCategory[] = [
     title: "Laser Hair Reduction",
     tagline:
       "Comfortable, downtime-free laser for smooth, beautifully even skin — every area, from a single upper lip to full body.",
-    image: "/images/hero-laser.jpg",
+    image: "/images/hero-laser.webp",
     local: true,
     groups: [
       {
@@ -283,7 +284,7 @@ export const serviceCategories: ServiceCategory[] = [
     title: "Antiaging & Injectables",
     tagline:
       "Regenerative therapy, expert-administered injectables and precision resurfacing — supervised by qualified medical professionals.",
-    image: "/images/hero-antiageing.jpg",
+    image: "/images/hero-antiageing.webp",
     local: true,
     groups: [
       {
@@ -371,24 +372,24 @@ export const beforeAfter: BeforeAfter[] = [
   // --- Skin ---
   {
     category: "Skin",
-    concern: "Skin firmness & lift",
+    concern: "Jawline & double chin",
     duration: "After 12 weeks",
-    before: "/images/result-1-before.jpg",
-    after: "/images/result-1-after.jpg",
+    before: "/images/result-1-before.webp",
+    after: "/images/result-1-after.webp",
   },
   {
     category: "Skin",
-    concern: "Brightness & under-eyes",
+    concern: "Nasolabial folds & lift",
     duration: "After 10 weeks",
-    before: "/images/result-2-before.jpg",
-    after: "/images/result-2-after.jpg",
+    before: "/images/result-2-before.webp",
+    after: "/images/result-2-after.webp",
   },
   {
     category: "Skin",
-    concern: "Tightening & glow",
+    concern: "Fine lines & skin texture",
     duration: "After 12 weeks",
-    before: "/images/result-3-before.jpg",
-    after: "/images/result-3-after.jpg",
+    before: "/images/result-3-before.webp",
+    after: "/images/result-3-after.webp",
   },
   // --- Laser Hair Removal ---
   {
