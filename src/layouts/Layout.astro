@@ -33,7 +33,37 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <link rel="canonical" href={canonical} />
     <meta name="generator" content={Astro.generator} />
     <!-- Enable JS-only entrance animations early to avoid a flash -->
-    <script is:inline>document.documentElement.classList.add("js");</script>
+    <script is:inline>
+      document.documentElement.classList.add("js");
+      /*
+       * A refresh should start at the top. Two separate things drag it
+       * elsewhere, and both land near the bottom of the page:
+       *
+       *  1. The browser restores the scroll offset it saved against the fully
+       *     grown document. At first paint the page is shorter — the reviews
+       *     widget renders empty until its third-party script fills it in — so
+       *     that offset is clamped to whatever the height is right then.
+       *  2. The URL may still carry a fragment from an earlier "Book
+       *     Appointment" click. `#appointment` is the last band before the
+       *     footer, so the browser jumps straight to it.
+       *
+       * Both are only corrected when the navigation is a reload. Arriving at a
+       * deep link from somewhere else still scrolls to the section, and normal
+       * back/forward navigation keeps its restored position.
+       */
+      var navEntry =
+        performance.getEntriesByType &&
+        performance.getEntriesByType("navigation")[0];
+
+      if (navEntry && navEntry.type === "reload") {
+        if ("scrollRestoration" in history) {
+          history.scrollRestoration = "manual";
+        }
+        if (location.hash) {
+          history.replaceState(null, "", location.pathname + location.search);
+        }
+      }
+    </script>
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
