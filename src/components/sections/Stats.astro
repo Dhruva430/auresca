@@ -1,4 +1,5 @@
 ---
+import Icon from "@/components/Icon.astro";
 import { stats } from "@/data/site";
 ---
 
@@ -8,8 +9,15 @@ import { stats } from "@/data/site";
     {
       stats.map((s) => (
         <div class="text-center reveal">
-          <p class="font-display text-4xl font-semibold text-gold lg:text-5xl">
+          <p class="flex items-center justify-center gap-1.5 font-display text-4xl font-semibold text-gold lg:text-5xl">
             {s.value}
+            {s.icon && (
+              <Icon
+                name={s.icon}
+                cls="w-[0.72em] h-[0.72em] fill-current -mt-0.5"
+                sw={0}
+              />
+            )}
           </p>
           <p class="mt-1 text-sm font-medium text-charcoal/65">{s.label}</p>
         </div>

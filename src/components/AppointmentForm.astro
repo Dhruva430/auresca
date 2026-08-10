@@ -1,0 +1,162 @@
+---
+/**
+ * The booking form itself — shared by the full-width Appointment section and
+ * the site-wide pop-up, so the fields, the endpoint and the validation only
+ * ever exist in one place.
+ *
+ * Both copies can sit on the same page (the home page has the section *and*
+ * the pop-up), so every id is prefixed. `src/scripts/appointment.js` wires up
+ * each `[data-appointment-form]` independently.
+ */
+import { serviceOptions, timeSlots } from "@/data/site";
+
+interface Props {
+  /** Prefix for field ids so two copies can coexist on one page. */
+  idPrefix: string;
+  /** Drops the optional message field — keeps the pop-up short. */
+  compact?: boolean;
+  submitLabel?: string;
+}
+
+const {
+  idPrefix,
+  compact = false,
+  submitLabel = "Reserve My Session",
+} = Astro.props;
+
+const id = (field: string) => `${idPrefix}-${field}`;
+
+// Compact mode tightens the vertical rhythm and pairs date + time on phones,
+// so the pop-up's submit button stays within reach without scrolling.
+const formClass = compact ? "form-compact space-y-4" : "space-y-6";
+const gridClass = compact
+  ? "grid gap-x-4 gap-y-3 sm:grid-cols-2"
+  : "grid gap-x-6 gap-y-5 sm:grid-cols-2";
+const dateTimeClass = compact
+  ? "grid grid-cols-2 gap-x-4 gap-y-3 sm:contents"
+  : "contents";
+---
+
+<!--
+  Posts to the /api/appointments endpoint. With JS the submit is intercepted
+  and answered inline; without it the browser posts the form normally and the
+  endpoint redirects to /appointment-success.
+-->
+<form
+  id={id("form")}
+  data-appointment-form
+  action="/api/appointments"
+  method="POST"
+  class={formClass}
+  novalidate
+>
+  <div class={gridClass}>
+    <div>
+      <label for={id("name")} class="field-label">Full Name</label>
+      <input
+        id={id("name")}
+        name="name"
+        type="text"
+        required
+        autocomplete="name"
+        class="field"
+        placeholder="e.g. John Smith"
+      />
+    </div>
+    <div>
+      <label for={id("email")} class="field-label">Email</label>
+      <input
+        id={id("email")}
+        name="email"
+        type="email"
+        required
+        autocomplete="email"
+        inputmode="email"
+        class="field"
+        placeholder="youremail@example.com"
+      />
+    </div>
+    <div>
+      <label for={id("phone")} class="field-label">Telephone Number</label>
+      <input
+        id={id("phone")}
+        name="phone"
+        type="tel"
+        required
+        autocomplete="tel"
+        inputmode="tel"
+        class="field"
+        placeholder="e.g. +91 12345 67890"
+      />
+    </div>
+    <div>
+      <label for={id("service")} class="field-label">Treatment Type</label>
+      <select id={id("service")} name="service" required class="field">
+        <option value="" disabled selected>Select treatment</option>
+        {
+          serviceOptions.map((group) => (
+            <optgroup label={group.label}>
+              {group.options.map((o) => (
+                <option value={o.value}>{o.label}</option>
+              ))}
+            </optgroup>
+          ))
+        }
+      </select>
+    </div>
+    <div class={dateTimeClass}>
+      <div>
+        <label for={id("preferredDate")} class="field-label">Date</label>
+        <input
+          id={id("preferredDate")}
+          name="preferredDate"
+          type="date"
+          class="field"
+        />
+      </div>
+      <div>
+        <label for={id("preferredTime")} class="field-label">Time</label>
+        <select id={id("preferredTime")} name="preferredTime" class="field">
+          <option value="" disabled selected>Select a time</option>
+          {timeSlots.map((t) => <option value={t}>{t}</option>)}
+        </select>
+      </div>
+    </div>
+    {
+      !compact && (
+        <div class="sm:col-span-2">
+          <label for={id("message")} class="field-label">
+            Message{" "}
+            <span class="font-normal text-charcoal/40">(optional)</span>
+          </label>
+          <textarea
+            id={id("message")}
+            name="message"
+            rows="3"
+            maxlength="1000"
+            class="field resize-none"
+            placeholder="Tell us about your skin goals or anything we should know…"
+          />
+        </div>
+      )
+    }
+  </div>
+
+  <p
+    data-form-status
+    class="hidden rounded-2xl px-4 py-3 text-sm"
+    role="status"
+    aria-live="polite"
+  >
+  </p>
+
+  <button
+    type="submit"
+    class:list={[
+      "btn bg-olive text-ivory shadow-soft hover:-translate-y-0.5 hover:bg-olive/90",
+      compact && "w-full sm:w-auto",
+    ]}
+  >
+    {submitLabel}
+  </button>
+</form>

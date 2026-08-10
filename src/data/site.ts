@@ -5,6 +5,9 @@
  * in `src/content/blog/` (see `src/content.config.ts`).
  */
 
+/** wa.me needs the number bare — country code, no +, spaces or dashes. */
+const WHATSAPP_HREF = "https://wa.me/918920753013";
+
 export const site = {
   name: "Auresca Care",
   tagline: "Reveal • Restore • Radiate",
@@ -12,8 +15,7 @@ export const site = {
     "A boutique skin, hair & aesthetics clinic where medical precision meets quiet luxury.",
   phone: "+91 89207 53013",
   phoneHref: "tel:+918920753013",
-  /** wa.me needs the number bare — country code, no +, spaces or dashes. */
-  whatsappHref: "https://wa.me/918920753013",
+  whatsappHref: WHATSAPP_HREF,
   email: "aurescacare@gmail.com",
   /**
    * Google Business Profile. The place ID drives both links below — swap it
@@ -27,13 +29,22 @@ export const site = {
     "https://local.google.com/place?placeid=ChIJwRwOVa8ZDTkRYy9_7Zh4dH4",
   address:
     "2nd Floor, 594 P, Golf Course Road, Sector-43, Gurugram, Haryana 122009",
-  hours: "Mon–Sat · 10:00 AM – 8:00 PM",
-  socials: {
-    instagram: "https://www.instagram.com/aurescacare/",
-    facebook: "https://facebook.com",
-    youtube: "https://youtube.com",
-  },
+  hours: "Open all days · 10:00 AM – 8:00 PM",
 };
+
+/**
+ * Social profiles, in the order they appear in the header bar and the footer.
+ * Only channels the clinic actually runs belong here — a placeholder link is
+ * worse than no icon at all. `name` doubles as the `Icon` name.
+ */
+export const socialLinks = [
+  {
+    name: "instagram",
+    label: "Instagram",
+    href: "https://www.instagram.com/aurescacare/",
+  },
+  { name: "whatsapp", label: "WhatsApp", href: WHATSAPP_HREF },
+];
 
 export const nav = [
   { label: "Services", href: "/#services" },
@@ -160,10 +171,15 @@ export const about = {
   ],
 };
 
+/**
+ * `icon` renders an SVG mark after the number. The ★ character in this display
+ * serif is far heavier than its digits and sits off the baseline, so the rating
+ * gets a drawn star sized to the numerals instead.
+ */
 export const stats = [
   { value: "4+", label: "Years of expertise" },
   { value: "1,000+", label: "Treatments delivered" },
-  { value: "4.9★", label: "Average client rating" },
+  { value: "5", icon: "star", label: "Average client rating" },
   { value: "96%", label: "Would recommend us" },
 ];
 
@@ -347,9 +363,12 @@ export const serviceCategories: ServiceCategory[] = [
   },
 ];
 
-/** Image used by the "Why Auresca" band. */
-export const whyUsImage =
-  "https://images.unsplash.com/photo-1612817288484-6f916006741a";
+/**
+ * Image used by the "Why Auresca" band. A treatment in progress, not a product
+ * shot — the band is about how the clinic works, and the stock bottle that used
+ * to sit here carried another brand's label.
+ */
+export const whyUsImage = "/images/service-skin-facial.jpg";
 
 /** Treatment categories used for the Real Results filter tabs (first = default). */
 export const resultCategories = [

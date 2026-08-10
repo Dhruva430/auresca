@@ -3,6 +3,7 @@ import { Font } from "astro:assets";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import WhatsappButton from "@/components/WhatsappButton.astro";
+import AppointmentModal from "@/components/AppointmentModal.astro";
 import { site } from "@/data/site";
 import "@/styles/global.css";
 
@@ -66,6 +67,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 
     <WhatsappButton />
 
+    <AppointmentModal />
+
     <script>
       // Every interactive feature is a small, self-contained module that runs
       // on import and no-ops when its markup is not on the page.
@@ -76,6 +79,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       import "../scripts/results.js";
       import "../scripts/faq.js";
       import "../scripts/appointment.js";
+      import "../scripts/appointment-modal.js";
       import "../scripts/reveal.js";
     </script>
   </body>

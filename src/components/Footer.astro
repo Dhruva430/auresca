@@ -1,6 +1,6 @@
 ---
 import Icon from "@/components/Icon.astro";
-import { site, serviceCategories } from "@/data/site";
+import { site, serviceCategories, socialLinks } from "@/data/site";
 
 const year = new Date().getFullYear();
 
@@ -15,11 +15,6 @@ const footerExplore = [
   { label: "Reviews", href: "/#reviews" },
   { label: "Blog", href: "/#blog" },
   { label: "FAQ", href: "/#faq" },
-];
-const footerSocials = [
-  { name: "instagram", href: site.socials.instagram },
-  { name: "facebook", href: site.socials.facebook },
-  { name: "youtube", href: site.socials.youtube },
 ];
 ---
 
@@ -43,12 +38,12 @@ const footerSocials = [
         </p>
         <div class="mt-7 flex items-center gap-3">
           {
-            footerSocials.map((s) => (
+            socialLinks.map((s) => (
               <a
                 href={s.href}
-                aria-label={s.name}
+                aria-label={`${site.name} on ${s.label}`}
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
                 class="grid h-10 w-10 place-items-center rounded-full border border-white/25 text-white/85 transition hover:border-white hover:bg-white/10 hover:text-white"
               >
                 <Icon name={s.name} cls="w-5 h-5" />

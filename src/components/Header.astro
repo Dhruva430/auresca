@@ -1,6 +1,6 @@
 ---
 import Icon from "@/components/Icon.astro";
-import { site, nav } from "@/data/site";
+import { site, nav, socialLinks } from "@/data/site";
 ---
 
 <!-- Announcement bar -->
@@ -10,7 +10,7 @@ import { site, nav } from "@/data/site";
       <Icon name="sparkle" cls="w-4 h-4 text-white" />
       Free consultation
     </p>
-    <div class="flex items-center gap-5">
+    <div class="flex items-center gap-4 sm:gap-5">
       <a
         href={site.phoneHref}
         class="inline-flex items-center gap-2 hover:text-ivory transition"
@@ -22,6 +22,24 @@ import { site, nav } from "@/data/site";
         <Icon name="clock" cls="w-4 h-4" />
         {site.hours}
       </span>
+      <span class="hidden h-4 w-px bg-white/25 sm:block" aria-hidden="true"
+      ></span>
+      <!-- Social profiles -->
+      <div class="flex items-center gap-1">
+        {
+          socialLinks.map((s) => (
+            <a
+              href={s.href}
+              aria-label={`${site.name} on ${s.label}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="grid h-7 w-7 place-items-center rounded-full text-white/85 transition hover:bg-white/15 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/70"
+            >
+              <Icon name={s.name} cls="w-4 h-4" />
+            </a>
+          ))
+        }
+      </div>
     </div>
   </div>
 </div>
@@ -62,7 +80,11 @@ import { site, nav } from "@/data/site";
 
     <!-- Right cluster -->
     <div class="flex items-center justify-end gap-3">
-      <a href="/#appointment" class="btn-primary hidden sm:inline-flex">
+      <a
+        href="/#appointment"
+        data-open-appointment
+        class="btn-primary hidden sm:inline-flex"
+      >
         Book Appointment
         <Icon name="move-right" cls="w-4 h-4" />
       </a>
@@ -94,7 +116,11 @@ import { site, nav } from "@/data/site";
           </a>
         ))
       }
-      <a href="/#appointment" class="btn-primary mt-4 w-full">Book Appointment</a>
+      <a
+        href="/#appointment"
+        data-open-appointment
+        class="btn-primary mt-4 w-full">Book Appointment</a
+      >
     </nav>
   </div>
 </header>

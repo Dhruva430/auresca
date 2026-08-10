@@ -119,9 +119,29 @@ import { img, srcset } from "@/lib/helpers";
       })
     }
 
-    <p class="mt-12 text-center text-sm text-charcoal/60">
-      Not sure where to start? Your first consultation is complimentary — we'll
-      map the right plan to your skin.
-    </p>
+    <!-- Closing note. Boxed rather than bare: it ends the section on the same
+         hairline as the treatment rows above, instead of a lone line of text
+         drifting in the gap before the next band. -->
+    <div class="mt-10 flex justify-center">
+      <!-- Flows as plain text on phones — as a flex row the icon dropped onto a
+           line of its own — and becomes a single-line pill from `sm` up. -->
+      <p
+        class="max-w-2xl rounded-3xl bg-ivory/80 px-6 py-3 text-center text-sm leading-relaxed text-charcoal/65 ring-1 ring-beige sm:inline-flex sm:flex-wrap sm:items-center sm:justify-center sm:gap-x-2 sm:gap-y-1 sm:rounded-full sm:leading-normal"
+      >
+        <Icon
+          name="sparkle"
+          cls="mr-1.5 inline w-4 h-4 align-[-3px] text-gold sm:mr-0 sm:shrink-0"
+        />
+        <span>
+          Not sure where to start? Your first consultation is complimentary.
+        </span>{" "}
+        <a
+          href="/#appointment"
+          class="font-semibold text-olive underline decoration-gold underline-offset-4 transition-colors hover:text-gold"
+        >
+          Book a consultation
+        </a>
+      </p>
+    </div>
   </div>
 </section>

@@ -147,9 +147,19 @@ import { img } from "@/lib/helpers";
         </div>
       </div>
     </div>
-    <p class="mt-6 text-center text-xs text-charcoal/50">
-      Results vary from person to person. Images are representative of typical
-      outcomes.
+    <!-- Fine print, tied to the gallery by a hairline so it reads as a footnote
+         to the photos above rather than stray text in the gap below. -->
+    <p
+      class="mx-auto mt-8 max-w-2xl border-t border-beige pt-5 text-center text-xs leading-relaxed text-charcoal/50 sm:flex sm:flex-wrap sm:items-center sm:justify-center sm:gap-x-2 sm:gap-y-1"
+    >
+      <Icon
+        name="shield"
+        cls="mr-1.5 inline w-3.5 h-3.5 align-[-2px] text-charcoal/35 sm:mr-0 sm:shrink-0"
+      />
+      <span>
+        Results vary from person to person. Images are representative of typical
+        outcomes.
+      </span>
     </p>
   </div>
 </section>

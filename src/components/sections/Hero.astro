@@ -48,7 +48,7 @@ import { img, srcset } from "@/lib/helpers";
               />
 
               {/* copy */}
-              <div class="container-wide relative flex items-center py-10 pb-20 lg:min-h-[calc(100vh-8.5rem)] lg:py-0">
+              <div class="container-wide relative flex items-center py-10 lg:min-h-[calc(100vh-8.5rem)] lg:py-0 lg:pb-20">
                 <div
                   class={`hero-copy max-w-xl lg:py-16 ${slide.align === "right" ? "lg:ml-auto lg:text-left" : ""}`}
                 >
@@ -122,9 +122,11 @@ import { img, srcset } from "@/lib/helpers";
     </div>
   </div>
 
-  <!-- dots / labels -->
+  <!-- Dots / labels. They only float over the slide from `lg` up, where there
+       is room for a single row. On phones the labels wrap onto two rows and
+       would land on top of the copy, so there they flow below it instead. -->
   <div
-    class="absolute inset-x-0 bottom-6 z-20 flex flex-wrap items-center justify-center gap-2 px-4"
+    class="relative z-20 flex flex-wrap items-center justify-center gap-2 px-4 pb-8 lg:absolute lg:inset-x-0 lg:bottom-6 lg:pb-0"
   >
     {
       heroSlides.map((slide, i) => (

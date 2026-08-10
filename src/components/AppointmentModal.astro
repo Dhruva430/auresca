@@ -1,0 +1,105 @@
+---
+/**
+ * Site-wide booking pop-up. Rendered on every page from the layout and driven
+ * by `src/scripts/appointment-modal.js`, which opens it once per session (or
+ * whenever a `[data-open-appointment]` control asks for it) and never nags a
+ * visitor who has already booked.
+ *
+ * Markup ships closed and inert: no JS means no pop-up, and the full booking
+ * section on the home page is unaffected.
+ */
+import Icon from "@/components/Icon.astro";
+import AppointmentForm from "@/components/AppointmentForm.astro";
+import { site } from "@/data/site";
+---
+
+<div
+  id="appointment-modal"
+  class="fixed inset-0 z-[60] hidden items-center justify-center p-4 sm:p-6"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="appointment-modal-title"
+>
+  <!-- Backdrop -->
+  <div
+    class="modal-backdrop absolute inset-0 bg-charcoal/60 backdrop-blur-sm"
+    data-close-appointment
+  >
+  </div>
+
+  <!-- Panel: form on the left, clinic photo on the right (sm and up) -->
+  <div
+    class="modal-panel relative z-10 max-h-[90dvh] w-full max-w-3xl overflow-hidden rounded-[2rem] bg-white text-charcoal shadow-card"
+  >
+    <button
+      type="button"
+      data-close-appointment
+      aria-label="Close"
+      class="absolute right-4 top-4 z-10 grid h-10 w-10 place-items-center rounded-full border border-white/60 bg-white/90 text-charcoal/60 backdrop-blur-sm transition hover:border-gold hover:text-olive focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+    >
+      <Icon name="close" cls="w-5 h-5" />
+    </button>
+
+    <div class="grid max-h-[90dvh] sm:grid-cols-[1.15fr_0.85fr]">
+      <!-- Form column — the only part that scrolls -->
+      <div class="min-h-0 overflow-y-auto p-5 sm:p-8">
+        <span class="eyebrow">
+          <span class="h-px w-6 bg-gold"></span>Free consultation
+        </span>
+        <h2
+          id="appointment-modal-title"
+          class="mt-2 pr-12 font-display text-[26px] font-medium leading-tight text-olive sm:mt-3 sm:pr-0 sm:text-4xl"
+        >
+          Book an <em class="font-normal italic text-gold">Appointment</em>
+        </h2>
+        <p class="mt-1.5 text-sm text-charcoal/70 sm:mt-2 sm:text-base">
+          Leave your details and we'll call you back to confirm a time that
+          suits you.
+        </p>
+        <hr class="my-4 border-beige sm:my-6" />
+
+        <AppointmentForm
+          idPrefix="modal"
+          compact
+          submitLabel="Request a Callback"
+        />
+
+        <p class="mt-4 text-xs text-charcoal/55 sm:mt-5">
+          Prefer to talk? Call <a
+            href={site.phoneHref}
+            class="font-semibold text-olive underline decoration-gold underline-offset-4"
+            >{site.phone}</a
+          > · {site.hours}
+        </p>
+      </div>
+
+      <!-- Image column. Not `loading="lazy"`: the panel is display:none until
+           it opens, so a lazy image would only start loading at that moment and
+           the visitor would watch it fill in. Low priority keeps it behind
+           everything above the fold. -->
+      <div class="relative hidden overflow-hidden sm:block">
+        <img
+          src="/images/appointment-facial.jpg"
+          alt="A calming facial treatment at Auresca Care"
+          width="1400"
+          height="933"
+          decoding="async"
+          fetchpriority="low"
+          class="absolute inset-0 h-full w-full object-cover object-center"
+        />
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-olive/80 via-olive/15 to-transparent"
+        >
+        </div>
+        <div class="absolute inset-x-0 bottom-0 p-6 text-white">
+          <p class="font-display text-2xl font-medium leading-snug">
+            Reveal · Restore · Radiate
+          </p>
+          <p class="mt-1.5 text-sm text-white/85">
+            5★ rated · 1,000+ clients cared for
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

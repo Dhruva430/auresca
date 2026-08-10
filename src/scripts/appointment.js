@@ -1,8 +1,14 @@
-// Appointment form — AJAX submit with inline status messaging.
+// Booking form — AJAX submit with inline status messaging.
+//
+// Runs for every copy of the form on the page (the section on the home page
+// and the site-wide pop-up), so each keeps its own status box and button state.
+// A successful booking fires `auresca:booked` on the document; the pop-up
+// listens for it so it stops asking.
 
-var form = document.getElementById("appointment-form");
-var statusBox = document.getElementById("form-status");
-if (form && statusBox) {
+document.querySelectorAll("[data-appointment-form]").forEach(function (form) {
+  var statusBox = form.querySelector("[data-form-status]");
+  if (!statusBox) return;
+
   var show = function (msg, ok) {
     statusBox.textContent = msg;
     statusBox.classList.remove("hidden");
@@ -38,6 +44,7 @@ if (form && statusBox) {
         if (res.ok && res.data.ok) {
           show(res.data.message, true);
           form.reset();
+          document.dispatchEvent(new CustomEvent("auresca:booked"));
         } else {
           show(res.data.error || "Please check your details and try again.", false);
         }
@@ -53,4 +60,4 @@ if (form && statusBox) {
         statusBox.scrollIntoView({ behavior: "smooth", block: "center" });
       });
   });
-}
+});

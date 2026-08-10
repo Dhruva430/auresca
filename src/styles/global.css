@@ -161,8 +161,10 @@
     @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-gold;
   }
 
+  /* One shared rhythm for every band on the page — tighter on phones, where
+     the old 5rem gaps pushed each section a full screen apart. */
   .section {
-    @apply py-20 sm:py-24 lg:py-28;
+    @apply py-12 sm:py-16 lg:py-20;
   }
 
   .card {
@@ -174,6 +176,14 @@
   }
   .field-label {
     @apply mb-1.5 block text-sm font-medium text-olive;
+  }
+  /* Compact form (the pop-up) — same fields, tighter rhythm so the whole thing
+     fits a phone screen. Kept as one modifier so both forms stay consistent. */
+  .form-compact .field {
+    @apply rounded-xl px-3.5 py-2.5 text-[15px] sm:px-4 sm:py-3;
+  }
+  .form-compact .field-label {
+    @apply mb-1 text-[13px];
   }
 
   /* Decorative hairline divider with a centered lotus dot */
@@ -272,6 +282,25 @@
   .js .hero.is-dragging .hero-copy > *,
   .js .hero.is-jumping .hero-copy > * {
     transition: none;
+  }
+
+  /* Site-wide booking pop-up — fades the backdrop and lifts the panel in.
+     Display is toggled by JS; `.is-open` is added a frame later so these
+     transitions have a starting state to run from. */
+  .modal-backdrop,
+  .modal-panel {
+    opacity: 0;
+    transition: opacity 0.3s var(--ease-soft), transform 0.3s var(--ease-soft);
+  }
+  .modal-panel {
+    transform: translateY(14px) scale(0.985);
+  }
+  #appointment-modal.is-open .modal-backdrop,
+  #appointment-modal.is-open .modal-panel {
+    opacity: 1;
+  }
+  #appointment-modal.is-open .modal-panel {
+    transform: none;
   }
 
   /* Reveal-on-scroll — visible by default so content shows even without JS.
