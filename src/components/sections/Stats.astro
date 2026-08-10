@@ -1,20 +1,40 @@
 ---
 import Icon from "@/components/Icon.astro";
 import { stats } from "@/data/site";
+
+/**
+ * Split a display value like "1,000+" into the number counters.js can roll up
+ * and the characters that must stay put around it. A value with no digits
+ * (shouldn't happen, but the type allows it) just renders as-is.
+ */
+const parts = stats.map((s) => {
+  const match = s.value.match(/^(\D*)([\d.,]+)(\D*)$/);
+  return {
+    ...s,
+    prefix: match ? match[1] : "",
+    number: match ? match[2] : null,
+    suffix: match ? match[3] : s.value,
+  };
+});
 ---
 
 <!-- ===================== STATS STRIP ===================== -->
 <section class="border-y border-beige bg-cream">
-  <div class="container-wide grid grid-cols-2 gap-6 py-10 lg:grid-cols-4">
+  <div
+    class="container-wide grid grid-cols-2 gap-6 py-10 lg:grid-cols-4"
+    data-stagger="110"
+  >
     {
-      stats.map((s) => (
-        <div class="text-center reveal">
+      parts.map((s) => (
+        <div class="reveal reveal-scale text-center">
+          {/* The value is one flex item so the row's gap only ever falls
+              between the number and the icon, never inside "1,000+". */}
           <p class="flex items-center justify-center gap-1.5 font-display text-4xl font-semibold text-gold lg:text-5xl">
-            {s.value}
+            <span>{s.prefix}{s.number && <span data-count={s.number.replace(/,/g, "")}>{s.number}</span>}{s.suffix}</span>
             {s.icon && (
               <Icon
                 name={s.icon}
-                cls="w-[0.72em] h-[0.72em] fill-current -mt-0.5"
+                cls="pop-on-reveal w-[0.72em] h-[0.72em] fill-current -mt-0.5"
                 sw={0}
               />
             )}

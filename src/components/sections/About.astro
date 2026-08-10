@@ -12,21 +12,25 @@ const sset = srcset(about.image, [520, 760, 1000], 520);
     class="container-wide grid items-center gap-10 lg:grid-cols-12 lg:gap-12"
   >
     <!-- image with rose corner accent -->
-    <div class="relative reveal lg:col-span-5">
+    <div class="reveal reveal-left group relative lg:col-span-5">
       <span
-        class="pointer-events-none absolute -left-3 -top-3 h-32 w-32 rounded-tl-[3.5rem] rounded-br-[3.5rem] bg-rose/40 blur-[1px]"
+        class="pointer-events-none absolute -left-3 -top-3 h-32 w-32 rounded-tl-[3.5rem] rounded-br-[3.5rem] bg-rose/40 blur-[1px] transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-x-1 group-hover:-translate-y-1"
       ></span>
-      <img
-        src={img(about.image, 760, 520)}
-        srcset={sset || undefined}
-        sizes={sset ? "(max-width: 1024px) 90vw, 40vw" : undefined}
-        alt="The Auresca Care reception and lounge"
-        width="760"
-        height="520"
-        loading="lazy"
-        decoding="async"
-        class="relative h-[340px] w-full rounded-[1.75rem] rounded-tl-[4.5rem] object-cover shadow-card sm:h-[400px]"
-      />
+      <div
+        class="relative overflow-hidden rounded-[1.75rem] rounded-tl-[4.5rem] shadow-card"
+      >
+        <img
+          src={img(about.image, 760, 520)}
+          srcset={sset || undefined}
+          sizes={sset ? "(max-width: 1024px) 90vw, 40vw" : undefined}
+          alt="The Auresca Care reception and lounge"
+          width="760"
+          height="520"
+          loading="lazy"
+          decoding="async"
+          class="h-[340px] w-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06] sm:h-[400px]"
+        />
+      </div>
     </div>
 
     <!-- heading + copy + cta -->
@@ -48,14 +52,14 @@ const sset = srcset(about.image, [520, 760, 1000], 520);
     </div>
 
     <!-- feature list -->
-    <div class="reveal lg:col-span-3">
+    <div class="reveal reveal-right lg:col-span-3">
       <ul
         class="divide-y divide-beige/70 overflow-hidden rounded-2xl bg-white/70 ring-1 ring-beige/60"
       >
         {
           about.features.map((f) => (
-            <li class="flex items-center gap-3 px-5 py-4 transition hover:bg-white">
-              <span class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-rose-blush/60 text-gold">
+            <li class="group flex items-center gap-3 px-5 py-4 transition hover:bg-white">
+              <span class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-rose-blush/60 text-gold transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110">
                 <Icon name={f.icon} cls="w-5 h-5" />
               </span>
               <span class="text-sm font-medium text-olive">{f.title}</span>

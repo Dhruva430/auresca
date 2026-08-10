@@ -7,7 +7,7 @@ import { img } from "@/lib/helpers";
 <!-- ==================== REAL RESULTS (before / after) ==================== -->
 <section id="results" class="section bg-cream bg-grain overflow-hidden">
   <div class="container-wide">
-    <div class="mx-auto max-w-2xl text-center">
+    <div class="reveal mx-auto max-w-2xl text-center">
       <span class="eyebrow justify-center"
         ><span class="h-px w-6 bg-gold"></span>Real Results<span
           class="h-px w-6 bg-gold"></span
@@ -29,6 +29,7 @@ import { img } from "@/lib/helpers";
       class="mt-8 flex flex-wrap items-center justify-center gap-2.5"
       role="tablist"
       aria-label="Result categories"
+      data-stagger="60"
     >
       {
         resultCategories.map((cat, i) => (
@@ -37,7 +38,7 @@ import { img } from "@/lib/helpers";
             role="tab"
             data-result-tab
             data-cat={cat}
-            class={`result-tab${i === 0 ? " is-active" : ""}`}
+            class={`result-tab reveal reveal-scale${i === 0 ? " is-active" : ""}`}
             aria-current={i === 0 ? "true" : undefined}
           >
             {cat}
@@ -47,7 +48,7 @@ import { img } from "@/lib/helpers";
     </div>
 
     <!-- carousel -->
-    <div class="relative mt-10">
+    <div class="reveal reveal-blur relative mt-10">
       <button
         type="button"
         data-result-prev
@@ -150,7 +151,7 @@ import { img } from "@/lib/helpers";
     <!-- Fine print, tied to the gallery by a hairline so it reads as a footnote
          to the photos above rather than stray text in the gap below. -->
     <p
-      class="mx-auto mt-8 max-w-2xl border-t border-beige pt-5 text-center text-xs leading-relaxed text-charcoal/50 sm:flex sm:flex-wrap sm:items-center sm:justify-center sm:gap-x-2 sm:gap-y-1"
+      class="reveal reveal-fade mx-auto mt-8 max-w-2xl border-t border-beige pt-5 text-center text-xs leading-relaxed text-charcoal/50 sm:flex sm:flex-wrap sm:items-center sm:justify-center sm:gap-x-2 sm:gap-y-1"
     >
       <Icon
         name="shield"

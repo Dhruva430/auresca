@@ -20,6 +20,10 @@ if (serviceTabs.length && servicePanels.length) {
 
       var cat = tab.getAttribute("data-cat");
       servicePanels.forEach(function (panel) {
+        // `has-swapped` opts the panel into the swap animation. It is only
+        // added here so the default panel arrives with its scroll-in reveal
+        // instead of animating twice on page load.
+        panel.classList.add("has-swapped");
         panel.classList.toggle(
           "hidden",
           panel.getAttribute("data-cat") !== cat

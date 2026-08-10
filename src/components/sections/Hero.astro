@@ -127,6 +127,7 @@ import { img, srcset } from "@/lib/helpers";
        would land on top of the copy, so there they flow below it instead. -->
   <div
     class="relative z-20 flex flex-wrap items-center justify-center gap-2 px-4 pb-8 lg:absolute lg:inset-x-0 lg:bottom-6 lg:pb-0"
+    data-stagger="70"
   >
     {
       heroSlides.map((slide, i) => (
@@ -134,7 +135,7 @@ import { img, srcset } from "@/lib/helpers";
           type="button"
           data-hero-dot
           data-index={i}
-          class="hero-dot rounded-full border border-gold/40 bg-white/70 px-4 py-1.5 text-xs font-medium text-olive/80 backdrop-blur transition hover:text-gold"
+          class="hero-dot reveal reveal-scale rounded-full border border-gold/40 bg-white/70 px-4 py-1.5 text-xs font-medium text-olive/80 backdrop-blur transition-colors hover:text-gold"
           aria-label={`Go to ${slide.eyebrow} slide`}
           aria-current={i === 0 ? "true" : undefined}
         >

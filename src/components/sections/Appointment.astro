@@ -10,7 +10,7 @@ import AppointmentForm from "@/components/AppointmentForm.astro";
       class="flex items-center px-6 py-12 sm:px-10 lg:py-16 lg:pl-16 lg:pr-10"
     >
       <div
-        class="w-full rounded-[2rem] bg-white p-8 text-charcoal shadow-card sm:p-10 lg:p-12"
+        class="reveal reveal-scale w-full rounded-[2rem] bg-white p-8 text-charcoal shadow-card sm:p-10 lg:p-12"
       >
         <h2 class="font-display text-4xl font-medium text-olive sm:text-5xl">
           Book an <em class="font-normal italic text-gold">Appointment</em>
@@ -25,7 +25,9 @@ import AppointmentForm from "@/components/AppointmentForm.astro";
     </div>
 
     <!-- right: full-height image -->
-    <div class="relative isolate min-h-[280px] overflow-hidden lg:min-h-full">
+    <div
+      class="reveal reveal-fade group relative isolate min-h-[280px] overflow-hidden lg:min-h-full"
+    >
       <img
         src="/images/appointment-facial.jpg"
         alt="A calming facial treatment at Auresca Care"
@@ -33,7 +35,7 @@ import AppointmentForm from "@/components/AppointmentForm.astro";
         height="933"
         loading="lazy"
         decoding="async"
-        class="absolute inset-0 h-full w-full object-cover object-center"
+        class="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
       />
     </div>
   </div>

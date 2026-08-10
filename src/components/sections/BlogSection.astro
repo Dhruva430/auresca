@@ -9,7 +9,7 @@ const posts = await getPosts(4);
 <!-- ======================== BLOG ======================== -->
 <section id="blog" class="section bg-cream bg-grain">
   <div class="container-wide">
-    <div class="mx-auto max-w-2xl text-center">
+    <div class="reveal mx-auto max-w-2xl text-center">
       <span class="eyebrow justify-center"
         ><span class="h-px w-6 bg-gold"></span>Blogs &amp; Tips<span
           class="h-px w-6 bg-gold"></span
@@ -26,12 +26,16 @@ const posts = await getPosts(4);
       </p>
     </div>
 
-    <div class="mt-12 grid gap-7 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="mt-12 grid gap-7 sm:grid-cols-2 lg:grid-cols-4" data-stagger="110">
       {
         posts.map((p) => {
           const sset = srcset(p.data.coverImage, [400, 560, 760], 380);
           return (
-            <article class="reveal group flex flex-col overflow-hidden rounded-2xl bg-white shadow-soft ring-1 ring-beige/60 transition duration-300 hover:-translate-y-1 hover:shadow-card">
+            // The reveal lives on the wrapper, not the card: the card's own
+            // `transition` utility covers transform, and the two would fight
+            // over the same property on the same element.
+            <div class="reveal flex">
+            <article class="group flex flex-1 flex-col overflow-hidden rounded-2xl bg-white shadow-soft ring-1 ring-beige/60 transition duration-300 hover:-translate-y-1 hover:shadow-card">
               <a
                 href={`/blog/${p.id}`}
                 class="relative block overflow-hidden"
@@ -72,12 +76,13 @@ const posts = await getPosts(4);
                 </a>
               </div>
             </article>
+            </div>
           );
         })
       }
     </div>
 
-    <div class="mt-10 text-center">
+    <div class="reveal mt-10 text-center">
       <a href="/blog" class="btn-outline">View all articles</a>
     </div>
   </div>

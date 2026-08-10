@@ -18,7 +18,7 @@ import { site, faqs } from "@/data/site";
   <div
     class="container-content relative grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16"
   >
-    <div class="lg:pt-4">
+    <div class="reveal reveal-left lg:pt-4">
       <span class="eyebrow"
         ><span class="h-px w-6 bg-gold"></span>Good to Know</span
       >
@@ -54,11 +54,14 @@ import { site, faqs } from "@/data/site";
       </div>
     </div>
 
-    <div class="space-y-3">
+    <div class="space-y-3" data-stagger="80">
       {
         faqs.map((f, i) => (
+          // `transition-shadow` rather than a blanket `transition`: the latter
+          // would also claim opacity and transform and override the reveal's
+          // own timing.
           <div
-            class="faq-item rounded-2xl bg-white shadow-soft ring-1 ring-beige transition duration-300 hover:ring-gold/40"
+            class="faq-item reveal reveal-right rounded-2xl bg-white shadow-soft ring-1 ring-beige transition-shadow duration-300 hover:ring-gold/40"
             data-faq
           >
             <button

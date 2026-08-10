@@ -303,21 +303,152 @@
     transform: none;
   }
 
-  /* Reveal-on-scroll — visible by default so content shows even without JS.
-     The `.js` class (added by an inline script) opts into the entrance anim. */
+  /* =====================================================================
+     Motion system
+
+     Every entrance on the page runs through `.reveal`. Content is visible by
+     default, so a page without JavaScript still reads normally; the `.js`
+     class (set by an inline script in <head>) is what opts into the hidden
+     starting state, and `.is-visible` — added by an IntersectionObserver —
+     releases it.
+
+     A variant class picks the direction. `[data-stagger]` on any ancestor
+     makes reveal.js number that group's items so they arrive in sequence
+     instead of all at once.
+     ===================================================================== */
   .reveal {
     opacity: 1;
     transform: none;
   }
   .js .reveal {
     opacity: 0;
-    transform: translateY(22px);
-    transition: opacity 0.7s var(--ease-soft), transform 0.7s var(--ease-soft);
+    transform: translate3d(0, 24px, 0);
+    transition: opacity 0.7s var(--ease-soft), transform 0.7s var(--ease-soft),
+      filter 0.7s var(--ease-soft);
+    transition-delay: var(--reveal-delay, 0ms);
     will-change: opacity, transform;
+  }
+  .js .reveal-left {
+    transform: translate3d(-34px, 0, 0);
+  }
+  .js .reveal-right {
+    transform: translate3d(34px, 0, 0);
+  }
+  .js .reveal-scale {
+    transform: scale(0.93);
+  }
+  /* For photographs — a lens pulling focus reads better than a slide. */
+  .js .reveal-blur {
+    transform: translate3d(0, 14px, 0);
+    filter: blur(12px);
+  }
+  .js .reveal-fade {
+    transform: none;
   }
   .js .reveal.is-visible {
     opacity: 1;
     transform: none;
+    filter: none;
+    will-change: auto;
+  }
+
+  /* Panel swap (Services categories, Real Results filter). Going from
+     `display:none` back to visible restarts a CSS animation, so the swap
+     animates itself once the markup is shown again.
+
+     Gated behind `.has-swapped`, which the scripts add on the first tab click:
+     without it the default panel would animate on page load and fight the
+     scroll-in reveal it already has. */
+  @keyframes rise-in {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 16px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  .js .has-swapped[data-service-panel]:not(.hidden) {
+    animation: rise-in 0.5s var(--ease-soft) both;
+  }
+  .js .has-swapped [data-result-card]:not(.hidden) {
+    animation: rise-in 0.45s var(--ease-soft) both;
+  }
+
+  /* Hero — the active slide's photo drifts in very slowly. Only from `lg`,
+     where the image is absolutely positioned inside the overflow-hidden
+     viewport; on phones it sits in flow and a scaled copy would bleed over
+     the copy beneath it. */
+  @keyframes ken-burns {
+    from {
+      transform: scale(1.07);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+  @media (min-width: 1024px) {
+    .js .hero-slide.is-active .hero-img {
+      animation: ken-burns 18s linear forwards;
+    }
+    .js .hero.is-dragging .hero-img {
+      animation: none;
+    }
+  }
+
+  /* Marks that draw attention to themselves once, on arrival. */
+  @keyframes pop-in {
+    0% {
+      opacity: 0;
+      transform: scale(0.6);
+    }
+    70% {
+      transform: scale(1.06);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  .js .reveal.is-visible .pop-on-reveal {
+    animation: pop-in 0.5s var(--ease-soft) both;
+    animation-delay: calc(var(--reveal-delay, 0ms) + 120ms);
+  }
+
+  /* Eyebrow hairlines grow out from the heading as the block arrives. */
+  .js .reveal .eyebrow > span[class*="w-6"] {
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.6s var(--ease-soft);
+    transition-delay: calc(var(--reveal-delay, 0ms) + 200ms);
+  }
+  .js .reveal.is-visible .eyebrow > span[class*="w-6"] {
+    transform: none;
+  }
+
+  /* Every entrance is an enhancement — none of it should run for someone who
+     has asked the OS for less motion. The global rule in @layer base already
+     collapses durations; this makes sure nothing is left mid-transform. */
+  @media (prefers-reduced-motion: reduce) {
+    .js .reveal,
+    .js .reveal-left,
+    .js .reveal-right,
+    .js .reveal-scale,
+    .js .reveal-blur {
+      opacity: 1;
+      transform: none;
+      filter: none;
+    }
+    .js .has-swapped[data-service-panel]:not(.hidden),
+    .js .has-swapped [data-result-card]:not(.hidden),
+    .js .hero-slide.is-active .hero-img,
+    .js .reveal.is-visible .pop-on-reveal {
+      animation: none;
+    }
+    .js .reveal .eyebrow > span[class*="w-6"] {
+      transform: none;
+    }
   }
 }
 

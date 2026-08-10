@@ -9,18 +9,22 @@ const sset = srcset(whyUsImage, [480, 680, 900], 760);
 <!-- ====================== WHY US ====================== -->
 <section class="section bg-cream">
   <div class="container-content grid items-center gap-14 lg:grid-cols-2">
-    <div class="relative reveal">
-      <img
-        src={img(whyUsImage, 680, 760)}
-        srcset={sset || undefined}
-        sizes={sset ? "(max-width: 1024px) 90vw, 42vw" : undefined}
-        alt="Calm, luxurious treatment room at Auresca Care"
-        width="680"
-        height="760"
-        loading="lazy"
-        decoding="async"
-        class="h-[460px] w-full rounded-[2rem] object-cover shadow-card"
-      />
+    <div class="reveal reveal-left group relative">
+      <!-- The zoom needs a clipping wrapper, or the scaled photo escapes the
+           rounded corners on hover. -->
+      <div class="overflow-hidden rounded-[2rem] shadow-card">
+        <img
+          src={img(whyUsImage, 680, 760)}
+          srcset={sset || undefined}
+          sizes={sset ? "(max-width: 1024px) 90vw, 42vw" : undefined}
+          alt="Calm, luxurious treatment room at Auresca Care"
+          width="680"
+          height="760"
+          loading="lazy"
+          decoding="async"
+          class="h-[460px] w-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]"
+        />
+      </div>
       <div
         class="absolute -bottom-6 right-6 rounded-2xl bg-white/95 px-5 py-4 shadow-soft ring-1 ring-beige"
       >
@@ -33,7 +37,7 @@ const sset = srcset(whyUsImage, [480, 680, 900], 760);
       </div>
     </div>
 
-    <div>
+    <div class="reveal reveal-right">
       <span class="eyebrow"
         ><span class="h-px w-6 bg-gold"></span>Why Auresca</span
       >
@@ -49,7 +53,7 @@ const sset = srcset(whyUsImage, [480, 680, 900], 760);
         leave looking refreshed and feeling truly cared for.
       </p>
 
-      <div class="mt-8 grid gap-5 sm:grid-cols-2">
+      <div class="mt-8 grid gap-5 sm:grid-cols-2" data-stagger="100">
         {
           whyUs.map((w) => (
             <div class="reveal flex gap-4">

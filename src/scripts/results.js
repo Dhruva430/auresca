@@ -39,6 +39,10 @@ if (resultTrack) {
   };
 
   var filterResults = function (cat) {
+    // Opts the cards into the swap animation — see `has-swapped` in the motion
+    // system block of global.css. Only ever reached from a tab click, so the
+    // first render keeps its plain scroll-in reveal.
+    resultTrack.classList.add("has-swapped");
     allResultCards.forEach(function (card) {
       card.classList.toggle("hidden", card.getAttribute("data-cat") !== cat);
     });
