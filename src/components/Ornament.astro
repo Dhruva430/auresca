@@ -1,0 +1,47 @@
+---
+/**
+ * A brand mark from the Auresca kit (lotus, leaf sprig, sparkle) placed as
+ * quiet decoration in a section corner. It drifts on a long loop so a band
+ * never feels completely static, and it is purely presentational — always
+ * `aria-hidden` and never in the way of a pointer.
+ *
+ * `pos` carries the placement utilities so the caller decides where it sits;
+ * `delay` offsets the loop so two ornaments on one screen never move in step.
+ *
+ * Only drawn from `lg` up. A phone column has no spare margin for decoration —
+ * placed on one, the marks end up sitting behind the headings.
+ */
+import Icon from "@/components/Icon.astro";
+
+interface Props {
+  name?: "lotus" | "sprig" | "sparkle";
+  /** Positioning + size utilities, e.g. "-right-6 top-10 w-24 h-24". */
+  pos: string;
+  /** Seconds to offset the drift loop by. */
+  delay?: number;
+  /** Loop length in seconds — slower reads calmer. */
+  duration?: number;
+  /** Tailwind colour utility. Defaults to a barely-there gold. */
+  tone?: string;
+}
+
+const {
+  name = "lotus",
+  pos,
+  delay = 0,
+  duration = 14,
+  tone = "text-gold/20",
+} = Astro.props;
+---
+
+<span
+  class:list={[
+    "ornament pointer-events-none absolute hidden select-none lg:block",
+    pos,
+    tone,
+  ]}
+  style={`--drift-delay:-${delay}s;--drift-duration:${duration}s`}
+  aria-hidden="true"
+>
+  <Icon name={name} cls="w-full h-full" sw={1.1} />
+</span>

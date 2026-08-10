@@ -397,6 +397,51 @@
     }
   }
 
+  /* Brand ornaments — the lotus and leaf marks from the kit, drifting on a
+     long loop so a band never sits completely still. Decorative only. */
+  @keyframes drift {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) rotate(0deg);
+    }
+    50% {
+      transform: translate3d(0, -16px, 0) rotate(5deg);
+    }
+  }
+  .ornament {
+    animation: drift var(--drift-duration, 14s) ease-in-out infinite;
+    animation-delay: var(--drift-delay, 0s);
+  }
+
+  /* A single pass of the kit's gold texture across an accent word as its
+     block arrives. Ends on flat gold, so nothing depends on the animation
+     having run — and browsers without background-clip keep the plain colour. */
+  @keyframes gold-sheen {
+    from {
+      background-position: 130% center;
+    }
+    to {
+      background-position: -30% center;
+    }
+  }
+  @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+    .js .reveal.is-visible .shimmer-gold {
+      background-image: linear-gradient(
+        100deg,
+        #c89d42 0%,
+        #c89d42 38%,
+        #f2e0b4 50%,
+        #c89d42 62%,
+        #c89d42 100%
+      );
+      background-size: 260% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: gold-sheen 1.5s var(--ease-soft) 0.3s 1 both;
+    }
+  }
+
   /* Marks that draw attention to themselves once, on arrival. */
   @keyframes pop-in {
     0% {
@@ -448,6 +493,17 @@
     }
     .js .reveal .eyebrow > span[class*="w-6"] {
       transform: none;
+    }
+    .ornament {
+      animation: none;
+    }
+    /* Drop back to flat gold rather than freezing a half-swept gradient. */
+    .js .reveal.is-visible .shimmer-gold {
+      background-image: none;
+      -webkit-background-clip: border-box;
+      background-clip: border-box;
+      color: #c89d42;
+      animation: none;
     }
   }
 }

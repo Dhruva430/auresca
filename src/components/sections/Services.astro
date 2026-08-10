@@ -1,12 +1,21 @@
 ---
 import Icon from "@/components/Icon.astro";
+import Ornament from "@/components/Ornament.astro";
 import { serviceCategories, serviceCount } from "@/data/site";
 import { img, srcset } from "@/lib/helpers";
 ---
 
 <!-- ======================= SERVICES ======================= -->
-<section id="services" class="section bg-cream bg-grain">
-  <div class="container-wide">
+<section id="services" class="section relative overflow-hidden bg-cream bg-grain">
+  <Ornament name="sprig" pos="right-4 top-10 h-24 w-24 lg:right-16" duration={16} />
+  <Ornament
+    name="lotus"
+    pos="-left-4 bottom-16 h-28 w-28 lg:left-6"
+    tone="text-sage/20"
+    delay={5}
+    duration={19}
+  />
+  <div class="container-wide relative">
     <div class="reveal mx-auto max-w-2xl text-center">
       <span class="eyebrow justify-center"
         ><span class="h-px w-6 bg-gold"></span>Our Services<span
@@ -16,7 +25,7 @@ import { img, srcset } from "@/lib/helpers";
       <h2
         class="mt-4 font-display text-4xl font-medium text-olive sm:text-5xl text-balance"
       >
-        Treatments &amp; <em class="font-normal italic text-gold">Rituals</em>
+        Treatments &amp; <em class="shimmer-gold font-normal italic text-gold">Rituals</em>
       </h2>
       <p class="mt-4 text-charcoal/70">
         {serviceCount} treatments across {serviceCategories.length} specialities —
