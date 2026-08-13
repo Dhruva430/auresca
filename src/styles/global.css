@@ -186,7 +186,7 @@
     @apply mb-1 text-[13px];
   }
 
-  /* Decorative hairline divider with a centered lotus dot */
+  /* Decorative hairline rules flanking a centered mark */
   .divider-dot::before,
   .divider-dot::after {
     content: "";
@@ -395,22 +395,6 @@
     .js .hero.is-dragging .hero-img {
       animation: none;
     }
-  }
-
-  /* Brand ornaments — the lotus and leaf marks from the kit, drifting on a
-     long loop so a band never sits completely still. Decorative only. */
-  @keyframes drift {
-    0%,
-    100% {
-      transform: translate3d(0, 0, 0) rotate(0deg);
-    }
-    50% {
-      transform: translate3d(0, -16px, 0) rotate(5deg);
-    }
-  }
-  .ornament {
-    animation: drift var(--drift-duration, 14s) ease-in-out infinite;
-    animation-delay: var(--drift-delay, 0s);
   }
 
   /* A single pass of the kit's gold texture across an accent word as its

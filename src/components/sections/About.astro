@@ -1,6 +1,5 @@
 ---
 import Icon from "@/components/Icon.astro";
-import Ornament from "@/components/Ornament.astro";
 import { about } from "@/data/site";
 import { img, srcset } from "@/lib/helpers";
 
@@ -9,11 +8,6 @@ const sset = srcset(about.image, [520, 760, 1000], 520);
 
 <!-- ======================== ABOUT US ======================== -->
 <section id="about" class="section relative overflow-hidden bg-cream">
-  <Ornament
-    name="lotus"
-    pos="right-6 top-8 h-24 w-24 lg:right-20 lg:top-10"
-    duration={17}
-  />
   <div
     class="container-wide relative grid items-center gap-10 lg:grid-cols-12 lg:gap-12"
   >

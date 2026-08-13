@@ -29,7 +29,7 @@ export const site = {
     "https://local.google.com/place?placeid=ChIJwRwOVa8ZDTkRYy9_7Zh4dH4",
   address:
     "2nd Floor, 594 P, Golf Course Road, Sector-43, Gurugram, Haryana 122009",
-  hours: "Open all days · 10:00 AM – 8:00 PM",
+  hours: "Open all days · 9:00 AM – 8:00 PM",
 };
 
 /**
@@ -75,7 +75,7 @@ export type HeroSlide = {
 
 /** Shared hero copy reused on every slide (matches the reference layout). */
 export const heroMeta = {
-  primaryCta: { label: "Book a Consultation", href: "/#appointment" },
+  primaryCta: { label: "Book a free consultation", href: "/#appointment" },
   secondaryCta: { label: "Explore Services", href: "/#services" },
   features: ["Personalized treatment", "Expert practitioners", "Holistic approach"],
   trust: "1,000+ clients who trust Auresca Care",
@@ -99,7 +99,7 @@ export const heroSlides: HeroSlide[] = [
     accent: "Radiant",
     tail: "Skin",
     desc: "Dermatology-led facials and skin rejuvenation, tailored to your skin barrier for a glow that lasts.",
-    cta: { label: "Book free consultation", href: "/#appointment" },
+    cta: { label: "Book a free consultation", href: "/#appointment" },
   },
   {
     name: "Hair Regrowth",
@@ -112,7 +112,7 @@ export const heroSlides: HeroSlide[] = [
     accent: "Natural",
     tail: "Hair",
     desc: "Advanced PRP, mesotherapy and scalp programmes that bring density and strength back to your hair.",
-    cta: { label: "Book free consultation", href: "/#appointment" },
+    cta: { label: "Book a free consultation", href: "/#appointment" },
   },
   {
     name: "Anti-Ageing Injectables",
@@ -125,7 +125,7 @@ export const heroSlides: HeroSlide[] = [
     accent: "Time,",
     tail: "Gracefully",
     desc: "Subtle, expert-administered injectables and skin boosters that refresh and lift — never overdone.",
-    cta: { label: "Book free consultation", href: "/#appointment" },
+    cta: { label: "Book a free consultation", href: "/#appointment" },
   },
   {
     name: "Laser Hair Reduction",
@@ -138,7 +138,7 @@ export const heroSlides: HeroSlide[] = [
     accent: "Effortless",
     tail: "Confidence",
     desc: "Comfortable, downtime-free laser hair removal for silky, beautifully even-toned skin.",
-    cta: { label: "Book free consultation", href: "/#appointment" },
+    cta: { label: "Book a free consultation", href: "/#appointment" },
   },
   {
     name: "Body Shaping",
@@ -151,7 +151,7 @@ export const heroSlides: HeroSlide[] = [
     accent: "Shape",
     tail: "You Love",
     desc: "Non-invasive contouring and skin tightening that define and refine on your own timeline.",
-    cta: { label: "Book free consultation", href: "/#appointment" },
+    cta: { label: "Book a free consultation", href: "/#appointment" },
   },
 ];
 
@@ -283,8 +283,7 @@ export const serviceCategories: ServiceCategory[] = [
           "Coolsculpt",
           "Lipo Laser",
           "G5",
-          "Udvartana",
-          "AVT Therapy",
+          "Udhwarthana",
           "Tummy Tuck",
           "NMS",
           "FDS",
@@ -395,13 +394,6 @@ export const beforeAfter: BeforeAfter[] = [
     duration: "After 12 weeks",
     before: "/images/result-1-before.webp",
     after: "/images/result-1-after.webp",
-  },
-  {
-    category: "Skin",
-    concern: "Nasolabial folds & lift",
-    duration: "After 10 weeks",
-    before: "/images/result-2-before.webp",
-    after: "/images/result-2-after.webp",
   },
   {
     category: "Skin",
@@ -558,6 +550,7 @@ export const whyUs = [
 
 /** Time slots offered in the appointment form. */
 export const timeSlots = [
+  "9:00 AM",
   "10:00 AM",
   "11:00 AM",
   "12:00 PM",

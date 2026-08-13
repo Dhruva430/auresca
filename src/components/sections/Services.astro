@@ -1,20 +1,11 @@
 ---
 import Icon from "@/components/Icon.astro";
-import Ornament from "@/components/Ornament.astro";
 import { serviceCategories, serviceCount } from "@/data/site";
 import { img, srcset } from "@/lib/helpers";
 ---
 
 <!-- ======================= SERVICES ======================= -->
 <section id="services" class="section relative overflow-hidden bg-cream bg-grain">
-  <Ornament name="sprig" pos="right-4 top-10 h-24 w-24 lg:right-16" duration={16} />
-  <Ornament
-    name="lotus"
-    pos="-left-4 bottom-16 h-28 w-28 lg:left-6"
-    tone="text-sage/20"
-    delay={5}
-    duration={19}
-  />
   <div class="container-wide relative">
     <div class="reveal mx-auto max-w-2xl text-center">
       <span class="eyebrow justify-center"
@@ -87,7 +78,7 @@ import { img, srcset } from "@/lib/helpers";
                 {cat.tagline}
               </p>
               <a href="/#appointment" class="btn-primary mt-6">
-                Book a consultation
+                Book a free consultation
                 <Icon name="move-right" cls="w-4 h-4" />
               </a>
             </div>
@@ -149,7 +140,7 @@ import { img, srcset } from "@/lib/helpers";
           href="/#appointment"
           class="font-semibold text-olive underline decoration-gold underline-offset-4 transition-colors hover:text-gold"
         >
-          Book a consultation
+          Book a free consultation
         </a>
       </p>
     </div>
