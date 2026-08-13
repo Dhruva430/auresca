@@ -229,13 +229,11 @@ export const serviceCategories: ServiceCategory[] = [
         ],
       },
       {
-        title: "Arms & legs",
-        items: ["Full Arms", "Half Arms", "Full Legs", "Half Legs"],
-      },
-      {
         title: "Body",
         items: [
           "Full Body",
+          "Full Arms",
+          "Full Legs",
           "Underarms",
           "Bikini",
           "Glutes",
