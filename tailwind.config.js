@@ -29,8 +29,8 @@ export default {
       fontFamily: {
         // Both families are self-hosted by Astro's font pipeline, which exposes
         // them as CSS variables (see `fonts` in astro.config.mjs).
-        display: ["var(--font-display)", "Georgia", "serif"],
-        sans: ["var(--font-sans)", "system-ui", "-apple-system", "sans-serif"],
+        display: ["var(--font-display)", "Arial Narrow", "system-ui", "sans-serif"],
+        sans: ["var(--font-sans)", "Georgia", "serif"],
       },
       maxWidth: {
         content: "1320px",

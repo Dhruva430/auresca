@@ -47,7 +47,7 @@
 
   /* Buttons */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold transition-all duration-300;
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-base font-semibold transition-all duration-300;
   }
   /*
    * Primary "Book Appointment" CTA — two-colour swap (gold -> olive):
@@ -127,12 +127,18 @@
 
   /* Primary nav link — a gold hairline sweeps out from the centre on hover
      and stays put while the link holds keyboard focus. */
+  /* Set in caps at 18px. Caps plus letterspacing run wide, and the nav lives
+     in a `1fr` grid column that will not shrink below its content — at 1024px
+     there are only ~596px before it pushes into the booking CTA. Hence the
+     tighter tracking and padding until `xl`, where the room opens up. The
+     1rem buttons widened the booking CTA, which is what the `px-1` pays for. */
   .nav-link {
-    @apply relative inline-flex items-center rounded-full px-3 py-2.5 text-[15px] font-medium tracking-[0.01em] text-charcoal/85 transition-colors duration-300 xl:px-4 xl:text-[17px];
+    @apply relative inline-flex items-center rounded-full px-1 py-2.5 text-[18px] font-medium uppercase tracking-[0.05em] text-charcoal/85 transition-colors duration-300 xl:px-3 xl:tracking-[0.08em];
   }
   .nav-link::after {
     content: "";
-    @apply pointer-events-none absolute inset-x-3 bottom-1 h-px origin-center scale-x-0 bg-gold-grad transition-transform duration-300 ease-out xl:inset-x-4;
+    /* Insets track the padding above, so the hairline spans the word itself. */
+    @apply pointer-events-none absolute inset-x-1 bottom-1 h-px origin-center scale-x-0 bg-gold-grad transition-transform duration-300 ease-out xl:inset-x-3;
   }
   .nav-link:hover,
   .nav-link:focus-visible {
@@ -154,7 +160,7 @@
 
   /* Same link at mobile-menu scale — a full-width row rather than a pill. */
   .nav-link-mobile {
-    @apply flex items-center justify-between rounded-xl px-3 py-3.5 text-[17px] font-medium text-charcoal/85 transition-colors duration-200 hover:bg-cream hover:text-olive focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/35;
+    @apply flex items-center justify-between rounded-xl px-3 py-3.5 text-[18px] font-medium uppercase tracking-[0.08em] text-charcoal/85 transition-colors duration-200 hover:bg-cream hover:text-olive focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/35;
   }
 
   .eyebrow {
@@ -525,7 +531,7 @@
   @apply font-medium text-gold underline underline-offset-4 transition hover:text-olive;
 }
 .post-body blockquote {
-  @apply mt-6 border-l-2 border-gold/60 pl-5 font-display text-xl italic text-olive;
+  @apply mt-6 border-l-2 border-gold/60 pl-5 font-display text-xl text-olive;
 }
 .post-body hr {
   @apply my-10 border-beige;

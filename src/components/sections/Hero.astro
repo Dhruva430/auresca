@@ -21,8 +21,44 @@ import { img, srcset } from "@/lib/helpers";
           const src = img(slide.image, 1680, 980);
           const sset = srcset(slide.image, [900, 1280, 1680], 980);
           const eager = !!slide.primary;
-          const muted = slide.dark ? "text-white/85" : "text-charcoal/70";
-          const strong = slide.dark ? "text-white" : "text-olive";
+          // `dark` means "this slide sets its copy over the media". That only
+          // happens from `lg` up: below it the slide stacks, the copy lands on
+          // cream, and light text would be invisible. Hence the breakpoint on
+          // every one of these rather than a flat swap.
+          const muted = slide.dark
+            ? "text-charcoal/70 lg:text-white/90"
+            : "text-charcoal/70";
+          const strong = slide.dark ? "text-olive lg:text-white" : "text-olive";
+
+          // Big-type treatment. The two lines are set explicitly further down
+          // rather than left to wrap, so the break no longer depends on the
+          // column happening to land between "Where Science" (5.13em in Big
+          // Shoulders at 600) and the full headline. The column only has to
+          // clear the longer of the two lines now. `text-balance` stays off:
+          // it would re-even lines that are deliberately uneven.
+          // Leading of 1.03 comes off the reference: Big Shoulders has an
+          // 0.800em cap height, so 1.03 leaves ~0.23em between the cap bottom
+          // of one line and the cap top of the next. The 0.86 this replaces
+          // was under the cap height itself — the two lines nearly touched.
+          const headingType = slide.dark
+            ? "text-[clamp(2.5rem,12vw,9rem)] leading-[1.03] tracking-[-0.015em]"
+            : "text-5xl leading-[1.05] sm:text-6xl lg:text-7xl text-balance";
+          const copyWidth = slide.dark
+            ? "max-w-xl lg:max-w-[min(68vw,1100px)]"
+            : "max-w-xl";
+
+          // A clip slide carries the headline on its own — no buttons. It stays
+          // ranged left like every other slide; the wrapper's `items-center`
+          // is what centres it vertically.
+          const isVideo = !!slide.video;
+          const align = slide.align === "right" ? "lg:ml-auto lg:text-left" : "";
+          // Runs the full width of the column as a single line, like the
+          // reference. The whole sentence is 36.14em in Centaur, so the size is
+          // tied to the viewport — 1.8vw keeps it inside the column at every
+          // desktop width instead of wrapping on the narrower ones.
+          const descType = isVideo
+            ? "max-w-md text-[clamp(1rem,1.8vw,1.5rem)] lg:max-w-none"
+            : "max-w-md text-lg";
 
           return (
             <article
@@ -64,72 +100,96 @@ import { img, srcset } from "@/lib/helpers";
                 />
               )}
 
-              {/* copy */}
-              <div class="container-wide relative flex items-center py-10 lg:min-h-[calc(100vh-8.5rem)] lg:py-0 lg:pb-20">
-                <div
-                  class={`hero-copy max-w-xl lg:py-16 ${slide.align === "right" ? "lg:ml-auto lg:text-left" : ""}`}
-                >
+              {/* copy. The clip's subject reaches furthest left across the top
+                  of the frame — 33% at the very top, pulling back to 47% below
+                  the one-third mark — so its copy sits at the foot of the slide
+                  rather than centred, where the clear beige is widest. */}
+              <div
+                class={`container-wide relative flex items-center py-10 lg:min-h-[calc(100vh-8.5rem)] lg:py-0 lg:pb-20 ${isVideo ? "lg:items-end" : ""}`}
+              >
+                <div class={`hero-copy ${copyWidth} ${align} lg:py-16`}>
                   <h1
-                    class={`font-display text-5xl font-semibold leading-[1.05] ${slide.headingClass || "text-sage"} sm:text-6xl lg:text-7xl text-balance`}
+                    class={`font-display font-semibold ${headingType} ${slide.headingClass || "text-sage"}`}
                   >
-                    {slide.lead}{" "}
-                    <em class="font-normal italic">{slide.accent}</em>{" "}
-                    {slide.tail}
+                    {/* The accent carries no weight of its own — it is one word
+                        of a single-weight headline, marked up but not restyled.
+                        Big type breaks on its own line; the rest flows. */}
+                    {slide.dark ? (
+                      <>
+                        <span class="block">{slide.lead}</span>
+                        <span class="block">
+                          <em class="not-italic">{slide.accent}</em>{" "}
+                          {slide.tail}
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        {slide.lead}{" "}
+                        <em class="not-italic">{slide.accent}</em>{" "}
+                        {slide.tail}
+                      </>
+                    )}
                   </h1>
-                  <p class={`mt-5 max-w-md text-lg leading-relaxed ${muted}`}>
+                  <p class={`mt-5 ${descType} leading-relaxed ${muted}`}>
                     {slide.desc}
                   </p>
 
-                  <div class="mt-7 flex flex-wrap items-center gap-3">
-                    <a href={heroMeta.primaryCta.href} class="btn-primary">
-                      {heroMeta.primaryCta.label}
-                      <Icon name="move-right" cls="w-4 h-4" />
-                    </a>
-                    <a
-                      href={heroMeta.secondaryCta.href}
-                      class={
-                        slide.dark
-                          ? "btn border border-white/70 bg-white/10 text-white hover:bg-white/20"
-                          : "btn-outline"
-                      }
-                    >
-                      {heroMeta.secondaryCta.label}
-                    </a>
-                  </div>
+                  {!isVideo && (
+                    <div class="mt-7 flex flex-wrap items-center gap-3">
+                      <a href={heroMeta.primaryCta.href} class="btn-primary">
+                        {heroMeta.primaryCta.label}
+                        <Icon name="move-right" cls="w-4 h-4" />
+                      </a>
+                      <a
+                        href={heroMeta.secondaryCta.href}
+                        class={
+                          slide.dark
+                            ? "btn-outline lg:border-white/70 lg:bg-white/10 lg:text-white lg:hover:border-white lg:hover:bg-white/20 lg:hover:text-white"
+                            : "btn-outline"
+                        }
+                      >
+                        {heroMeta.secondaryCta.label}
+                      </a>
+                    </div>
+                  )}
 
                   {/* feature checks (desktop only) */}
-                  <div
-                    class={`mt-6 hidden flex-wrap gap-x-5 gap-y-2 text-sm lg:flex ${muted}`}
-                  >
-                    {heroMeta.features.map((f) => (
-                      <span class="inline-flex items-center gap-1.5">
-                        <Icon name="check" cls="w-4 h-4 text-gold" />
-                        {f}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* trust row */}
-                  <div class="mt-8 flex items-center gap-3">
-                    <div class="flex -space-x-3">
-                      {testimonials.map((t) => (
-                        <img
-                          src={img(t.avatar, 80, 80)}
-                          alt=""
-                          width="80"
-                          height="80"
-                          loading="lazy"
-                          decoding="async"
-                          class="h-10 w-10 rounded-full border-2 border-ivory object-cover"
-                        />
+                  {!isVideo && (
+                    <div
+                      class={`mt-6 hidden flex-wrap gap-x-5 gap-y-2 text-sm lg:flex ${muted}`}
+                    >
+                      {heroMeta.features.map((f) => (
+                        <span class="inline-flex items-center gap-1.5">
+                          <Icon name="check" cls="w-4 h-4 text-gold" />
+                          {f}
+                        </span>
                       ))}
                     </div>
-                    <p class={`text-sm ${muted}`}>
-                      <span class={`font-semibold ${strong}`}>
-                        {heroMeta.trust}
-                      </span>
-                    </p>
-                  </div>
+                  )}
+
+                  {/* trust row */}
+                  {!isVideo && (
+                    <div class="mt-8 flex items-center gap-3">
+                      <div class="flex -space-x-3">
+                        {testimonials.map((t) => (
+                          <img
+                            src={img(t.avatar, 80, 80)}
+                            alt=""
+                            width="80"
+                            height="80"
+                            loading="lazy"
+                            decoding="async"
+                            class="h-10 w-10 rounded-full border-2 border-ivory object-cover"
+                          />
+                        ))}
+                      </div>
+                      <p class={`text-sm ${muted}`}>
+                        <span class={`font-semibold ${strong}`}>
+                          {heroMeta.trust}
+                        </span>
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
             </article>
