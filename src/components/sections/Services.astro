@@ -1,6 +1,7 @@
 ---
 import Icon from "@/components/Icon.astro";
 import { serviceCategories, serviceCount } from "@/data/site";
+import { detailSlugs } from "@/data/services";
 import { img, srcset } from "@/lib/helpers";
 ---
 
@@ -77,10 +78,28 @@ import { img, srcset } from "@/lib/helpers";
               <p class="mt-3 max-w-md text-sm leading-relaxed text-charcoal/70">
                 {cat.tagline}
               </p>
-              <a href="/#appointment" class="btn-primary mt-6">
-                Book a free consultation
-                <Icon name="move-right" cls="w-4 h-4" />
-              </a>
+              <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
+                <a href="/#appointment" class="btn-primary">
+                  Book a free consultation
+                  <Icon name="move-right" cls="w-4 h-4" />
+                </a>
+                {/* Only the categories with a page in `serviceDetails` get a
+                    link — the rest simply don't show one. */}
+                {
+                  detailSlugs.has(cat.slug) && (
+                    <a
+                      href={`/services/${cat.slug}`}
+                      class="group inline-flex items-center gap-1.5 text-sm font-semibold text-olive underline decoration-gold underline-offset-4 transition-colors hover:text-gold"
+                    >
+                      Treatment details
+                      <Icon
+                        name="arrow"
+                        cls="w-4 h-4 transition-transform group-hover:translate-x-0.5"
+                      />
+                    </a>
+                  )
+                }
+              </div>
             </div>
 
             {/* right: the menu itself */}

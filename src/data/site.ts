@@ -59,6 +59,12 @@ export type HeroSlide = {
   name: string; // the headline shown on the left — just the service name
   eyebrow: string; // short label used for the slide selector
   image: string; // local path (local:true) or Unsplash base URL
+  /**
+   * Optional looping background clip. When set, `image` becomes its poster —
+   * which is also what shows if the browser cannot play WebM, or if the
+   * visitor has asked for reduced motion.
+   */
+  video?: string;
   local?: boolean;
   primary?: boolean;
   headingClass?: string; // override heading colour for legibility on this image
@@ -87,6 +93,23 @@ export const heroMeta = {
  * skincare and uses the real brand photo.
  */
 export const heroSlides: HeroSlide[] = [
+  {
+    name: "The Auresca Ritual",
+    eyebrow: "The Ritual",
+    image: "/images/hero-ritual.webp",
+    video: "/videos/hero-ritual.webm",
+    local: true,
+    primary: true,
+    headingClass: "text-olive",
+    // Subject sits right of frame with open space to the left, so phones crop
+    // towards her and desktop can sit centred.
+    objectClass: "object-[72%_center] lg:object-center",
+    lead: "Where Science",
+    accent: "Meets",
+    tail: "Ritual",
+    desc: "A boutique skin, hair and aesthetics clinic — medical precision, delivered with the calm of a retreat.",
+    cta: { label: "Book a free consultation", href: "/#appointment" },
+  },
   {
     name: "Skincare",
     eyebrow: "Skincare",
@@ -213,7 +236,7 @@ export const serviceCategories: ServiceCategory[] = [
     title: "Laser Hair Reduction",
     tagline:
       "Comfortable, downtime-free laser for smooth, beautifully even skin — every area, from a single upper lip to full body.",
-    image: "/images/hero-laser.webp",
+    image: "/images/service-laser.webp",
     local: true,
     groups: [
       {
@@ -251,7 +274,7 @@ export const serviceCategories: ServiceCategory[] = [
     title: "Facials & Medi-Facials",
     tagline:
       "Clinical facials tailored to your skin barrier — from a quick radiance boost to a full medi-facial protocol.",
-    image: "/images/service-skin-facial.jpg",
+    image: "/images/service-facials.webp",
     local: true,
     groups: [
       {
@@ -273,7 +296,7 @@ export const serviceCategories: ServiceCategory[] = [
     title: "Body Contouring & Slimming",
     tagline:
       "Non-invasive sculpting, fat reduction and skin tightening that define and refine on your own timeline.",
-    image: "/images/service-body-contour.jpg",
+    image: "/images/service-body-contouring.webp",
     local: true,
     groups: [
       {
@@ -297,7 +320,7 @@ export const serviceCategories: ServiceCategory[] = [
     title: "Antiaging & Injectables",
     tagline:
       "Regenerative therapy, expert-administered injectables and precision resurfacing — supervised by qualified medical professionals.",
-    image: "/images/hero-antiageing.webp",
+    image: "/images/service-antiaging.webp",
     local: true,
     groups: [
       {
@@ -344,7 +367,7 @@ export const serviceCategories: ServiceCategory[] = [
     title: "Hair Regeneration",
     tagline:
       "Regenerative scalp therapy that restores density and strength — PRP, GFC and exosome protocols.",
-    image: "/images/service-hair-scalp.jpg",
+    image: "/images/service-hair-regeneration.webp",
     local: true,
     groups: [
       {
@@ -503,23 +526,27 @@ export type Faq = { q: string; a: string };
 export const faqs: Faq[] = [
   {
     q: "How do I know which treatment is right for me?",
-    a: "Every journey begins with a complimentary consultation. Our dermatology-led team assesses your skin, listens to your goals and builds a personalised plan — there is never any obligation to proceed.",
+    a: "Every treatment journey begins with a consultation, so one always comes first. Your skin, hair or body concern is assessed, and your practitioner takes the time to understand your goals, medical history and expectations before recommending a plan.",
   },
   {
-    q: "Are the treatments safe and who performs them?",
-    a: "All procedures are performed or supervised by qualified medical professionals using clinically approved technology. Your safety, comfort and consent guide every decision we make.",
+    q: "Are the treatments safe, and who performs them?",
+    a: "All treatments are performed or supervised by qualified medical professionals using clinically approved technology. Safety also depends on the procedure and your individual health, which is why a medical assessment is completed before any treatment begins.",
   },
   {
-    q: "Is there any downtime?",
-    a: "Most of our facials and laser treatments are designed to fit into a busy life with little to no downtime. Where a procedure needs recovery, we tell you exactly what to expect beforehand.",
+    q: "Is there any downtime after treatment?",
+    a: "Downtime varies by treatment. Many of our facials and laser treatments are designed to involve little or no downtime, while some procedures may require recovery — we tell you exactly what to expect beforehand.",
   },
   {
-    q: "How many sessions will I need?",
-    a: "It depends on your concern and skin. Many clients see a visible difference after the first session, with a recommended course for lasting results — we'll share a clear roadmap upfront.",
+    q: "How many sessions will I need, and when will I see results?",
+    a: "It depends on the treatment, your concern, your skin or hair type and how you respond. Some treatments show a visible improvement after the first session; others need a course for optimal, longer-lasting results. You'll receive a personalised plan after your consultation.",
   },
   {
-    q: "What does a consultation cost?",
-    a: "Your first consultation is on us. We'd rather earn your trust with honest advice than with a price tag.",
+    q: "Do treatments have any side effects?",
+    a: "Some treatments may cause temporary effects such as redness, swelling, sensitivity or irritation. The expected risks depend on the specific procedure and are explained during your consultation.",
+  },
+  {
+    q: "Is the first consultation free?",
+    a: "Yes — your first consultation is complimentary. We'd rather earn your trust with honest advice than with a price tag.",
   },
 ];
 

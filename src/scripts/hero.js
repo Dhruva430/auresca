@@ -5,11 +5,41 @@ if (hero) {
   var track = hero.querySelector("[data-hero-track]");
   var realSlides = Array.prototype.slice.call(hero.querySelectorAll("[data-hero-slide]"));
   var dots = Array.prototype.slice.call(hero.querySelectorAll("[data-hero-dot]"));
+
+  // Reduced motion: hold the clip on its poster frame instead of looping.
+  // Done before the clones are made so they inherit the same state.
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    Array.prototype.forEach.call(
+      hero.querySelectorAll("[data-hero-video]"),
+      function (v) {
+        v.removeAttribute("autoplay");
+        v.pause();
+      }
+    );
+  }
+
   if (track && realSlides.length > 1) {
     var count = realSlides.length;
     var timer = null;
-    var DELAY = 6000;
+    var DELAY = 6000; // a still slide's turn on screen
+    var GRACE = 800; // watchdog headroom over a clip's own length
     var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    var videoIn = function (index) {
+      var slide = realSlides[index];
+      return slide ? slide.querySelector("[data-hero-video]") : null;
+    };
+
+    // A slide carrying a clip moves on when the clip fires `ended`, so what
+    // this returns is only a watchdog: playback that never starts (blocked
+    // autoplay, a decode error, metadata that never arrives) must not leave
+    // the carousel parked forever. `ended` beats the watchdog every time
+    // playback actually runs.
+    var holdFor = function (index) {
+      var v = videoIn(index);
+      var secs = v ? v.duration : 0;
+      return isFinite(secs) && secs > 0 ? Math.ceil(secs * 1000) + GRACE : DELAY;
+    };
 
     // Clone the last + first slides onto each end so dragging past an edge
     // reveals a seamless copy; we then silently jump back to the real slide.
@@ -18,6 +48,18 @@ if (hero) {
     [firstClone, lastClone].forEach(function (c) {
       c.classList.add("is-clone");
       c.setAttribute("aria-hidden", "true");
+      // A cloned <video> fetches and decodes a second copy of the same file
+      // for an edge that is only ever on screen mid-drag. The poster frame
+      // stands in for it — same picture, none of the cost.
+      Array.prototype.forEach.call(c.querySelectorAll("video"), function (v) {
+        var still = document.createElement("img");
+        still.src = v.getAttribute("poster") || "";
+        still.alt = "";
+        still.className = v.className;
+        still.setAttribute("aria-hidden", "true");
+        still.setAttribute("draggable", "false");
+        v.parentNode.replaceChild(still, v);
+      });
     });
     track.appendChild(firstClone);
     track.insertBefore(lastClone, realSlides[0]);
@@ -38,6 +80,7 @@ if (hero) {
         if (active) d.setAttribute("aria-current", "true");
         else d.removeAttribute("aria-current");
       });
+      syncVideos();
     };
 
     var setTransform = function (animate) {
@@ -73,14 +116,74 @@ if (hero) {
 
     var advance = function () { go(pos + 1); };
 
+    // Self-rescheduling rather than a fixed interval, so each slide can ask
+    // for its own time on screen. Running the carousel and playing the current
+    // clip are the same state: pause one and the other pauses with it, which
+    // is what stops a clip reaching `ended` while the carousel is held.
     var start = function () {
       if (reduce) return;
       stop();
-      timer = window.setInterval(advance, DELAY);
+      var v = videoIn(logical());
+      if (v && !v.ended) {
+        var playing = v.play();
+        if (playing && playing.catch) playing.catch(function () {});
+      }
+      timer = window.setTimeout(function () {
+        advance();
+        start();
+      }, holdFor(logical()));
     };
     var stop = function () {
-      if (timer) { window.clearInterval(timer); timer = null; }
+      if (timer) { window.clearTimeout(timer); timer = null; }
+      var v = videoIn(logical());
+      if (v) v.pause();
     };
+
+    // A clip that has played through is parked on its last frame, so coming
+    // back round to it needs a rewind. Clips on other slides are paused —
+    // there is nothing to gain from decoding one nobody is looking at.
+    var lastLogical = -1;
+    var syncVideos = function () {
+      // Sliding onto a clone is not the slide arriving — the clone is showing
+      // the poster and the snap to the real twin follows. Waiting for that
+      // keeps the clip from starting behind the transition and losing its tail.
+      if (pos === 0 || pos === all.length - 1) return;
+      var cur = logical();
+      if (cur === lastLogical) return;
+      lastLogical = cur;
+      var rewound = false;
+      realSlides.forEach(function (slide, i) {
+        var v = slide.querySelector("[data-hero-video]");
+        if (!v) return;
+        if (i !== cur) { v.pause(); return; }
+        try { v.currentTime = 0; } catch (e) { /* not seekable yet */ }
+        rewound = true;
+      });
+      // `start()` does the playing; re-arming here means the clip is measured
+      // from the frame it actually restarts on, not from whenever the
+      // transition towards this slide began.
+      if (rewound && timer) start();
+    };
+
+    realSlides.forEach(function (slide, i) {
+      var v = slide.querySelector("[data-hero-video]");
+      if (!v) return;
+
+      // The clip plays through once, and reaching its end is what moves the
+      // carousel on. Everything after it is back on the plain DELAY rhythm.
+      v.addEventListener("ended", function () {
+        if (reduce || !timer || logical() !== i) return;
+        advance();
+        start();
+      });
+
+      // Duration is rarely known on the first tick, so the watchdog starts out
+      // at the DELAY fallback. Stretch it once the real length is in, or the
+      // opening clip would be cut off at six seconds.
+      v.addEventListener("loadedmetadata", function () {
+        if (timer && logical() === i) start();
+      });
+    });
 
     setActive();
     setTransform(false);

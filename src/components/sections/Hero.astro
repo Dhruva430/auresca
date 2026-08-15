@@ -32,20 +32,37 @@ import { img, srcset } from "@/lib/helpers";
               aria-roledescription="slide"
               aria-label={`${i + 1} of ${heroSlides.length}`}
             >
-              {/* background image */}
-              <img
-                src={src}
-                srcset={sset || undefined}
-                sizes={sset ? "100vw" : undefined}
-                alt={`${slide.eyebrow} at Auresca Care`}
-                width="1680"
-                height="980"
-                fetchpriority={eager ? "high" : undefined}
-                loading={eager ? undefined : "lazy"}
-                decoding="async"
-                draggable="false"
-                class={`hero-img pointer-events-none relative h-[46vh] w-full object-cover lg:absolute lg:inset-0 lg:h-full ${slide.objectClass || "object-[70%_center] lg:object-center"}`}
-              />
+              {/* background — a looping clip when the slide has one, the
+                  photograph otherwise. Both land in the same box. */}
+              {slide.video ? (
+                <video
+                  data-hero-video
+                  src={slide.video}
+                  poster={src}
+                  autoplay
+                  muted
+                  playsinline
+                  preload="metadata"
+                  aria-label={`${slide.name} at Auresca Care`}
+                  width="1920"
+                  height="1080"
+                  class={`hero-img pointer-events-none relative h-[46vh] w-full object-cover lg:absolute lg:inset-0 lg:h-full ${slide.objectClass || "object-[70%_center] lg:object-center"}`}
+                />
+              ) : (
+                <img
+                  src={src}
+                  srcset={sset || undefined}
+                  sizes={sset ? "100vw" : undefined}
+                  alt={`${slide.eyebrow} at Auresca Care`}
+                  width="1680"
+                  height="980"
+                  fetchpriority={eager ? "high" : undefined}
+                  loading={eager ? undefined : "lazy"}
+                  decoding="async"
+                  draggable="false"
+                  class={`hero-img pointer-events-none relative h-[46vh] w-full object-cover lg:absolute lg:inset-0 lg:h-full ${slide.objectClass || "object-[70%_center] lg:object-center"}`}
+                />
+              )}
 
               {/* copy */}
               <div class="container-wide relative flex items-center py-10 lg:min-h-[calc(100vh-8.5rem)] lg:py-0 lg:pb-20">

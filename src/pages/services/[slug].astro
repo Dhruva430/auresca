@@ -1,0 +1,654 @@
+---
+/**
+ * One template for every service page.
+ *
+ * Paths come from `serviceDetails` in `src/data/services.ts`, so a category
+ * without written content simply has no page — nothing here needs to know
+ * which services exist. Add an entry there and the route, the schema and the
+ * whole layout come along with it.
+ */
+import Layout from "@/layouts/Layout.astro";
+import Icon from "@/components/Icon.astro";
+import { site } from "@/data/site";
+import { serviceDetails, type ServiceDetail } from "@/data/services";
+
+export function getStaticPaths() {
+  return serviceDetails.map((service) => ({
+    params: { slug: service.slug },
+    props: { service },
+  }));
+}
+
+interface Props {
+  service: ServiceDetail;
+}
+
+const { service } = Astro.props;
+const url = new URL(Astro.url.pathname, Astro.site);
+
+// Two separate blocks rather than one @graph: the FAQ entries are the only
+// part an answer engine tends to lift on its own.
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalProcedure",
+  name: service.name,
+  url: url.href,
+  description: service.metaDescription,
+  procedureType: "https://schema.org/NoninvasiveProcedure",
+  howPerformed: service.science.body[0],
+  preparation: service.care.before.join(" "),
+  followup: service.care.after.join(" "),
+  provider: {
+    "@type": "MedicalClinic",
+    name: site.name,
+    telephone: site.phone,
+    address: site.address,
+  },
+};
+
+// Ids are assigned here rather than during render so they stay stable and the
+// "open by default" flag lands on the very first question overall, not on the
+// first question of every group.
+const faqGroups = service.faqGroups.map((group, g) => ({
+  ...group,
+  items: group.items.map((f, i) => ({
+    ...f,
+    uid: `${group.id}-${i}`,
+    open: g === 0 && i === 0,
+  })),
+}));
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: service.faqGroups.flatMap((group) =>
+    group.items.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    }))
+  ),
+};
+---
+
+<Layout title={service.metaTitle} description={service.metaDescription}>
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify(serviceSchema)}
+    is:inline
+  />
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify(faqSchema)}
+    is:inline
+  />
+
+  <!-- ========================= HERO ========================= -->
+  <section class="relative overflow-hidden bg-cream bg-grain">
+    <div
+      class="pointer-events-none absolute -right-24 -top-16 h-80 w-80 rounded-full bg-rose-blush/30 blur-3xl"
+    >
+    </div>
+
+    <div
+      class="container-content relative grid items-center gap-10 py-12 lg:grid-cols-2 lg:gap-16 lg:py-16"
+    >
+      <div class="reveal reveal-left">
+        <nav aria-label="Breadcrumb" class="text-xs text-charcoal/50">
+          <ol class="flex flex-wrap items-center gap-1.5">
+            <li><a href="/" class="transition-colors hover:text-gold">Home</a></li>
+            <li aria-hidden="true">/</li>
+            <li>
+              <a href="/#services" class="transition-colors hover:text-gold"
+                >Services</a
+              >
+            </li>
+            <li aria-hidden="true">/</li>
+            <li class="font-medium text-olive" aria-current="page">
+              {service.name}
+            </li>
+          </ol>
+        </nav>
+
+        <span class="eyebrow mt-6"
+          ><span class="h-px w-6 bg-gold"></span>{service.eyebrow}</span
+        >
+        <h1
+          class="mt-4 font-display text-4xl font-medium leading-tight text-olive sm:text-5xl lg:text-[3.4rem] text-balance"
+        >
+          {service.name}
+        </h1>
+        <p class="mt-4 font-display text-xl italic leading-relaxed text-gold">
+          {service.headline}
+        </p>
+        <p class="mt-4 max-w-xl leading-relaxed text-charcoal/75">
+          {service.intro}
+        </p>
+
+        <div class="mt-8 flex flex-wrap items-center gap-3">
+          <a href="/#appointment" data-open-appointment class="btn-primary">
+            Book a free consultation
+            <Icon name="move-right" cls="w-4 h-4" />
+          </a>
+          <a
+            href={site.phoneHref}
+            class="btn-ghost gap-2 ring-1 ring-beige hover:ring-gold/50"
+          >
+            <Icon name="phone" cls="w-4 h-4" />
+            <span class="font-sans tracking-[0.01em]">{site.phone}</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="reveal reveal-scale">
+        <div
+          class="group overflow-hidden rounded-[2rem] shadow-card ring-1 ring-white/60"
+        >
+          <img
+            src={service.image}
+            alt={service.imageAlt}
+            width="900"
+            height="700"
+            fetchpriority="high"
+            decoding="async"
+            class="aspect-[5/4] w-full object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- quick facts — the answers people scan for before reading anything -->
+    <div class="container-content pb-12 lg:pb-16">
+      <ul
+        class="grid gap-px overflow-hidden rounded-3xl bg-beige/70 ring-1 ring-beige sm:grid-cols-2 lg:grid-cols-3"
+        data-stagger="60"
+      >
+        {
+          service.specs.map((spec) => (
+            <li class="reveal flex items-center gap-3.5 bg-ivory px-5 py-4">
+              <span class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-cream text-gold">
+                <Icon name={spec.icon} cls="w-5 h-5" />
+              </span>
+              <div class="min-w-0">
+                <p class="text-[11px] uppercase tracking-[0.16em] text-charcoal/50">
+                  {spec.label}
+                </p>
+                <p class="mt-0.5 font-medium text-olive">{spec.value}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- ======================= THE SCIENCE ======================= -->
+  <section class="section bg-ivory">
+    <div class="container-content grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+      <div class="reveal reveal-left lg:sticky lg:top-28 lg:self-start">
+        <span class="eyebrow"
+          ><span class="h-px w-6 bg-gold"></span>The Science</span
+        >
+        <h2
+          class="mt-4 font-display text-3xl font-medium text-olive sm:text-4xl text-balance"
+        >
+          {service.science.title}
+        </h2>
+      </div>
+      {/* No `.reveal` on the wrapper — the paragraphs inside carry it, and
+          nesting the two compounds their transforms. */}
+      <div class="space-y-5" data-stagger="70">
+        {
+          service.science.body.map((para) => (
+            <p class="reveal reveal-right leading-relaxed text-charcoal/75">
+              {para}
+            </p>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= THE VISIT ======================= -->
+  <section class="section bg-cream bg-grain">
+    <div class="container-content">
+      <div class="reveal mx-auto max-w-2xl text-center">
+        <span class="eyebrow justify-center"
+          ><span class="h-px w-6 bg-gold"></span>Your Visit<span
+            class="h-px w-6 bg-gold"></span
+          ></span
+        >
+        <h2
+          class="mt-4 font-display text-3xl font-medium text-olive sm:text-4xl text-balance"
+        >
+          {service.visit.title}
+        </h2>
+        <p class="mt-4 text-charcoal/70">{service.visit.intro}</p>
+      </div>
+
+      <ol class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4" data-stagger="80">
+        {
+          service.visit.steps.map((step, i) => (
+            <li class="reveal reveal-scale rounded-3xl bg-white p-7 shadow-soft ring-1 ring-beige/70 transition-shadow duration-300 hover:shadow-card">
+              <span class="grid h-11 w-11 place-items-center rounded-full bg-gold-grad font-display text-lg text-white shadow-gold">
+                {i + 1}
+              </span>
+              <h3 class="mt-5 font-display text-xl text-olive">{step.title}</h3>
+              <p class="mt-2.5 text-sm leading-relaxed text-charcoal/70">
+                {step.desc}
+              </p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- ==================== AREAS & SESSIONS ==================== -->
+  <section id="areas" class="section bg-ivory">
+    <div class="container-content">
+      <div class="reveal mx-auto max-w-2xl text-center">
+        <span class="eyebrow justify-center"
+          ><span class="h-px w-6 bg-gold"></span>Areas &amp; Sessions<span
+            class="h-px w-6 bg-gold"></span
+          ></span
+        >
+        <h2
+          class="mt-4 font-display text-3xl font-medium text-olive sm:text-4xl text-balance"
+        >
+          {service.areas.title}
+        </h2>
+        <p class="mt-4 text-charcoal/70">{service.areas.intro}</p>
+      </div>
+
+      <div class="mt-10 grid gap-6 lg:grid-cols-2" data-stagger="90">
+        {
+          service.areas.groups.map((group) => (
+            <div class="reveal reveal-scale overflow-hidden rounded-3xl bg-white shadow-soft ring-1 ring-beige">
+              <h3 class="flex items-center gap-2 border-b border-beige bg-cream/70 px-6 py-4 font-display text-xl text-olive">
+                <Icon name="laser" cls="w-5 h-5 text-gold" />
+                {group.title}
+              </h3>
+              {/* Scrolls inside itself on narrow screens rather than pushing
+                  the page sideways. */}
+              <div class="overflow-x-auto">
+                <table class="w-full min-w-[22rem] text-left text-sm">
+                  <thead>
+                    <tr class="text-[11px] uppercase tracking-[0.16em] text-charcoal/50">
+                      <th scope="col" class="px-6 py-3 font-medium">Area</th>
+                      <th scope="col" class="px-3 py-3 font-medium">
+                        Typical course
+                      </th>
+                      <th scope="col" class="px-6 py-3 text-right font-medium">
+                        From
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {group.rows.map((row) => (
+                      <tr class="border-t border-beige/70 transition-colors hover:bg-cream/50">
+                        <th
+                          scope="row"
+                          class="px-6 py-3.5 font-medium text-charcoal/85"
+                        >
+                          {row.area}
+                        </th>
+                        <td class="whitespace-nowrap px-3 py-3.5 text-charcoal/65">
+                          {row.sessions} sessions
+                        </td>
+                        <td class="whitespace-nowrap px-6 py-3.5 text-right">
+                          {row.priceFrom ? (
+                            <span class="font-semibold text-olive">
+                              {row.priceFrom}
+                            </span>
+                          ) : (
+                            <a
+                              href="/#appointment"
+                              data-open-appointment
+                              class="font-medium text-gold underline decoration-gold/40 underline-offset-4 transition-colors hover:text-olive"
+                            >
+                              On request
+                            </a>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+      <p
+        class="reveal mx-auto mt-8 max-w-3xl rounded-3xl bg-cream px-6 py-4 text-center text-sm leading-relaxed text-charcoal/65 ring-1 ring-beige"
+      >
+        <Icon name="sparkle" cls="mr-1.5 inline w-4 h-4 align-[-3px] text-gold" />
+        {service.areas.note}
+      </p>
+    </div>
+  </section>
+
+  <!-- ======================= TECHNOLOGY ======================= -->
+  <section class="section bg-olive text-ivory">
+    <div class="container-content">
+      <div class="reveal mx-auto max-w-2xl text-center">
+        <span class="eyebrow justify-center text-gold-champagne"
+          ><span class="h-px w-6 bg-gold-champagne/60"></span>Technology<span
+            class="h-px w-6 bg-gold-champagne/60"></span
+          ></span
+        >
+        <h2
+          class="mt-4 font-display text-3xl font-medium text-white sm:text-4xl text-balance"
+        >
+          {service.technology.title}
+        </h2>
+        <p class="mt-4 leading-relaxed text-ivory/75">
+          {service.technology.intro}
+        </p>
+      </div>
+
+      <div class="mt-10 grid gap-5 sm:grid-cols-2" data-stagger="80">
+        {
+          service.technology.points.map((point) => (
+            <div class="reveal reveal-scale rounded-3xl bg-white/[0.07] p-6 ring-1 ring-white/15 transition-colors hover:bg-white/[0.11]">
+              <h3 class="font-display text-xl text-gold-champagne">
+                {point.title}
+              </h3>
+              <p class="mt-2.5 text-sm leading-relaxed text-ivory/75">
+                {point.desc}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= SUITABILITY ======================= -->
+  <section class="section bg-ivory">
+    <div class="container-content">
+      <div class="reveal mx-auto max-w-2xl text-center">
+        <span class="eyebrow justify-center"
+          ><span class="h-px w-6 bg-gold"></span>Suitability<span
+            class="h-px w-6 bg-gold"></span
+          ></span
+        >
+        <h2
+          class="mt-4 font-display text-3xl font-medium text-olive sm:text-4xl text-balance"
+        >
+          {service.suitability.title}
+        </h2>
+      </div>
+
+      <div class="mt-10 grid gap-6 lg:grid-cols-2">
+        <div class="reveal reveal-left rounded-3xl bg-white p-7 shadow-soft ring-1 ring-beige/70">
+          <h3 class="flex items-center gap-2.5 font-display text-xl text-olive">
+            <span
+              class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-sage-soft/40 text-olive"
+            >
+              <Icon name="check" cls="w-5 h-5" />
+            </span>
+            {service.suitability.goodTitle}
+          </h3>
+          <ul class="mt-5 space-y-3">
+            {
+              service.suitability.good.map((item) => (
+                <li class="flex gap-3 text-sm leading-relaxed text-charcoal/75">
+                  <Icon
+                    name="check"
+                    cls="mt-0.5 w-4 h-4 shrink-0 text-sage"
+                  />
+                  <span>{item}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <div class="reveal reveal-right rounded-3xl bg-white p-7 shadow-soft ring-1 ring-beige/70">
+          <h3 class="flex items-center gap-2.5 font-display text-xl text-olive">
+            <span
+              class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-rose-blush/60 text-olive"
+            >
+              <Icon name="shield" cls="w-5 h-5" />
+            </span>
+            {service.suitability.waitTitle}
+          </h3>
+          <ul class="mt-5 space-y-3">
+            {
+              service.suitability.wait.map((item) => (
+                <li class="flex gap-3 text-sm leading-relaxed text-charcoal/75">
+                  <span class="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-rose" />
+                  <span>{item}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== BEFORE & AFTER CARE ==================== -->
+  <section class="section bg-cream bg-grain">
+    <div class="container-content">
+      <div class="reveal mx-auto max-w-2xl text-center">
+        <span class="eyebrow justify-center"
+          ><span class="h-px w-6 bg-gold"></span>Aftercare<span
+            class="h-px w-6 bg-gold"></span
+          ></span
+        >
+        <h2
+          class="mt-4 font-display text-3xl font-medium text-olive sm:text-4xl text-balance"
+        >
+          {service.care.title}
+        </h2>
+        <p class="mt-4 text-charcoal/70">{service.care.intro}</p>
+      </div>
+
+      <div class="mt-10 grid gap-6 lg:grid-cols-2">
+        {
+          [
+            {
+              title: service.care.beforeTitle,
+              icon: "clock",
+              items: service.care.before,
+            },
+            {
+              title: service.care.afterTitle,
+              icon: "leaf",
+              items: service.care.after,
+            },
+          ].map((col, c) => (
+            <div
+              class={`reveal ${c === 0 ? "reveal-left" : "reveal-right"} rounded-3xl bg-white p-7 shadow-soft ring-1 ring-beige`}
+            >
+              <h3 class="flex items-center gap-2.5 font-display text-xl text-olive">
+                <span class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-cream text-gold">
+                  <Icon name={col.icon} cls="w-5 h-5" />
+                </span>
+                {col.title}
+              </h3>
+              <ol class="mt-5 space-y-3.5">
+                {col.items.map((item, i) => (
+                  <li class="flex gap-3.5 text-sm leading-relaxed text-charcoal/75">
+                    <span class="mt-px font-display text-sm text-gold/70">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= RESULTS ========================= -->
+  <section class="section bg-ivory">
+    <div class="container-content grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+      <div class="reveal reveal-left lg:sticky lg:top-28 lg:self-start">
+        <span class="eyebrow"
+          ><span class="h-px w-6 bg-gold"></span>Expectations</span
+        >
+        <h2
+          class="mt-4 font-display text-3xl font-medium text-olive sm:text-4xl text-balance"
+        >
+          {service.results.title}
+        </h2>
+        <p
+          class="mt-5 border-l-2 border-gold pl-5 font-display text-lg italic leading-relaxed text-olive"
+        >
+          {service.results.lead}
+        </p>
+      </div>
+
+      <div>
+        <div class="reveal space-y-4">
+          {
+            service.results.body.map((para) => (
+              <p class="leading-relaxed text-charcoal/75">{para}</p>
+            ))
+          }
+        </div>
+        <div class="mt-8 grid gap-4 sm:grid-cols-2" data-stagger="80">
+          {
+            service.results.points.map((point) => (
+              <div class="reveal reveal-scale rounded-2xl bg-cream p-5 ring-1 ring-beige">
+                <h3 class="font-display text-lg text-olive">{point.title}</h3>
+                <p class="mt-2 text-sm leading-relaxed text-charcoal/70">
+                  {point.desc}
+                </p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================== FAQ =========================== -->
+  <section
+    id="faq"
+    aria-labelledby="service-faq-title"
+    class="section bg-cream bg-grain"
+  >
+    <div class="container-content">
+      <div class="reveal mx-auto max-w-2xl text-center">
+        <span class="eyebrow justify-center"
+          ><span class="h-px w-6 bg-gold"></span>Good to Know<span
+            class="h-px w-6 bg-gold"></span
+          ></span
+        >
+        <h2
+          id="service-faq-title"
+          class="mt-4 font-display text-3xl font-medium text-olive sm:text-4xl text-balance"
+        >
+          {service.name} — your questions
+        </h2>
+
+        <!-- Jump links. A reference-length FAQ needs a way past the questions
+             you already know the answer to. -->
+        <nav
+          aria-label="FAQ categories"
+          class="mt-6 flex flex-wrap justify-center gap-2"
+        >
+          {
+            faqGroups.map((group) => (
+              <a
+                href={`#faq-${group.id}`}
+                class="rounded-full bg-white/80 px-4 py-2 text-xs font-semibold text-olive ring-1 ring-beige transition-colors hover:bg-white hover:text-gold hover:ring-gold/40"
+              >
+                {group.title}
+              </a>
+            ))
+          }
+        </nav>
+      </div>
+
+      <div class="mx-auto mt-12 max-w-3xl space-y-10">
+        {
+          faqGroups.map((group) => (
+            <div>
+              <h3
+                id={`faq-${group.id}`}
+                class="eyebrow scroll-mt-28 font-sans"
+              >
+                <span class="h-px w-6 bg-gold" />
+                {group.title}
+              </h3>
+
+              <div class="mt-4 space-y-3" data-stagger="60">
+                {group.items.map((f) => (
+                  <div
+                    class="faq-item reveal reveal-scale rounded-2xl bg-white shadow-soft ring-1 ring-beige transition-shadow duration-300 hover:ring-gold/40"
+                    data-faq
+                  >
+                    <button
+                      type="button"
+                      id={`svc-faq-q-${f.uid}`}
+                      class="faq-trigger flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
+                      aria-expanded={f.open ? "true" : "false"}
+                      aria-controls={`svc-faq-a-${f.uid}`}
+                    >
+                      <span class="faq-q font-display text-lg text-olive transition-colors sm:text-xl">
+                        {f.q}
+                      </span>
+                      <span class="faq-icon grid h-9 w-9 shrink-0 place-items-center rounded-full bg-cream text-gold transition-all duration-300">
+                        <Icon name="chevron" cls="w-5 h-5" />
+                      </span>
+                    </button>
+                    <div
+                      id={`svc-faq-a-${f.uid}`}
+                      role="region"
+                      aria-labelledby={`svc-faq-q-${f.uid}`}
+                      class="faq-panel overflow-hidden px-6 transition-all duration-300"
+                      style={f.open ? undefined : "max-height:0"}
+                    >
+                      <p class="pb-5 text-sm leading-relaxed text-charcoal/70">
+                        {f.a}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= CTA BAND ========================= -->
+  <section class="bg-sage text-ivory">
+    <div class="container-content py-14 text-center lg:py-16">
+      <div class="reveal reveal-scale mx-auto max-w-2xl">
+        <h2 class="font-display text-3xl font-medium text-white sm:text-4xl text-balance">
+          Start with a conversation, not a package
+        </h2>
+        <p class="mt-4 leading-relaxed text-ivory/80">
+          Your first consultation is complimentary. We'll assess your skin and
+          hair, run a patch test where it's needed, and give you a plan and a
+          price in writing — with no obligation to book.
+        </p>
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <a href="/#appointment" data-open-appointment class="btn-primary">
+            Book a free consultation
+            <Icon name="move-right" cls="w-4 h-4" />
+          </a>
+          <a href={site.whatsappHref} class="btn-outline" rel="noopener">
+            <Icon name="whatsapp" cls="w-4 h-4" />
+            WhatsApp us
+          </a>
+        </div>
+        <p class="mt-6 text-sm text-ivory/65">
+          {site.address}
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>
