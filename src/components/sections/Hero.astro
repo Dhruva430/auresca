@@ -41,8 +41,8 @@ import { img, srcset } from "@/lib/helpers";
           // of one line and the cap top of the next. The 0.86 this replaces
           // was under the cap height itself — the two lines nearly touched.
           const headingType = slide.dark
-            ? "text-[clamp(2.5rem,12vw,9rem)] leading-[1.03] tracking-[-0.015em] [word-spacing:0.08em]"
-            : "text-5xl leading-[1.05] sm:text-6xl lg:text-7xl text-balance";
+            ? "text-[clamp(2.5rem,12vw,9rem)] leading-[1.03] tracking-[0.02em] [word-spacing:0.08em]"
+            : "text-[3rem] leading-[0.98] tracking-[-0.015em] sm:text-[3.5rem] lg:text-[5rem] text-balance";
           const copyWidth = slide.dark
             ? "max-w-xl lg:max-w-[min(68vw,1100px)]"
             : "max-w-xl";
@@ -117,6 +117,12 @@ import { img, srcset } from "@/lib/helpers";
                 class={`container-wide relative flex items-center py-10 lg:min-h-screen lg:py-0 lg:pb-20 ${isVideo ? "lg:items-end" : ""}`}
               >
                 <div class={`hero-copy ${copyWidth} ${align} lg:py-16`}>
+                  {!isVideo && (
+                    <span class="eyebrow mb-4">
+                      <span class="h-px w-6 bg-gold" />
+                      {slide.eyebrow}
+                    </span>
+                  )}
                   <h1
                     class={`font-display font-semibold ${headingType} ${slide.headingClass || "text-sage"}`}
                   >
