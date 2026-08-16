@@ -256,7 +256,9 @@
      it to 1rem would leave the prose looking smaller than its own captions.
      A `text-*` utility on the element still wins, for tighter contexts. */
   .prose-serif {
-    @apply font-sans text-[1.3rem] leading-[1.7];
+    @apply font-sans text-[1.3rem] leading-[1.6];
+    /* Keeps a single word off the last line. Ignored where unsupported. */
+    text-wrap: pretty;
   }
 
   .eyebrow {

@@ -52,12 +52,13 @@ import { img, srcset } from "@/lib/helpers";
           // is what centres it vertically.
           const isVideo = !!slide.video;
           const align = slide.align === "right" ? "lg:ml-auto lg:text-left" : "";
-          // Runs the full width of the column as a single line, like the
-          // reference. The whole sentence is 36.14em in Centaur, so the size is
-          // tied to the viewport — 1.8vw keeps it inside the column at every
-          // desktop width instead of wrapping on the narrower ones.
+          // The clip slide's standing line is editorial copy, so it takes the
+          // serif — and the sizing here was calibrated against it. The sentence
+          // is 34.89em in Centaur against 42.20em in the interface face, so on
+          // Manrope it had started wrapping at every width below 1920. Tying
+          // the size to the viewport at 1.8vw keeps it to one line throughout.
           const descType = isVideo
-            ? "max-w-md text-[clamp(1rem,1.8vw,1.5rem)] font-semibold lg:max-w-none"
+            ? "prose-serif max-w-md text-[clamp(1rem,1.8vw,1.5rem)] font-semibold lg:max-w-none"
             : "max-w-md text-lg";
 
           return (
