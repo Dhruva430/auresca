@@ -12,8 +12,13 @@
     -webkit-text-size-adjust: 100%;
   }
 
+  /* The base size is set explicitly rather than left at the browser's 16px.
+     Plenty of copy — section intros, category taglines — carries no `text-*`
+     class at all and simply inherits, so without this those paragraphs sat at
+     the old default while everything around them moved up, and read as the
+     smallest type on the page. `text-base` keeps them on the same scale. */
   body {
-    @apply bg-cream text-charcoal font-sans antialiased;
+    @apply bg-cream text-charcoal font-sans text-base antialiased;
   }
 
   h1, h2, h3, h4 {
@@ -46,8 +51,10 @@
   }
 
   /* Buttons */
+  /* Pinned rather than `text-base`, so the button stays at 1rem while the
+     rest of the type scale moves up around it. */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-base font-semibold transition-all duration-300;
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[1rem] font-semibold transition-all duration-300;
   }
   /*
    * Primary "Book Appointment" CTA — two-colour swap (gold -> olive):

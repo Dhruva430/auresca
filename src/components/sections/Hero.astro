@@ -170,29 +170,29 @@ import { img, srcset } from "@/lib/helpers";
                     </div>
                   )}
 
-                  {/* trust row */}
-                  {!isVideo && (
-                    <div class="mt-8 flex items-center gap-3">
-                      <div class="flex -space-x-3">
-                        {testimonials.map((t) => (
-                          <img
-                            src={img(t.avatar, 80, 80)}
-                            alt=""
-                            width="80"
-                            height="80"
-                            loading="lazy"
-                            decoding="async"
-                            class="h-10 w-10 rounded-full border-2 border-ivory object-cover"
-                          />
-                        ))}
-                      </div>
-                      <p class={`text-sm ${muted}`}>
-                        <span class={`font-semibold ${strong}`}>
-                          {heroMeta.trust}
-                        </span>
-                      </p>
+                  {/* Trust row. Kept on the clip slide too — it is the only
+                      proof point above the fold now the buttons and feature
+                      checks have gone from it. */}
+                  <div class="mt-8 flex items-center gap-3">
+                    <div class="flex -space-x-3">
+                      {testimonials.map((t) => (
+                        <img
+                          src={img(t.avatar, 80, 80)}
+                          alt=""
+                          width="80"
+                          height="80"
+                          loading="lazy"
+                          decoding="async"
+                          class="h-10 w-10 rounded-full border-2 border-ivory object-cover"
+                        />
+                      ))}
                     </div>
-                  )}
+                    <p class={`text-sm ${muted}`}>
+                      <span class={`font-semibold ${strong}`}>
+                        {heroMeta.trust}
+                      </span>
+                    </p>
+                  </div>
                 </div>
               </div>
             </article>

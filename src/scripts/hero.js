@@ -226,9 +226,13 @@ if (hero) {
       if (!v) return;
 
       // The clip plays through once, and reaching its end is what moves the
-      // carousel on. Everything after it is back on the plain DELAY rhythm.
+      // carousel on — after which everything is back on the plain DELAY
+      // rhythm. Deliberately not conditional on the timer still running: a
+      // clip that has played out has nothing left to hold the slide open, and
+      // requiring a live timer meant a single stray `mouseenter` parked the
+      // carousel on slide one for good.
       v.addEventListener("ended", function () {
-        if (reduce || !timer || logical() !== i) return;
+        if (reduce || logical() !== i) return;
         advance();
         start();
       });
@@ -259,8 +263,21 @@ if (hero) {
     // stopped the clip dead the moment the page loaded, and it took a click to
     // get it going again. A hidden tab is the one case worth pausing for, and
     // that cannot fire spuriously on load.
-    hero.addEventListener("mouseenter", stop);
-    hero.addEventListener("mouseleave", start);
+    // Hover is detected from actual movement, not from `mouseenter`. The hero
+    // fills the window, so a page loading with the cursor already inside it
+    // fires `mouseenter` unprompted — and parking the carousel before the
+    // visitor has done anything is a freeze, not a hover. Movement can only
+    // come from someone actually there.
+    var hovering = false;
+    hero.addEventListener("mousemove", function () {
+      if (hovering) return; // fires constantly; only the first one matters
+      hovering = true;
+      stop();
+    });
+    hero.addEventListener("mouseleave", function () {
+      hovering = false;
+      start();
+    });
     document.addEventListener("visibilitychange", function () {
       if (document.hidden) {
         stop();
