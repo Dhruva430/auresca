@@ -63,7 +63,7 @@ const posts = await getPosts(4);
                 <p class="text-right text-xs font-medium text-charcoal/45">
                   {formatDate(p.data.publishedAt)}
                 </p>
-                <h3 class="mt-2 font-sans text-[1.5rem] font-semibold leading-snug text-olive">
+                <h3 class="mt-2 font-sans text-[1.5rem] leading-snug text-olive">
                   <a href={`/blog/${p.id}`} class="transition hover:text-gold">
                     {p.data.title}
                   </a>
