@@ -48,23 +48,15 @@ export default defineConfig({
       fallbacks: ["system-ui", "sans-serif"],
     },
     {
-      // Centaur is licensed, so it comes from the repo rather than a provider.
-      // The file lives under `src/` on purpose — anything in `public/` would be
-      // copied into the build a second time.
-      provider: fontProviders.local(),
-      name: "Centaur",
+      // The reading voice. Unlike the Centaur it replaces, this ships real
+      // weights and a true italic, so emphasis in prose is drawn rather than
+      // synthesised by the browser.
+      provider: fontProviders.google(),
+      name: "Cormorant Garamond",
       cssVariable: "--font-sans",
-      // The family is a single upright regular: no bold, no italic. Anything
-      // asking for heavier or slanted text is synthesised by the browser.
-      options: {
-        variants: [
-          {
-            weight: 400,
-            style: "normal",
-            src: ["./src/assets/fonts/centaur-400.woff2"],
-          },
-        ],
-      },
+      weights: [400, 500, 600],
+      styles: ["normal", "italic"],
+      subsets: ["latin"],
       fallbacks: ["Georgia", "serif"],
     },
   ],

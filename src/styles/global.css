@@ -247,16 +247,17 @@
                       read in one glance at size
        Manrope        the interface — navigation, controls, labels, meta, card
                       copy: anything scanned rather than read
-       Centaur        this: running prose on the inner pages, where a Venetian
-                      serif earns its keep over a paragraph's length
+       Cormorant      this: running prose, where a Garamond earns its keep over
+         Garamond     a paragraph's length. It ships real weights and a true
+                      italic, so emphasis is drawn rather than synthesised
 
-     The size is not a preference. Centaur's x-height is 0.365em against
-     Manrope's 0.535, so it renders at 68% of its nominal size — 1.3rem here
-     sits at roughly the apparent size of 16px Manrope beside it, and dropping
-     it to 1rem would leave the prose looking smaller than its own captions.
+     The size is not a preference. Cormorant's x-height is 0.395em against
+     Manrope's 0.540, so it renders at 73% of its nominal size — 1.35rem here
+     sits at the apparent size of 16px Manrope beside it, and dropping it to
+     1rem would leave the prose looking smaller than its own captions.
      A `text-*` utility on the element still wins, for tighter contexts. */
   .prose-serif {
-    @apply font-sans text-[1.3rem] leading-[1.6];
+    @apply font-sans text-[1.35rem] leading-[1.6];
     /* Keeps a single word off the last line. Ignored where unsupported. */
     text-wrap: pretty;
   }

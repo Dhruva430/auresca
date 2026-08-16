@@ -25,7 +25,7 @@ const sset = srcset(post.data.coverImage, [640, 900, 1100], 560);
 >
   <article class="bg-ivory">
     <header class="bg-cream bg-grain">
-      <div class="container-content py-14 lg:py-16">
+      <div class="container-content max-w-7xl py-14 lg:py-16">
         <a
           href="/blog"
           class="inline-flex items-center gap-1.5 text-sm font-semibold text-gold hover:gap-2.5 transition-all"
@@ -50,7 +50,7 @@ const sset = srcset(post.data.coverImage, [640, 900, 1100], 560);
       </div>
     </header>
 
-    <div class="container-content -mt-2 pb-6">
+    <div class="container-content max-w-7xl -mt-2 pb-6">
       <img
         src={img(post.data.coverImage, 1100, 560)}
         srcset={sset || undefined}
@@ -63,8 +63,8 @@ const sset = srcset(post.data.coverImage, [640, 900, 1100], 560);
       />
     </div>
 
-    <div class="container-content pb-20">
-      <div class="prose-auresca mx-auto max-w-7xl">
+    <div class="container-content max-w-7xl pb-20">
+      <div class="prose-auresca mx-auto max-w-[36rem]">
         <p class="prose-serif text-[1.6rem] text-olive">
           {post.data.excerpt}
         </p>

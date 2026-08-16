@@ -54,12 +54,17 @@ import { img, srcset } from "@/lib/helpers";
           const align = slide.align === "right" ? "lg:ml-auto lg:text-left" : "";
           // The clip slide's standing line is editorial copy, so it takes the
           // serif — and the sizing here was calibrated against it. The sentence
-          // is 34.89em in Centaur against 42.20em in the interface face, so on
-          // Manrope it had started wrapping at every width below 1920. Tying
-          // the size to the viewport at 1.8vw keeps it to one line throughout.
+          // measures 37.68em in the serif at semibold, against 42.20em in the
+          // interface face. Tying the size to the viewport at 1.7vw keeps it on
+          // one line at every width — 1.8vw left only 2px of slack at 1280 and
+          // the line broke on rounding.
           const descType = isVideo
-            ? "prose-serif max-w-md text-[clamp(1rem,1.8vw,1.5rem)] font-semibold lg:max-w-none"
-            : "max-w-md text-lg";
+            ? "prose-serif max-w-md text-[clamp(1rem,1.7vw,1.5rem)] font-semibold lg:max-w-none"
+            // The photo slides carry the same standing line in the same role,
+              // so they take the serif with it. 1.5rem matches the clip slide's
+              // ceiling, and max-w-lg holds the copy to 56 characters a line —
+              // two lines for every one of them, none stranded on a third.
+            : "prose-serif max-w-lg text-[1.5rem]";
 
           return (
             <article
