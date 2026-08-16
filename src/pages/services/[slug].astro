@@ -121,7 +121,7 @@ const faqSchema = {
         <p class="mt-4 font-display text-xl leading-relaxed text-gold">
           {service.headline}
         </p>
-        <p class="mt-4 max-w-xl leading-relaxed text-charcoal/75">
+        <p class="prose-serif mt-4 max-w-xl text-charcoal/75">
           {service.intro}
         </p>
 
@@ -200,7 +200,7 @@ const faqSchema = {
       <div class="space-y-5" data-stagger="70">
         {
           service.science.body.map((para) => (
-            <p class="reveal reveal-right leading-relaxed text-charcoal/75">
+            <p class="prose-serif reveal reveal-right text-charcoal/75">
               {para}
             </p>
           ))
@@ -501,7 +501,7 @@ const faqSchema = {
           {service.results.title}
         </h2>
         <p
-          class="mt-5 border-l-2 border-gold pl-5 font-display text-lg leading-relaxed text-olive"
+          class="prose-serif mt-5 border-l-2 border-gold pl-5 text-[1.45rem] text-olive"
         >
           {service.results.lead}
         </p>
@@ -511,7 +511,7 @@ const faqSchema = {
         <div class="reveal space-y-4">
           {
             service.results.body.map((para) => (
-              <p class="leading-relaxed text-charcoal/75">{para}</p>
+              <p class="prose-serif text-charcoal/75">{para}</p>
             ))
           }
         </div>
@@ -609,7 +609,7 @@ const faqSchema = {
                       class="faq-panel overflow-hidden px-6 transition-all duration-300"
                       style={f.open ? undefined : "max-height:0"}
                     >
-                      <p class="pb-5 text-base leading-relaxed text-charcoal/70">
+                      <p class="prose-serif pb-5 text-[1.2rem] text-charcoal/70">
                         {f.a}
                       </p>
                     </div>

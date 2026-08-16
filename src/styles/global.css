@@ -242,6 +242,23 @@
     }
   }
 
+  /* Three families, three jobs:
+       Big Shoulders  display headings — condensed, 0.800em caps, built to be
+                      read in one glance at size
+       Manrope        the interface — navigation, controls, labels, meta, card
+                      copy: anything scanned rather than read
+       Centaur        this: running prose on the inner pages, where a Venetian
+                      serif earns its keep over a paragraph's length
+
+     The size is not a preference. Centaur's x-height is 0.365em against
+     Manrope's 0.535, so it renders at 68% of its nominal size — 1.3rem here
+     sits at roughly the apparent size of 16px Manrope beside it, and dropping
+     it to 1rem would leave the prose looking smaller than its own captions.
+     A `text-*` utility on the element still wins, for tighter contexts. */
+  .prose-serif {
+    @apply font-sans text-[1.3rem] leading-[1.7];
+  }
+
   .eyebrow {
     @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-gold;
   }
@@ -588,11 +605,11 @@
   @apply mt-8 font-display text-2xl font-medium text-olive;
 }
 .post-body p {
-  @apply mt-5 text-base leading-relaxed text-charcoal/80;
+  @apply prose-serif mt-5 text-charcoal/80;
 }
 .post-body ul,
 .post-body ol {
-  @apply mt-5 space-y-2.5 pl-5 text-base leading-relaxed text-charcoal/80;
+  @apply prose-serif mt-5 space-y-2.5 pl-5 text-charcoal/80;
 }
 .post-body ul {
   @apply list-disc marker:text-gold;
@@ -610,7 +627,7 @@
   @apply font-medium text-gold underline underline-offset-4 transition hover:text-olive;
 }
 .post-body blockquote {
-  @apply mt-6 border-l-2 border-gold/60 pl-5 font-display text-xl text-olive;
+  @apply prose-serif mt-6 border-l-2 border-gold/60 pl-5 text-[1.45rem] text-olive;
 }
 .post-body hr {
   @apply my-10 border-beige;
