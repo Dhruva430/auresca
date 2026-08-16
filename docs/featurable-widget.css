@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap");
+
 /* ═══════════════════════════════════════════════════════════════════════
    NOT LOADED BY THE SITE. This file is version control only.
 
@@ -26,9 +28,21 @@
    declaration when the variable is missing rather than falling back, which is
    why the dashboard preview showed the wrong face.
 
-   Note the dashboard preview will never show the real typefaces: it does not
-   define --font-sans/--font-display and does not load Manrope or Cormorant
-   Garamond. Judge the fonts on the live site, not in the preview.
+   The @import at the top is for Featurable's own preview, which defines
+   neither variable and loads neither family — without it the preview always
+   falls through to system fonts and there is no way to judge the widget where
+   you are editing it. On the live site the variables win, so the page's
+   self-hosted copies are what actually render and the imported ones go unused.
+
+   The variables the site exposes are --font-ui (Manrope, the interface face)
+   and --font-sans (Cormorant Garamond, the serif). They are declared on
+   :root, and custom properties inherit through a shadow boundary, which is
+   how they reach the widget at all. There is no --font-display: the display
+   role resolves to --font-sans.
+
+   Note the dashboard preview will never show the real typefaces: it defines
+   neither variable and loads neither family. Judge the fonts on the live
+   site, not in the preview.
 
    Class names were read from the widget's live shadow DOM; Featurable also
    exposes each one on a `data-featurable-classname` attribute.
@@ -53,10 +67,16 @@
   display: flex;
 }
 
+/* Descendants are named as well as the containers: the widget sets a family
+   on its inner nodes too, so inheritance alone does not reach them. The
+   heading rule below still wins on specificity. */
 .review.review,
+.review.review *,
 .summary-bar.summary-bar,
-.carousel.carousel {
-  font-family: var(--font-sans, "Manrope", system-ui, sans-serif);
+.summary-bar.summary-bar *,
+.carousel.carousel,
+.carousel.carousel * {
+  font-family: var(--font-ui, "Manrope"), "Manrope", system-ui, sans-serif;
 }
 
 .summary-bar.summary-bar {
@@ -70,7 +90,7 @@
 .summary-bar__label.summary-bar__label.summary-bar__label,
 .summary-bar__label--light.summary-bar__label--light.summary-bar__label--light {
   color: #4e5645;
-  font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
+  font-family: var(--font-sans, "Cormorant Garamond"), "Cormorant Garamond", Georgia, serif;
   font-size: 1.5rem;
   font-weight: 600;
   letter-spacing: 0.01em;
