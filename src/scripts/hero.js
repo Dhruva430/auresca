@@ -126,6 +126,27 @@ if (hero) {
     // the clip, so every re-arm — and every pointerdown — pulled a pause/play
     // through the decoder and the picture hitched. Pausing is now something
     // only the handlers that mean it (hover, hidden tab) ask for.
+    // Some browsers refuse to start a clip until the visitor has interacted
+    // with the page at all. Rather than leave it parked on the poster, the
+    // first thing they do is taken as that interaction and playback retried.
+    var waitingOnGesture = false;
+    var GESTURES = ["pointerdown", "keydown", "touchstart"];
+    var retryOnGesture = function (v) {
+      if (waitingOnGesture) return;
+      waitingOnGesture = true;
+      var retry = function () {
+        waitingOnGesture = false;
+        GESTURES.forEach(function (t) {
+          document.removeEventListener(t, retry);
+        });
+        var again = v.play();
+        if (again && again.catch) again.catch(function () {});
+      };
+      GESTURES.forEach(function (t) {
+        document.addEventListener(t, retry, { passive: true });
+      });
+    };
+
     var playClip = function () {
       if (reduce) return;
       var v = videoIn(logical());
@@ -135,8 +156,16 @@ if (hero) {
         try { v.currentTime = 0; } catch (e) { /* not seekable yet */ }
       }
       if (!v.paused) return; // already running — leave the decoder alone
+      // The property, not just the attribute: muted is what earns a clip the
+      // right to start on its own, and a cloned or re-created element can
+      // arrive without it.
+      v.muted = true;
       var playing = v.play();
-      if (playing && playing.catch) playing.catch(function () {});
+      if (playing && playing.catch) {
+        playing.catch(function () {
+          retryOnGesture(v);
+        });
+      }
     };
     var pauseClip = function () {
       var v = videoIn(logical());
@@ -224,17 +253,21 @@ if (hero) {
     });
 
     // pause while hovered / off-screen
-    // These two do mean "pause the clip": holding a slide open should hold the
-    // picture with it, and a hidden tab should not be decoding video. A drag
-    // does not — see `pointerdown` below, which only parks the timer.
-    var hold = function () {
-      stop();
-      pauseClip();
-    };
-    hero.addEventListener("mouseenter", hold);
+    // Hover parks the carousel but leaves the picture running. It must not
+    // touch playback: the hero fills the window, so on most reloads the cursor
+    // is already inside it and `mouseenter` fires immediately — pausing here
+    // stopped the clip dead the moment the page loaded, and it took a click to
+    // get it going again. A hidden tab is the one case worth pausing for, and
+    // that cannot fire spuriously on load.
+    hero.addEventListener("mouseenter", stop);
     hero.addEventListener("mouseleave", start);
     document.addEventListener("visibilitychange", function () {
-      if (document.hidden) hold(); else start();
+      if (document.hidden) {
+        stop();
+        pauseClip();
+      } else {
+        start();
+      }
     });
     window.addEventListener("resize", function () { setTransform(false); });
 
