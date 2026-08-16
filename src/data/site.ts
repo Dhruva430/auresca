@@ -69,6 +69,13 @@ export type HeroSlide = {
   primary?: boolean;
   headingClass?: string; // override heading colour for legibility on this image
   objectClass?: string; // override object-position crop for this image
+  /**
+   * Average colour of the photograph's top edge. The image starts below
+   * the header so the header cannot crop it, and this fills the strip it
+   * leaves behind — otherwise that strip is flat cream and flashes as a
+   * white band whenever the header is transparent mid-transition.
+   */
+  topColor?: string;
   align?: "left" | "right"; // which side of the hero the copy sits on
   dark?: boolean; // dark background image → use light body/feature text
   // headline split into three parts; the middle is rendered italic
@@ -122,6 +129,7 @@ export const heroSlides: HeroSlide[] = [
     primary: true,
     headingClass: "text-olive",
     objectClass: "object-[78%_center] lg:object-center",
+    topColor: "#e5d4bd",
     lead: "Reveal Your",
     accent: "Radiant",
     tail: "Skin",
@@ -135,6 +143,7 @@ export const heroSlides: HeroSlide[] = [
     local: true,
     headingClass: "text-olive",
     objectClass: "object-[75%_center] lg:object-center",
+    topColor: "#a79f95",
     lead: "Restore Your",
     accent: "Natural",
     tail: "Hair",
@@ -148,6 +157,7 @@ export const heroSlides: HeroSlide[] = [
     local: true,
     headingClass: "text-olive",
     objectClass: "object-[75%_center] lg:object-center",
+    topColor: "#e7e7ec",
     lead: "Turn Back",
     accent: "Time,",
     tail: "Gracefully",
@@ -161,6 +171,7 @@ export const heroSlides: HeroSlide[] = [
     local: true,
     headingClass: "text-olive",
     objectClass: "object-[65%_center] lg:object-center",
+    topColor: "#ece4d9",
     lead: "Smooth,",
     accent: "Effortless",
     tail: "Confidence",
@@ -174,6 +185,7 @@ export const heroSlides: HeroSlide[] = [
     local: true,
     headingClass: "text-olive",
     objectClass: "object-[80%_center] lg:object-center",
+    topColor: "#fcc8ca",
     lead: "Sculpt the",
     accent: "Shape",
     tail: "You Love",

@@ -57,7 +57,16 @@ if (hero) {
         var still = document.createElement("img");
         still.src = v.getAttribute("poster") || "";
         still.alt = "";
-        still.className = v.className;
+        // Everything the video wore except `hero-img`. That class carries the
+        // offset that starts a *photograph* below the header, and this still
+        // is standing in for a clip, which runs full-bleed behind a
+        // transparent bar. Left on, the clone shows a band of bare slide along
+        // its top — the white flash on the wrap from the last slide back to
+        // the first, which is the only time this element is ever on screen.
+        still.className = v.className
+          .split(/\s+/)
+          .filter(function (n) { return n !== "hero-img"; })
+          .join(" ");
         still.setAttribute("aria-hidden", "true");
         still.setAttribute("draggable", "false");
         v.parentNode.replaceChild(still, v);
@@ -83,11 +92,17 @@ if (hero) {
         else d.removeAttribute("aria-current");
       });
       syncVideos();
-      // A clip slide asks the header to stand down: no bar, no booking button.
-      if (siteHeader) {
-        siteHeader.classList.toggle("header-on-clip", !!videoIn(logical()));
-      }
+      syncHeader();
     };
+
+    // A clip slide asks the header to stand down: no bar, no booking button.
+    // Safe to switch the instant the slide becomes active — the band the bar
+    // sits over is filled with the photograph's own top colour, so there is
+    // nothing to show through mid-transition.
+    function syncHeader() {
+      if (!siteHeader) return;
+      siteHeader.classList.toggle("header-on-clip", !!videoIn(logical()));
+    }
 
     var setTransform = function (animate) {
       track.style.transition = animate === false ? "none" : "";
