@@ -29,7 +29,10 @@ export default {
       fontFamily: {
         // Both families are self-hosted by Astro's font pipeline, which exposes
         // them as CSS variables (see `fonts` in astro.config.mjs).
-        display: ["var(--font-display)", "Arial Narrow", "system-ui", "sans-serif"],
+        // Display and prose are the same family now: Cormorant carries the
+        // headings as well as the reading copy, with Manrope on the
+        // interface. `display` stays as a name so no markup has to change.
+        display: ["var(--font-sans)", "Georgia", "serif"],
         sans: ["var(--font-sans)", "Georgia", "serif"],
         ui: ["var(--font-ui)", "system-ui", "-apple-system", "sans-serif"],
       },

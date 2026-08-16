@@ -60,7 +60,7 @@
   /* Pinned rather than `text-base`, so the button stays at 1rem while the
      rest of the type scale moves up around it. */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 font-ui text-[1rem] font-semibold transition-all duration-300;
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 font-ui text-sm font-semibold transition-all duration-300;
   }
   /*
    * Primary "Book Appointment" CTA — two-colour swap (gold -> olive):
@@ -146,12 +146,12 @@
      tighter tracking and padding until `xl`, where the room opens up. The
      1rem buttons widened the booking CTA, which is what the `px-1` pays for. */
   .nav-link {
-    @apply relative inline-flex items-center rounded-full px-0.5 py-2.5 font-ui text-[18px] font-medium uppercase tracking-[0.04em] text-charcoal/85 transition-colors duration-300 xl:px-3 xl:tracking-[0.08em];
+    @apply relative inline-flex items-center rounded-full px-3 py-2.5 font-ui text-[15px] font-medium tracking-[0.01em] text-charcoal/85 transition-colors duration-300 xl:px-4 xl:text-[17px];
   }
   .nav-link::after {
     content: "";
     /* Insets track the padding above, so the hairline spans the word itself. */
-    @apply pointer-events-none absolute inset-x-0.5 bottom-1 h-px origin-center scale-x-0 bg-gold-grad transition-transform duration-300 ease-out xl:inset-x-3;
+    @apply pointer-events-none absolute inset-x-3 bottom-1 h-px origin-center scale-x-0 bg-gold-grad transition-transform duration-300 ease-out xl:inset-x-4;
   }
   .nav-link:hover,
   .nav-link:focus-visible {
@@ -173,7 +173,7 @@
 
   /* Same link at mobile-menu scale — a full-width row rather than a pill. */
   .nav-link-mobile {
-    @apply flex items-center justify-between rounded-xl px-3 py-3.5 font-ui text-[18px] font-medium uppercase tracking-[0.08em] text-charcoal/85 transition-colors duration-200 hover:bg-cream hover:text-olive focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/35;
+    @apply flex items-center justify-between rounded-xl px-3 py-3.5 font-ui text-[17px] font-medium text-charcoal/85 transition-colors duration-200 hover:bg-cream hover:text-olive focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/35;
   }
 
   /* Announcement bar — pinned to the top of the window, above the nav, and
@@ -261,26 +261,6 @@
     .header-on-clip:not(.is-scrolled) .nav-link:focus-visible::after {
       @apply bg-olive bg-none;
     }
-  }
-
-  /* Three families, three jobs:
-       Big Shoulders  display headings — condensed, 0.800em caps, built to be
-                      read in one glance at size
-       Manrope        the interface — navigation, controls, labels, meta, card
-                      copy: anything scanned rather than read
-       Cormorant      this: running prose, where a Garamond earns its keep over
-         Garamond     a paragraph's length. It ships real weights and a true
-                      italic, so emphasis is drawn rather than synthesised
-
-     The size is not a preference. Cormorant's x-height is 0.395em against
-     Manrope's 0.540, so it renders at 73% of its nominal size — 1.35rem here
-     sits at the apparent size of 16px Manrope beside it, and dropping it to
-     1rem would leave the prose looking smaller than its own captions.
-     A `text-*` utility on the element still wins, for tighter contexts. */
-  .prose-serif {
-    @apply font-sans text-[1.35rem] leading-[1.6];
-    /* Keeps a single word off the last line. Ignored where unsupported. */
-    text-wrap: pretty;
   }
 
   .eyebrow {
@@ -629,11 +609,11 @@
   @apply mt-8 font-display text-2xl font-medium text-olive;
 }
 .post-body p {
-  @apply prose-serif mt-5 text-charcoal/80;
+  @apply mt-5 text-base leading-relaxed text-charcoal/80;
 }
 .post-body ul,
 .post-body ol {
-  @apply prose-serif mt-5 space-y-2.5 pl-5 text-charcoal/80;
+  @apply mt-5 space-y-2.5 pl-5 text-base leading-relaxed text-charcoal/80;
 }
 .post-body ul {
   @apply list-disc marker:text-gold;
@@ -651,7 +631,7 @@
   @apply font-medium text-gold underline underline-offset-4 transition hover:text-olive;
 }
 .post-body blockquote {
-  @apply prose-serif mt-6 border-l-2 border-gold/60 pl-5 text-[1.45rem] text-olive;
+  @apply mt-6 border-l-2 border-gold/60 pl-5 font-display text-xl italic text-olive;
 }
 .post-body hr {
   @apply my-10 border-beige;

@@ -25,18 +25,6 @@ export default defineConfig({
   // Self-hosted Google fonts — no render-blocking request to fonts.googleapis.
   fonts: [
     {
-      provider: fontProviders.google(),
-      name: "Big Shoulders",
-      cssVariable: "--font-display",
-      // 400 covers the italic accent spans inside headings, 500 is the default
-      // heading weight, 600 the few heavier ones.
-      weights: [400, 500, 600],
-      // The family ships upright only — there is no italic to request.
-      styles: ["normal"],
-      subsets: ["latin"],
-      fallbacks: ["Arial Narrow", "system-ui", "sans-serif"],
-    },
-    {
       // The interface voice: controls, wayfinding and the running text that is
       // read at a glance rather than at length.
       provider: fontProviders.google(),

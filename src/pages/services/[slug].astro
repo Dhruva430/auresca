@@ -121,7 +121,7 @@ const faqSchema = {
         <p class="mt-4 font-display text-xl leading-relaxed text-gold">
           {service.headline}
         </p>
-        <p class="prose-serif mt-4 max-w-xl text-charcoal/75">
+        <p class="mt-4 max-w-xl leading-relaxed text-charcoal/75">
           {service.intro}
         </p>
 
@@ -200,7 +200,7 @@ const faqSchema = {
       <div class="space-y-5" data-stagger="70">
         {
           service.science.body.map((para) => (
-            <p class="prose-serif reveal reveal-right max-w-[34rem] text-charcoal/75">
+            <p class="reveal reveal-right leading-relaxed text-charcoal/75">
               {para}
             </p>
           ))
@@ -223,7 +223,7 @@ const faqSchema = {
         >
           {service.visit.title}
         </h2>
-        <p class="prose-serif mx-auto mt-4 max-w-[30rem] text-[1.15rem] text-charcoal/70">{service.visit.intro}</p>
+        <p class="mt-4 text-charcoal/70">{service.visit.intro}</p>
       </div>
 
       <ol class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4" data-stagger="80">
@@ -234,7 +234,7 @@ const faqSchema = {
                 {i + 1}
               </span>
               <h3 class="mt-5 font-display text-xl text-olive">{step.title}</h3>
-              <p class="mt-2.5 text-base leading-relaxed text-charcoal/70">
+              <p class="mt-2.5 text-sm leading-relaxed text-charcoal/70">
                 {step.desc}
               </p>
             </li>
@@ -258,7 +258,7 @@ const faqSchema = {
         >
           {service.areas.title}
         </h2>
-        <p class="prose-serif mx-auto mt-4 max-w-[30rem] text-[1.15rem] text-charcoal/70">{service.areas.intro}</p>
+        <p class="mt-4 text-charcoal/70">{service.areas.intro}</p>
       </div>
 
       <div class="mt-10 grid gap-6 lg:grid-cols-2" data-stagger="90">
@@ -322,7 +322,7 @@ const faqSchema = {
       </div>
 
       <p
-        class="reveal mx-auto mt-8 max-w-3xl rounded-3xl bg-cream px-6 py-4 text-center text-base leading-relaxed text-charcoal/65 ring-1 ring-beige"
+        class="reveal mx-auto mt-8 max-w-3xl rounded-3xl bg-cream px-6 py-4 text-center text-sm leading-relaxed text-charcoal/65 ring-1 ring-beige"
       >
         <Icon name="sparkle" cls="mr-1.5 inline w-4 h-4 align-[-3px] text-gold" />
         {service.areas.note}
@@ -395,7 +395,7 @@ const faqSchema = {
           <ul class="mt-5 space-y-3">
             {
               service.suitability.good.map((item) => (
-                <li class="flex gap-3 text-base leading-relaxed text-charcoal/75">
+                <li class="flex gap-3 text-sm leading-relaxed text-charcoal/75">
                   <Icon
                     name="check"
                     cls="mt-0.5 w-4 h-4 shrink-0 text-sage"
@@ -419,7 +419,7 @@ const faqSchema = {
           <ul class="mt-5 space-y-3">
             {
               service.suitability.wait.map((item) => (
-                <li class="flex gap-3 text-base leading-relaxed text-charcoal/75">
+                <li class="flex gap-3 text-sm leading-relaxed text-charcoal/75">
                   <span class="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-rose" />
                   <span>{item}</span>
                 </li>
@@ -445,7 +445,7 @@ const faqSchema = {
         >
           {service.care.title}
         </h2>
-        <p class="prose-serif mx-auto mt-4 max-w-[30rem] text-[1.15rem] text-charcoal/70">{service.care.intro}</p>
+        <p class="mt-4 text-charcoal/70">{service.care.intro}</p>
       </div>
 
       <div class="mt-10 grid gap-6 lg:grid-cols-2">
@@ -473,7 +473,7 @@ const faqSchema = {
               </h3>
               <ol class="mt-5 space-y-3.5">
                 {col.items.map((item, i) => (
-                  <li class="flex gap-3.5 text-base leading-relaxed text-charcoal/75">
+                  <li class="flex gap-3.5 text-sm leading-relaxed text-charcoal/75">
                     <span class="mt-px font-display text-sm text-gold/70">
                       {String(i + 1).padStart(2, "0")}
                     </span>
@@ -501,7 +501,7 @@ const faqSchema = {
           {service.results.title}
         </h2>
         <p
-          class="prose-serif mt-5 border-l-2 border-gold pl-5 text-[1.45rem] text-olive"
+          class="mt-5 border-l-2 border-gold pl-5 font-display text-lg italic leading-relaxed text-olive"
         >
           {service.results.lead}
         </p>
@@ -511,7 +511,7 @@ const faqSchema = {
         <div class="reveal space-y-4">
           {
             service.results.body.map((para) => (
-              <p class="prose-serif text-charcoal/75">{para}</p>
+              <p class="leading-relaxed text-charcoal/75">{para}</p>
             ))
           }
         </div>
@@ -520,7 +520,7 @@ const faqSchema = {
             service.results.points.map((point) => (
               <div class="reveal reveal-scale rounded-2xl bg-cream p-5 ring-1 ring-beige">
                 <h3 class="font-display text-lg text-olive">{point.title}</h3>
-                <p class="mt-2 text-base leading-relaxed text-charcoal/70">
+                <p class="mt-2 text-sm leading-relaxed text-charcoal/70">
                   {point.desc}
                 </p>
               </div>
@@ -595,7 +595,7 @@ const faqSchema = {
                       aria-expanded={f.open ? "true" : "false"}
                       aria-controls={`svc-faq-a-${f.uid}`}
                     >
-                      <span class="faq-q font-sans text-[1.3rem] text-olive transition-colors sm:text-[1.45rem]">
+                      <span class="faq-q font-display text-lg text-olive transition-colors sm:text-xl">
                         {f.q}
                       </span>
                       <span class="faq-icon grid h-9 w-9 shrink-0 place-items-center rounded-full bg-cream text-gold transition-all duration-300">
@@ -609,7 +609,7 @@ const faqSchema = {
                       class="faq-panel overflow-hidden px-6 transition-all duration-300"
                       style={f.open ? undefined : "max-height:0"}
                     >
-                      <p class="prose-serif max-w-[32rem] pb-5 text-[1.2rem] text-charcoal/70">
+                      <p class="pb-5 text-sm leading-relaxed text-charcoal/70">
                         {f.a}
                       </p>
                     </div>

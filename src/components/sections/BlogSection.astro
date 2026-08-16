@@ -18,9 +18,9 @@ const posts = await getPosts(4);
       <h2
         class="mt-4 font-display text-4xl font-medium text-olive sm:text-5xl text-balance"
       >
-        Insights For Your <em class="shimmer-gold not-italic text-gold">Glow</em>
+        Insights For Your <em class="shimmer-gold font-normal italic text-gold">Glow</em>
       </h2>
-      <p class="prose-serif mx-auto mt-4 max-w-[30rem] text-[1.15rem] text-charcoal/70">
+      <p class="mt-4 text-charcoal/70">
         Evidence-based skincare, treatment guides and honest advice from the
         Auresca Care team.
       </p>
@@ -63,7 +63,7 @@ const posts = await getPosts(4);
                 <p class="text-right text-xs font-medium text-charcoal/45">
                   {formatDate(p.data.publishedAt)}
                 </p>
-                <h3 class="mt-2 font-sans text-[1.5rem] leading-snug text-olive">
+                <h3 class="mt-2 font-display text-xl leading-snug text-olive">
                   <a href={`/blog/${p.id}`} class="transition hover:text-gold">
                     {p.data.title}
                   </a>

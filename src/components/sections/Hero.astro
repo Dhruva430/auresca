@@ -30,41 +30,23 @@ import { img, srcset } from "@/lib/helpers";
             : "text-charcoal/70";
           const strong = slide.dark ? "text-olive lg:text-white" : "text-olive";
 
-          // Big-type treatment. The two lines are set explicitly further down
-          // rather than left to wrap, so the break no longer depends on the
-          // column happening to land between "Where Science" (5.13em in Big
-          // Shoulders at 600) and the full headline. The column only has to
-          // clear the longer of the two lines now. `text-balance` stays off:
-          // it would re-even lines that are deliberately uneven.
-          // Leading of 1.03 comes off the reference: Big Shoulders has an
-          // 0.800em cap height, so 1.03 leaves ~0.23em between the cap bottom
-          // of one line and the cap top of the next. The 0.86 this replaces
-          // was under the cap height itself — the two lines nearly touched.
-          const headingType = slide.dark
-            ? "text-[clamp(2.5rem,12vw,9rem)] leading-[1.03] tracking-[0.02em] [word-spacing:0.08em]"
-            : "text-[3rem] leading-[0.98] tracking-[-0.015em] sm:text-[3.5rem] lg:text-[5rem] text-balance";
-          const copyWidth = slide.dark
-            ? "max-w-xl lg:max-w-[min(68vw,1100px)]"
-            : "max-w-xl";
+          // One heading treatment across all six slides. The clip slide's
+          // uppercase big type was built on Big Shoulders' condensed metrics
+          // and does not survive the swap: "WHERE SCIENCE" is 7.64em in
+          // Cormorant against 5.13em there, so at 9rem it measures 1100px into
+          // a 1100px column — no slack at all, and less than none once the
+          // column narrows with the viewport. These sizes were drawn for this
+          // face in the first place.
+          const headingType =
+            "text-5xl leading-[1.05] sm:text-6xl lg:text-7xl text-balance";
+          const copyWidth = "max-w-xl";
 
           // A clip slide carries the headline on its own — no buttons. It stays
           // ranged left like every other slide; the wrapper's `items-center`
           // is what centres it vertically.
           const isVideo = !!slide.video;
           const align = slide.align === "right" ? "lg:ml-auto lg:text-left" : "";
-          // The clip slide's standing line is editorial copy, so it takes the
-          // serif — and the sizing here was calibrated against it. The sentence
-          // measures 37.68em in the serif at semibold, against 42.20em in the
-          // interface face. Tying the size to the viewport at 1.7vw keeps it on
-          // one line at every width — 1.8vw left only 2px of slack at 1280 and
-          // the line broke on rounding.
-          const descType = isVideo
-            ? "prose-serif max-w-md text-[clamp(1rem,1.7vw,1.5rem)] font-semibold lg:max-w-none"
-            // The photo slides carry the same standing line in the same role,
-              // so they take the serif with it. 1.5rem matches the clip slide's
-              // ceiling, and max-w-lg holds the copy to 56 characters a line —
-              // two lines for every one of them, none stranded on a third.
-            : "prose-serif max-w-lg text-[1.5rem]";
+          const descType = "max-w-md text-lg";
 
           return (
             <article
@@ -126,24 +108,9 @@ import { img, srcset } from "@/lib/helpers";
                   <h1
                     class={`font-display font-semibold ${headingType} ${slide.headingClass || "text-sage"}`}
                   >
-                    {/* The accent carries no weight of its own — it is one word
-                        of a single-weight headline, marked up but not restyled.
-                        Big type breaks on its own line; the rest flows. */}
-                    {slide.dark ? (
-                      <>
-                        <span class="block">{slide.lead}</span>
-                        <span class="block">
-                          <em class="not-italic">{slide.accent}</em>{" "}
-                          {slide.tail}
-                        </span>
-                      </>
-                    ) : (
-                      <>
-                        {slide.lead}{" "}
-                        <em class="not-italic">{slide.accent}</em>{" "}
-                        {slide.tail}
-                      </>
-                    )}
+                    {slide.lead}{" "}
+                    <em class="font-normal italic">{slide.accent}</em>{" "}
+                    {slide.tail}
                   </h1>
                   <p class={`mt-5 ${descType} leading-relaxed ${muted}`}>
                     {slide.desc}

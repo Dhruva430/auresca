@@ -104,7 +104,7 @@ export const heroSlides: HeroSlide[] = [
     // Only from `lg` up — below that the layout stacks and the copy sits on
     // cream, where white would vanish.
     dark: true,
-    headingClass: "text-olive uppercase lg:text-white",
+    headingClass: "text-olive lg:text-white",
     // Subject sits right of frame with open space to the left, so phones crop
     // towards her and desktop can sit centred.
     objectClass: "object-[72%_center] lg:object-center",

@@ -59,12 +59,12 @@ const posts = await getPosts();
                   </span>
                   <span>{readMinutes(p)} min read</span>
                 </div>
-                <h2 class="mt-3 font-sans text-[1.8rem] leading-snug text-olive">
+                <h2 class="mt-3 font-display text-2xl leading-snug text-olive">
                   <a href={`/blog/${p.id}`} class="hover:text-gold transition">
                     {p.data.title}
                   </a>
                 </h2>
-                <p class="prose-serif mt-2 flex-1 text-[1.15rem] text-charcoal/70">
+                <p class="mt-2 flex-1 text-sm leading-relaxed text-charcoal/70">
                   {p.data.excerpt}
                 </p>
                 <a

@@ -17,9 +17,9 @@ import { img, srcset } from "@/lib/helpers";
       <h2
         class="mt-4 font-display text-4xl font-medium text-olive sm:text-5xl text-balance"
       >
-        Treatments &amp; <em class="shimmer-gold not-italic text-gold">Rituals</em>
+        Treatments &amp; <em class="shimmer-gold font-normal italic text-gold">Rituals</em>
       </h2>
-      <p class="prose-serif mx-auto mt-4 max-w-[30rem] text-[1.15rem] text-charcoal/70">
+      <p class="mt-4 text-charcoal/70">
         {serviceCount} treatments across {serviceCategories.length} specialities,
         every one medically supervised and tailored to your skin, body and hair
         goals.
@@ -75,7 +75,7 @@ import { img, srcset } from "@/lib/helpers";
                 />
               </div>
               <h3 class="mt-6 font-display text-3xl text-olive">{cat.title}</h3>
-              <p class="prose-serif mt-3 max-w-md text-[1.15rem] text-charcoal/70">
+              <p class="mt-3 max-w-md text-sm leading-relaxed text-charcoal/70">
                 {cat.tagline}
               </p>
               <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
@@ -146,7 +146,7 @@ import { img, srcset } from "@/lib/helpers";
       <!-- Flows as plain text on phones — as a flex row the icon dropped onto a
            line of its own — and becomes a single-line pill from `sm` up. -->
       <p
-        class="max-w-2xl rounded-3xl bg-ivory/80 px-6 py-3 text-center text-base leading-relaxed text-charcoal/65 ring-1 ring-beige sm:inline-flex sm:flex-wrap sm:items-center sm:justify-center sm:gap-x-2 sm:gap-y-1 sm:rounded-full sm:leading-normal"
+        class="max-w-2xl rounded-3xl bg-ivory/80 px-6 py-3 text-center text-sm leading-relaxed text-charcoal/65 ring-1 ring-beige sm:inline-flex sm:flex-wrap sm:items-center sm:justify-center sm:gap-x-2 sm:gap-y-1 sm:rounded-full sm:leading-normal"
       >
         <Icon
           name="sparkle"
