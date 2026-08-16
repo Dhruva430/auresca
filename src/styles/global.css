@@ -18,7 +18,7 @@
      the old default while everything around them moved up, and read as the
      smallest type on the page. `text-base` keeps them on the same scale. */
   body {
-    @apply bg-cream text-charcoal font-sans text-base antialiased;
+    @apply bg-cream text-charcoal font-ui text-base antialiased;
   }
 
   h1, h2, h3, h4 {
@@ -31,13 +31,19 @@
     color: #4e5645;
   }
 
-  /* Honour reduced-motion preferences */
+  /* Honour reduced-motion preferences.
+     Delays are collapsed alongside durations. Without that the hero copy still
+     waits out its 0.08s/0.16s/0.24s stagger before appearing — a transition of
+     zero length that starts late is still content arriving late, and the lines
+     pop in one after another for exactly the visitor who asked them not to. */
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     *, *::before, *::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
+      animation-delay: 0.01ms !important;
       transition-duration: 0.01ms !important;
+      transition-delay: 0.01ms !important;
     }
   }
 }
@@ -54,7 +60,7 @@
   /* Pinned rather than `text-base`, so the button stays at 1rem while the
      rest of the type scale moves up around it. */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[1rem] font-semibold transition-all duration-300;
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 font-ui text-[1rem] font-semibold transition-all duration-300;
   }
   /*
    * Primary "Book Appointment" CTA — two-colour swap (gold -> olive):
@@ -140,12 +146,12 @@
      tighter tracking and padding until `xl`, where the room opens up. The
      1rem buttons widened the booking CTA, which is what the `px-1` pays for. */
   .nav-link {
-    @apply relative inline-flex items-center rounded-full px-1 py-2.5 text-[18px] font-medium uppercase tracking-[0.05em] text-charcoal/85 transition-colors duration-300 xl:px-3 xl:tracking-[0.08em];
+    @apply relative inline-flex items-center rounded-full px-0.5 py-2.5 font-ui text-[18px] font-medium uppercase tracking-[0.04em] text-charcoal/85 transition-colors duration-300 xl:px-3 xl:tracking-[0.08em];
   }
   .nav-link::after {
     content: "";
     /* Insets track the padding above, so the hairline spans the word itself. */
-    @apply pointer-events-none absolute inset-x-1 bottom-1 h-px origin-center scale-x-0 bg-gold-grad transition-transform duration-300 ease-out xl:inset-x-3;
+    @apply pointer-events-none absolute inset-x-0.5 bottom-1 h-px origin-center scale-x-0 bg-gold-grad transition-transform duration-300 ease-out xl:inset-x-3;
   }
   .nav-link:hover,
   .nav-link:focus-visible {
@@ -167,7 +173,7 @@
 
   /* Same link at mobile-menu scale — a full-width row rather than a pill. */
   .nav-link-mobile {
-    @apply flex items-center justify-between rounded-xl px-3 py-3.5 text-[18px] font-medium uppercase tracking-[0.08em] text-charcoal/85 transition-colors duration-200 hover:bg-cream hover:text-olive focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/35;
+    @apply flex items-center justify-between rounded-xl px-3 py-3.5 font-ui text-[18px] font-medium uppercase tracking-[0.08em] text-charcoal/85 transition-colors duration-200 hover:bg-cream hover:text-olive focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/35;
   }
 
   /* Announcement bar — pinned to the top of the window, above the nav, and

@@ -5,7 +5,7 @@ import { APPOINTMENT_WEBHOOK_URL } from "astro:env/server";
 export const prerender = false;
 
 const SUCCESS =
-  "Thank you — your request is in. Our team will reach out within one business day to confirm your appointment.";
+  "Thank you. Your request is in. Our team will reach out within one business day to confirm your appointment.";
 
 function isEmail(v: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);

@@ -26,34 +26,12 @@ export default {
         charcoal: "#333333",
         olive: "#4E5645",
       },
-      /*
-       * Centaur has a 0.365em x-height against Manrope's 0.535 — it renders
-       * at 68% of the apparent size the old sizes were picked for, which is
-       * why everything set in it read small. Matching optically would take
-       * 1.465x and blow every line length apart, so the text steps take a
-       * measured 1.2x instead and keep their line-height in proportion.
-       *
-       * The whole ramp moves together rather than only the body steps: `xl`
-       * through `3xl` are sub-headings in Big Shoulders, and lifting the text
-       * sizes alone collapsed `xl` onto `2xl`. `5xl` and up are left where
-       * they are — those are the hero-scale steps, already sized against the
-       * layouts they sit in.
-       */
-      fontSize: {
-        xs: ["0.9rem", "1.2rem"],
-        sm: ["1.05rem", "1.5rem"],
-        base: ["1.2rem", "1.8rem"],
-        lg: ["1.35rem", "2.1rem"],
-        xl: ["1.5rem", "2.1rem"],
-        "2xl": ["1.8rem", "2.4rem"],
-        "3xl": ["2.25rem", "2.7rem"],
-        "4xl": ["2.7rem", "3rem"],
-      },
       fontFamily: {
         // Both families are self-hosted by Astro's font pipeline, which exposes
         // them as CSS variables (see `fonts` in astro.config.mjs).
         display: ["var(--font-display)", "Arial Narrow", "system-ui", "sans-serif"],
         sans: ["var(--font-sans)", "Georgia", "serif"],
+        ui: ["var(--font-ui)", "system-ui", "-apple-system", "sans-serif"],
       },
       maxWidth: {
         content: "1320px",

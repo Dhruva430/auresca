@@ -151,7 +151,7 @@ export const heroSlides: HeroSlide[] = [
     lead: "Turn Back",
     accent: "Time,",
     tail: "Gracefully",
-    desc: "Subtle, expert-administered injectables and skin boosters that refresh and lift — never overdone.",
+    desc: "Subtle, expert-administered injectables and skin boosters that refresh and lift, never overdone.",
     cta: { label: "Book a free consultation", href: "/#appointment" },
   },
   {
@@ -239,7 +239,7 @@ export const serviceCategories: ServiceCategory[] = [
     label: "Laser Hair Reduction",
     title: "Laser Hair Reduction",
     tagline:
-      "Comfortable, downtime-free laser for smooth, beautifully even skin — every area, from a single upper lip to full body.",
+      "Comfortable, downtime-free laser for smooth, beautifully even skin: every area, from a single upper lip to full body.",
     image: "/images/service-laser.webp",
     local: true,
     groups: [
@@ -277,7 +277,7 @@ export const serviceCategories: ServiceCategory[] = [
     label: "Facials",
     title: "Facials & Medi-Facials",
     tagline:
-      "Clinical facials tailored to your skin barrier — from a quick radiance boost to a full medi-facial protocol.",
+      "Clinical facials tailored to your skin barrier, from a quick radiance boost to a full medi-facial protocol.",
     image: "/images/service-facials.webp",
     local: true,
     groups: [
@@ -323,7 +323,7 @@ export const serviceCategories: ServiceCategory[] = [
     label: "Antiaging",
     title: "Antiaging & Injectables",
     tagline:
-      "Regenerative therapy, expert-administered injectables and precision resurfacing — supervised by qualified medical professionals.",
+      "Regenerative therapy, expert-administered injectables and precision resurfacing, supervised by qualified medical professionals.",
     image: "/images/service-antiaging.webp",
     local: true,
     groups: [
@@ -370,7 +370,7 @@ export const serviceCategories: ServiceCategory[] = [
     label: "Hair Regeneration",
     title: "Hair Regeneration",
     tagline:
-      "Regenerative scalp therapy that restores density and strength — PRP, GFC and exosome protocols.",
+      "Regenerative scalp therapy that restores density and strength: PRP, GFC and exosome protocols.",
     image: "/images/service-hair-regeneration.webp",
     local: true,
     groups: [
@@ -500,7 +500,7 @@ export type Testimonial = {
 export const testimonials: Testimonial[] = [
   {
     quote:
-      "I have never felt so cared for. My skin looks like mine again — just brighter, calmer and genuinely healthy.",
+      "I have never felt so cared for. My skin looks like mine again, just brighter, calmer and genuinely healthy.",
     name: "Ananya Mehta",
     treatment: "HydraFacial · Pigmentation",
     rating: 5,
@@ -538,7 +538,7 @@ export const faqs: Faq[] = [
   },
   {
     q: "Is there any downtime after treatment?",
-    a: "Downtime varies by treatment. Many of our facials and laser treatments are designed to involve little or no downtime, while some procedures may require recovery — we tell you exactly what to expect beforehand.",
+    a: "Downtime varies by treatment. Many of our facials and laser treatments are designed to involve little or no downtime, while some procedures may require recovery. We tell you exactly what to expect beforehand.",
   },
   {
     q: "How many sessions will I need, and when will I see results?",
@@ -550,7 +550,7 @@ export const faqs: Faq[] = [
   },
   {
     q: "Is the first consultation free?",
-    a: "Yes — your first consultation is complimentary. We'd rather earn your trust with honest advice than with a price tag.",
+    a: "Yes, your first consultation is complimentary. We'd rather earn your trust with honest advice than with a price tag.",
   },
 ];
 
@@ -558,7 +558,7 @@ export const whyUs = [
   {
     icon: "stethoscope",
     title: "Dermatology-led care",
-    desc: "Protocols designed and supervised by qualified medical experts — never a one-size-fits-all menu.",
+    desc: "Protocols designed and supervised by qualified medical experts, never a one-size-fits-all menu.",
   },
   {
     icon: "sparkle",

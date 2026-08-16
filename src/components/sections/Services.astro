@@ -20,7 +20,7 @@ import { img, srcset } from "@/lib/helpers";
         Treatments &amp; <em class="shimmer-gold not-italic text-gold">Rituals</em>
       </h2>
       <p class="mt-4 text-charcoal/70">
-        {serviceCount} treatments across {serviceCategories.length} specialities —
+        {serviceCount} treatments across {serviceCategories.length} specialities,
         every one medically supervised and tailored to your skin, body and hair
         goals.
       </p>
@@ -107,7 +107,7 @@ import { img, srcset } from "@/lib/helpers";
               {cat.groups.map((group, g) => (
                 <div class={g === 0 ? "" : "mt-10"}>
                   {group.title && (
-                    <h4 class="eyebrow font-sans">
+                    <h4 class="eyebrow font-ui">
                       <span class="h-px w-6 bg-gold" />
                       {group.title}
                     </h4>
@@ -146,7 +146,7 @@ import { img, srcset } from "@/lib/helpers";
       <!-- Flows as plain text on phones — as a flex row the icon dropped onto a
            line of its own — and becomes a single-line pill from `sm` up. -->
       <p
-        class="max-w-2xl rounded-3xl bg-ivory/80 px-6 py-3 text-center text-sm leading-relaxed text-charcoal/65 ring-1 ring-beige sm:inline-flex sm:flex-wrap sm:items-center sm:justify-center sm:gap-x-2 sm:gap-y-1 sm:rounded-full sm:leading-normal"
+        class="max-w-2xl rounded-3xl bg-ivory/80 px-6 py-3 text-center text-base leading-relaxed text-charcoal/65 ring-1 ring-beige sm:inline-flex sm:flex-wrap sm:items-center sm:justify-center sm:gap-x-2 sm:gap-y-1 sm:rounded-full sm:leading-normal"
       >
         <Icon
           name="sparkle"

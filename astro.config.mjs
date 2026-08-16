@@ -37,6 +37,17 @@ export default defineConfig({
       fallbacks: ["Arial Narrow", "system-ui", "sans-serif"],
     },
     {
+      // The interface voice: controls, wayfinding and the running text that is
+      // read at a glance rather than at length.
+      provider: fontProviders.google(),
+      name: "Manrope",
+      cssVariable: "--font-ui",
+      weights: [400, 500, 600, 700],
+      styles: ["normal"],
+      subsets: ["latin"],
+      fallbacks: ["system-ui", "sans-serif"],
+    },
+    {
       // Centaur is licensed, so it comes from the repo rather than a provider.
       // The file lives under `src/` on purpose — anything in `public/` would be
       // copied into the build a second time.

@@ -9,7 +9,7 @@ readMinutes: 5
 ---
 
 Your skin does its repair work at night. The routine below is built around that
-rhythm — five steps, no filler, and nothing that picks a fight with your barrier.
+rhythm: five steps, no filler, and nothing that picks a fight with your barrier.
 
 ## Why less is genuinely more
 
@@ -22,7 +22,7 @@ chance to disrupt the lipid layer that keeps water in and irritants out.
 
 1. **Cleanse gently.** A non-stripping cleanser, lukewarm water, thirty seconds.
    If your skin feels tight afterwards, the cleanser is too harsh.
-2. **Treat, don't attack.** One active per night — retinoid *or* exfoliating
+2. **Treat, don't attack.** One active per night: retinoid *or* exfoliating
    acid, never both. Start twice a week and build up.
 3. **Hydrate.** A humectant serum (glycerin, hyaluronic acid) on slightly damp
    skin, so there is water for it to hold on to.
@@ -35,11 +35,11 @@ chance to disrupt the lipid layer that keeps water in and irritants out.
 
 Start gentle, stay consistent, and let a professional guide the actives that
 genuinely move the needle for your concern. If your skin is stinging, flaking or
-flushing, that is not "purging" — it is a barrier asking for a pause.
+flushing, that is not "purging". It is a barrier asking for a pause.
 
 ## The Auresca approach
 
 Reveal, restore, radiate. Our protocols are designed and supervised by qualified
 medical professionals using clinically approved technology, so you see real,
 lasting results in a space that feels like a retreat. Book a complimentary
-consultation and we'll map a routine to your skin — never a generic checklist.
+consultation and we'll map a routine to your skin, never a generic checklist.

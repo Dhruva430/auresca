@@ -92,7 +92,7 @@ export const serviceDetails: ServiceDetail[] = [
     slug: "laser-hair-reduction",
     name: "Laser Hair Reduction",
     eyebrow: "Skin & Body",
-    headline: "Smooth skin, session by session — at the wavelength your skin can take.",
+    headline: "Smooth skin, session by session, at the wavelength your skin can take.",
     intro:
       "Medically supervised laser hair reduction for Indian and deeper skin tones. Comfortable, effectively downtime-free, and scheduled around your hair's own growth cycle so that every session lands when it can actually do something.",
     image: "/images/hero-laser.webp",
@@ -104,7 +104,7 @@ export const serviceDetails: ServiceDetail[] = [
     specs: [
       { icon: "laser", label: "Typical course", value: "6–8 sessions" },
       { icon: "clock", label: "Session length", value: "15–90 min by area" },
-      { icon: "check", label: "Downtime", value: "None — resume your day" },
+      { icon: "check", label: "Downtime", value: "None, resume your day" },
       {
         icon: "sparkle",
         label: "Spacing",
@@ -118,7 +118,7 @@ export const serviceDetails: ServiceDetail[] = [
       title: "How laser hair reduction actually works",
       body: [
         "The laser emits a wavelength of light that the pigment in your hair absorbs far more readily than the surrounding skin. That light becomes heat, the heat travels down the hair shaft, and the follicle that produces it is disabled. This is selective photothermolysis: the target is the pigment, which is why dark, coarse hair responds best and why grey, white and very fine blonde hair largely does not.",
-        "The catch — and the reason a single session can never finish the job — is that it only works on follicles in their active growth phase, called anagen. At any given moment roughly 20–30% of the hair in an area is in that phase; the rest is resting or shedding, and simply isn't attached to anything the laser can reach.",
+        "The catch, and the reason a single session can never finish the job, is that it only works on follicles in their active growth phase, called anagen. At any given moment roughly 20–30% of the hair in an area is in that phase; the rest is resting or shedding, and simply isn't attached to anything the laser can reach.",
         "So a course isn't upselling, it's arithmetic. Each session catches a different cohort of follicles as they rotate into growth, which is also why the gap between sessions matters as much as the sessions themselves. Come too early and you treat skin with nothing in anagen; leave it too long and you miss the window entirely.",
       ],
     },
@@ -134,7 +134,7 @@ export const serviceDetails: ServiceDetail[] = [
         },
         {
           title: "Prep & marking",
-          desc: "The area is cleansed and shaved down if needed, then mapped into a treatment grid — so no patch is missed and none is passed over twice.",
+          desc: "The area is cleansed and shaved down if needed, then mapped into a treatment grid, so no patch is missed and none is passed over twice.",
         },
         {
           title: "Cooling & the laser pass",
@@ -150,7 +150,7 @@ export const serviceDetails: ServiceDetail[] = [
     areas: {
       title: "Areas we treat",
       intro:
-        "From a single upper lip to full body, for women and men. Session counts are the typical range for that area — your own plan is confirmed after your consultation and patch test.",
+        "From a single upper lip to full body, for women and men. Session counts are the typical range for that area. Your own plan is confirmed after your consultation and patch test.",
       note: "Pricing depends on the area, your hair density and the plan agreed at consultation. Your first consultation is complimentary, and you will have the full cost in writing before anything is booked.",
       groups: [
         {
@@ -186,7 +186,7 @@ export const serviceDetails: ServiceDetail[] = [
     technology: {
       title: "Why the wavelength matters",
       intro:
-        "The single biggest safety factor in laser hair reduction on Indian skin is choosing a wavelength your epidermis can tolerate. Melanin in the skin competes with melanin in the hair for the same light — and on deeper skin tones, the wrong choice is what causes burns and pigmentation.",
+        "The single biggest safety factor in laser hair reduction on Indian skin is choosing a wavelength your epidermis can tolerate. Melanin in the skin competes with melanin in the hair for the same light, and on deeper skin tones, the wrong choice is what causes burns and pigmentation.",
       points: [
         {
           title: "810 nm diode",
@@ -198,7 +198,7 @@ export const serviceDetails: ServiceDetail[] = [
         },
         {
           title: "Cooling at the contact point",
-          desc: "The epidermis is chilled through every pulse. Cooling is not a comfort feature — it is what keeps the heat in the follicle instead of the skin above it.",
+          desc: "The epidermis is chilled through every pulse. Cooling is not a comfort feature. It is what keeps the heat in the follicle instead of the skin above it.",
         },
         {
           title: "Settings matched to you",
@@ -211,7 +211,7 @@ export const serviceDetails: ServiceDetail[] = [
       title: "Is it right for you?",
       goodTitle: "Usually a good fit",
       good: [
-        "Dark, coarse hair on any skin tone — pigment is the target, so this responds best",
+        "Dark, coarse hair on any skin tone: pigment is the target, so this responds best",
         "Deeper skin tones, treated on an appropriately long wavelength",
         "Recurring ingrown hairs, razor bumps or folliculitis from shaving and waxing",
         "Hormonally driven facial hair, as one part of a plan that also looks at the cause",
@@ -219,11 +219,11 @@ export const serviceDetails: ServiceDetail[] = [
       ],
       waitTitle: "Wait, or talk to us first",
       wait: [
-        "Pregnancy or breastfeeding — treatment is deferred as a precaution",
+        "Pregnancy or breastfeeding: treatment is deferred as a precaution",
         "Oral isotretinoin taken within the past six months",
         "Active infection, cold sore, eczema flare or broken skin in the area",
         "A fresh tan or significant sun exposure in the past 2–4 weeks",
-        "Photosensitising medication — bring your full list, including supplements",
+        "Photosensitising medication: bring your full list, including supplements",
         "Grey, white, red or very fine blonde hair, which holds too little pigment to respond",
         "Waxing, threading or plucking the area within the past 3–4 weeks",
       ],
@@ -232,14 +232,14 @@ export const serviceDetails: ServiceDetail[] = [
     care: {
       title: "Before & after your session",
       intro:
-        "Most disappointing courses of laser are not a machine problem — they are a preparation problem. These two lists carry more of the result than people expect.",
+        "Most disappointing courses of laser are not a machine problem. They are a preparation problem. These two lists carry more of the result than people expect.",
       beforeTitle: "In the days before",
       before: [
         "Shave the area 12–24 hours ahead. Stubble at the surface is fine; hair above it is not.",
-        "Do not wax, thread, pluck or epilate for 3–4 weeks beforehand — the laser needs the follicle still in place to work on.",
+        "Do not wax, thread, pluck or epilate for 3–4 weeks beforehand. The laser needs the follicle still in place to work on.",
         "Avoid sun, tanning beds and self-tanner for 2–4 weeks. A tan changes how much light your skin absorbs.",
         "Pause retinoids, AHAs, BHAs and scrubs on the area for about a week.",
-        "Arrive with clean skin — no deodorant, makeup, oil or lotion on the treatment area.",
+        "Arrive with clean skin: no deodorant, makeup, oil or lotion on the treatment area.",
         "Tell us about every medication and supplement you take, especially isotretinoin, antibiotics and anything photosensitising.",
       ],
       afterTitle: "For the days after",
@@ -247,17 +247,17 @@ export const serviceDetails: ServiceDetail[] = [
         "Mild redness and small raised bumps around each follicle are normal, and usually settle within a few hours to a day.",
         "Skip hot showers, steam, sauna and the gym for 24–48 hours while the skin calms.",
         "Broad-spectrum SPF 30+ every day on treated skin that sees light. This is the single most important step for pigment safety.",
-        "Shave between sessions as often as you like — but no waxing, threading or plucking.",
+        "Shave between sessions as often as you like, but no waxing, threading or plucking.",
         "Treated hair sheds over the next one to three weeks and can look like regrowth. It isn't. Let it fall out on its own.",
         "Keep the next appointment at the interval we set. The spacing is doing half the work.",
       ],
     },
 
     results: {
-      title: "What results look like — honestly",
-      lead: "Lasers are cleared for permanent hair reduction — not permanent hair removal. The distinction is not a technicality, and a clinic that blurs it is setting you up to be disappointed.",
+      title: "What results look like, honestly",
+      lead: "Lasers are cleared for permanent hair reduction, not permanent hair removal. The distinction is not a technicality, and a clinic that blurs it is setting you up to be disappointed.",
       body: [
-        "Permanent reduction means a lasting drop in the number of hairs that grow back — stable for longer than a full growth cycle. Over a properly spaced course of six to eight sessions, most people see roughly a 70–90% reduction in the hair in a treated area, and what remains tends to come back finer, slower and lighter than it was.",
+        "Permanent reduction means a lasting drop in the number of hairs that grow back, stable for longer than a full growth cycle. Over a properly spaced course of six to eight sessions, most people see roughly a 70–90% reduction in the hair in a treated area, and what remains tends to come back finer, slower and lighter than it was.",
         "Electrolysis remains the only method described as permanent hair removal, follicle by follicle. It is slow and best suited to small areas, which is why laser is the practical choice for anything larger than a few stray hairs.",
       ],
       points: [
@@ -275,7 +275,7 @@ export const serviceDetails: ServiceDetail[] = [
         },
         {
           title: "What changes the outcome",
-          desc: "Hormonal conditions such as PCOS, medication, and — more than anything — keeping to the spacing between sessions.",
+          desc: "Hormonal conditions such as PCOS, medication, and above all, keeping to the spacing between sessions.",
         },
       ],
     },
@@ -287,7 +287,7 @@ export const serviceDetails: ServiceDetail[] = [
         items: [
           {
             q: "What is laser hair reduction?",
-            a: "It is a medical treatment that uses a focused beam of light to disable the follicles producing unwanted hair. Over a course of sessions the treated area is left with markedly less hair, growing back finer and slower — rather than clearing it for a few weeks the way shaving or waxing does.",
+            a: "It is a medical treatment that uses a focused beam of light to disable the follicles producing unwanted hair. Over a course of sessions the treated area is left with markedly less hair, growing back finer and slower, rather than clearing it for a few weeks the way shaving or waxing does.",
           },
           {
             q: "How does laser hair reduction work?",
@@ -305,11 +305,11 @@ export const serviceDetails: ServiceDetail[] = [
         items: [
           {
             q: "How many laser hair reduction sessions will I need?",
-            a: "Usually six to eight. Hormonally driven facial hair — chin and upper lip especially — can take eight to ten, sometimes with ongoing maintenance. Your own number depends on your hair colour and thickness, the area treated and how your skin responds, and is confirmed after your consultation and patch test.",
+            a: "Usually six to eight. Hormonally driven facial hair, chin and upper lip especially, can take eight to ten, sometimes with ongoing maintenance. Your own number depends on your hair colour and thickness, the area treated and how your skin responds, and is confirmed after your consultation and patch test.",
           },
           {
             q: "How frequently should laser hair reduction sessions be taken?",
-            a: "Facial areas are spaced roughly four to six weeks apart, body areas six to eight. The gap is not arbitrary — it is timed to catch the next group of follicles as they enter their growth phase. Come too early and there is little to target; leave it too long and you miss the window.",
+            a: "Facial areas are spaced roughly four to six weeks apart, body areas six to eight. The gap is not arbitrary. It is timed to catch the next group of follicles as they enter their growth phase. Come too early and there is little to target; leave it too long and you miss the window.",
           },
           {
             q: "How long does one laser hair reduction session take?",
@@ -317,11 +317,11 @@ export const serviceDetails: ServiceDetail[] = [
           },
           {
             q: "What happens if I stop laser hair reduction midway through my sessions?",
-            a: "The reduction you have already achieved does not reverse — treated follicles stay treated. But follicles that had not yet cycled into their growth phase were never reached, so hair from those continues as before. You are left with partial rather than wasted results, and you can resume later.",
+            a: "The reduction you have already achieved does not reverse. Treated follicles stay treated. But follicles that had not yet cycled into their growth phase were never reached, so hair from those continues as before. You are left with partial rather than wasted results, and you can resume later.",
           },
           {
             q: "What does a course of laser hair reduction cost?",
-            a: "It depends on the area, your hair density and the number of sessions your plan calls for. Your first consultation is complimentary, and you will have the full cost in writing before anything is booked — including whether a package or individual sessions works out better for you.",
+            a: "It depends on the area, your hair density and the number of sessions your plan calls for. Your first consultation is complimentary, and you will have the full cost in writing before anything is booked, including whether a package or individual sessions works out better for you.",
           },
         ],
       },
@@ -353,7 +353,7 @@ export const serviceDetails: ServiceDetail[] = [
         items: [
           {
             q: "Is laser hair reduction safe for the face?",
-            a: "Yes — the face is among the most commonly treated areas, covering upper lip, chin, full or lower face, side locks and beard shaping. Facial skin is thinner and more sensitive, so the settings are gentler and sessions are spaced a little closer together, at four to six weeks.",
+            a: "Yes, the face is among the most commonly treated areas, covering upper lip, chin, full or lower face, side locks and beard shaping. Facial skin is thinner and more sensitive, so the settings are gentler and sessions are spaced a little closer together, at four to six weeks.",
           },
           {
             q: "Can I get laser hair reduction on my underarms?",
@@ -361,7 +361,7 @@ export const serviceDetails: ServiceDetail[] = [
           },
           {
             q: "Can laser hair reduction be done on the bikini area?",
-            a: "Yes. Bikini and Brazilian-style treatment are routine, carried out with your comfort and privacy in mind. The skin here is sensitive and the hair coarse, so it is one of the areas people feel most — numbing cream is available, and the results are usually among the most noticeable.",
+            a: "Yes. Bikini and Brazilian-style treatment are routine, carried out with your comfort and privacy in mind. The skin here is sensitive and the hair coarse, so it is one of the areas people feel most. Numbing cream is available, and the results are usually among the most noticeable.",
           },
           {
             q: "Can men get laser hair reduction?",
@@ -369,7 +369,7 @@ export const serviceDetails: ServiceDetail[] = [
           },
           {
             q: "Is full-body laser hair reduction possible?",
-            a: "Yes. Full body covers arms, legs, underarms, front and back in a single appointment of around ninety minutes. It works out more economical than booking areas separately, and keeps every area on the same schedule — which matters, because separately booked areas drift out of sync.",
+            a: "Yes. Full body covers arms, legs, underarms, front and back in a single appointment of around ninety minutes. It works out more economical than booking areas separately, and keeps every area on the same schedule, which matters, because separately booked areas drift out of sync.",
           },
         ],
       },
@@ -379,7 +379,7 @@ export const serviceDetails: ServiceDetail[] = [
         items: [
           {
             q: "Can I shave before laser hair reduction?",
-            a: "You should. Shave the area twelve to twenty-four hours before your session — the laser needs to reach the follicle, not spend its energy on hair sitting above the skin. Shaving is also the one hair-removal method you can keep using freely between sessions.",
+            a: "You should. Shave the area twelve to twenty-four hours before your session. The laser needs to reach the follicle, not spend its energy on hair sitting above the skin. Shaving is also the one hair-removal method you can keep using freely between sessions.",
           },
           {
             q: "Should I wax before laser hair reduction?",
@@ -391,7 +391,7 @@ export const serviceDetails: ServiceDetail[] = [
           },
           {
             q: "What should I avoid after laser hair reduction?",
-            a: "For 24 to 48 hours: heat, sweat and friction — gym, hot showers, steam, sauna and swimming. For the rest of your course: waxing, threading and plucking. And broad-spectrum SPF 30+ daily on treated skin that sees light, which is the single most important step for pigment safety.",
+            a: "For 24 to 48 hours: heat, sweat and friction: gym, hot showers, steam, sauna and swimming. For the rest of your course: waxing, threading and plucking. And broad-spectrum SPF 30+ daily on treated skin that sees light, which is the single most important step for pigment safety.",
           },
         ],
       },

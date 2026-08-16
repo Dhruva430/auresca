@@ -135,7 +135,7 @@ const faqSchema = {
             class="btn-ghost gap-2 ring-1 ring-beige hover:ring-gold/50"
           >
             <Icon name="phone" cls="w-4 h-4" />
-            <span class="font-sans tracking-[0.01em]">{site.phone}</span>
+            <span class="font-ui tracking-[0.01em]">{site.phone}</span>
           </a>
         </div>
       </div>
@@ -234,7 +234,7 @@ const faqSchema = {
                 {i + 1}
               </span>
               <h3 class="mt-5 font-display text-xl text-olive">{step.title}</h3>
-              <p class="mt-2.5 text-sm leading-relaxed text-charcoal/70">
+              <p class="mt-2.5 text-base leading-relaxed text-charcoal/70">
                 {step.desc}
               </p>
             </li>
@@ -322,7 +322,7 @@ const faqSchema = {
       </div>
 
       <p
-        class="reveal mx-auto mt-8 max-w-3xl rounded-3xl bg-cream px-6 py-4 text-center text-sm leading-relaxed text-charcoal/65 ring-1 ring-beige"
+        class="reveal mx-auto mt-8 max-w-3xl rounded-3xl bg-cream px-6 py-4 text-center text-base leading-relaxed text-charcoal/65 ring-1 ring-beige"
       >
         <Icon name="sparkle" cls="mr-1.5 inline w-4 h-4 align-[-3px] text-gold" />
         {service.areas.note}
@@ -395,7 +395,7 @@ const faqSchema = {
           <ul class="mt-5 space-y-3">
             {
               service.suitability.good.map((item) => (
-                <li class="flex gap-3 text-sm leading-relaxed text-charcoal/75">
+                <li class="flex gap-3 text-base leading-relaxed text-charcoal/75">
                   <Icon
                     name="check"
                     cls="mt-0.5 w-4 h-4 shrink-0 text-sage"
@@ -419,7 +419,7 @@ const faqSchema = {
           <ul class="mt-5 space-y-3">
             {
               service.suitability.wait.map((item) => (
-                <li class="flex gap-3 text-sm leading-relaxed text-charcoal/75">
+                <li class="flex gap-3 text-base leading-relaxed text-charcoal/75">
                   <span class="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-rose" />
                   <span>{item}</span>
                 </li>
@@ -473,7 +473,7 @@ const faqSchema = {
               </h3>
               <ol class="mt-5 space-y-3.5">
                 {col.items.map((item, i) => (
-                  <li class="flex gap-3.5 text-sm leading-relaxed text-charcoal/75">
+                  <li class="flex gap-3.5 text-base leading-relaxed text-charcoal/75">
                     <span class="mt-px font-display text-sm text-gold/70">
                       {String(i + 1).padStart(2, "0")}
                     </span>
@@ -520,7 +520,7 @@ const faqSchema = {
             service.results.points.map((point) => (
               <div class="reveal reveal-scale rounded-2xl bg-cream p-5 ring-1 ring-beige">
                 <h3 class="font-display text-lg text-olive">{point.title}</h3>
-                <p class="mt-2 text-sm leading-relaxed text-charcoal/70">
+                <p class="mt-2 text-base leading-relaxed text-charcoal/70">
                   {point.desc}
                 </p>
               </div>
@@ -576,7 +576,7 @@ const faqSchema = {
             <div>
               <h3
                 id={`faq-${group.id}`}
-                class="eyebrow scroll-mt-28 font-sans"
+                class="eyebrow scroll-mt-28 font-ui"
               >
                 <span class="h-px w-6 bg-gold" />
                 {group.title}
@@ -595,7 +595,7 @@ const faqSchema = {
                       aria-expanded={f.open ? "true" : "false"}
                       aria-controls={`svc-faq-a-${f.uid}`}
                     >
-                      <span class="faq-q font-display text-lg text-olive transition-colors sm:text-xl">
+                      <span class="faq-q font-ui text-lg text-olive transition-colors sm:text-xl">
                         {f.q}
                       </span>
                       <span class="faq-icon grid h-9 w-9 shrink-0 place-items-center rounded-full bg-cream text-gold transition-all duration-300">
@@ -609,7 +609,7 @@ const faqSchema = {
                       class="faq-panel overflow-hidden px-6 transition-all duration-300"
                       style={f.open ? undefined : "max-height:0"}
                     >
-                      <p class="pb-5 text-sm leading-relaxed text-charcoal/70">
+                      <p class="pb-5 text-base leading-relaxed text-charcoal/70">
                         {f.a}
                       </p>
                     </div>
@@ -633,7 +633,7 @@ const faqSchema = {
         <p class="mt-4 leading-relaxed text-ivory/80">
           Your first consultation is complimentary. We'll assess your skin and
           hair, run a patch test where it's needed, and give you a plan and a
-          price in writing — with no obligation to book.
+          price in writing, with no obligation to book.
         </p>
         <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
           <a href="/#appointment" data-open-appointment class="btn-primary">
