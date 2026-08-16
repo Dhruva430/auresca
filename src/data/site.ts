@@ -111,7 +111,7 @@ export const heroSlides: HeroSlide[] = [
     lead: "Where Science",
     accent: "Meets",
     tail: "Ritual",
-    desc: "A boutique skin, hair and aesthetics clinic — medical precision, delivered with the calm of a retreat.",
+    desc: "A boutique skin, hair and aesthetics clinic medical precision, delivered with the calm of a retreat.",
     cta: { label: "Book a free consultation", href: "/#appointment" },
   },
   {

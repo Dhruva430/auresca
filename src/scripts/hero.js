@@ -25,6 +25,8 @@ if (hero) {
     var GRACE = 800; // watchdog headroom over a clip's own length
     var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+    var siteHeader = document.getElementById("site-header");
+
     var videoIn = function (index) {
       var slide = realSlides[index];
       return slide ? slide.querySelector("[data-hero-video]") : null;
@@ -81,6 +83,10 @@ if (hero) {
         else d.removeAttribute("aria-current");
       });
       syncVideos();
+      // A clip slide asks the header to stand down: no bar, no booking button.
+      if (siteHeader) {
+        siteHeader.classList.toggle("header-on-clip", !!videoIn(logical()));
+      }
     };
 
     var setTransform = function (animate) {
@@ -116,18 +122,33 @@ if (hero) {
 
     var advance = function () { go(pos + 1); };
 
+    // Playback is deliberately NOT tied to the timer. `stop()` used to pause
+    // the clip, so every re-arm — and every pointerdown — pulled a pause/play
+    // through the decoder and the picture hitched. Pausing is now something
+    // only the handlers that mean it (hover, hidden tab) ask for.
+    var playClip = function () {
+      if (reduce) return;
+      var v = videoIn(logical());
+      if (!v) return;
+      // Played out while the carousel was held: send it back to the top.
+      if (v.ended) {
+        try { v.currentTime = 0; } catch (e) { /* not seekable yet */ }
+      }
+      if (!v.paused) return; // already running — leave the decoder alone
+      var playing = v.play();
+      if (playing && playing.catch) playing.catch(function () {});
+    };
+    var pauseClip = function () {
+      var v = videoIn(logical());
+      if (v) v.pause();
+    };
+
     // Self-rescheduling rather than a fixed interval, so each slide can ask
-    // for its own time on screen. Running the carousel and playing the current
-    // clip are the same state: pause one and the other pauses with it, which
-    // is what stops a clip reaching `ended` while the carousel is held.
+    // for its own time on screen.
     var start = function () {
       if (reduce) return;
       stop();
-      var v = videoIn(logical());
-      if (v && !v.ended) {
-        var playing = v.play();
-        if (playing && playing.catch) playing.catch(function () {});
-      }
+      playClip();
       timer = window.setTimeout(function () {
         advance();
         start();
@@ -135,14 +156,15 @@ if (hero) {
     };
     var stop = function () {
       if (timer) { window.clearTimeout(timer); timer = null; }
-      var v = videoIn(logical());
-      if (v) v.pause();
     };
 
     // A clip that has played through is parked on its last frame, so coming
     // back round to it needs a rewind. Clips on other slides are paused —
     // there is nothing to gain from decoding one nobody is looking at.
-    var lastLogical = -1;
+    // Seeded at the opening slide, not -1. At -1 the very first `setActive()`
+    // counted as a slide change and seeked the clip to zero at the exact
+    // moment autoplay was getting under way — which is the stall on reload.
+    var lastLogical = 0;
     var syncVideos = function () {
       // Sliding onto a clone is not the slide arriving — the clone is showing
       // the poster and the snap to the real twin follows. Waiting for that
@@ -156,7 +178,12 @@ if (hero) {
         var v = slide.querySelector("[data-hero-video]");
         if (!v) return;
         if (i !== cur) { v.pause(); return; }
-        try { v.currentTime = 0; } catch (e) { /* not seekable yet */ }
+        // Only seek when there is somewhere to seek back from. Seeking a VP9
+        // stream costs a keyframe decode, and asking for it on a clip already
+        // sitting at its start buys a stall for nothing.
+        if (v.currentTime > 0.05) {
+          try { v.currentTime = 0; } catch (e) { /* not seekable yet */ }
+        }
         rewound = true;
       });
       // `start()` does the playing; re-arming here means the clip is measured
@@ -197,10 +224,17 @@ if (hero) {
     });
 
     // pause while hovered / off-screen
-    hero.addEventListener("mouseenter", stop);
+    // These two do mean "pause the clip": holding a slide open should hold the
+    // picture with it, and a hidden tab should not be decoding video. A drag
+    // does not — see `pointerdown` below, which only parks the timer.
+    var hold = function () {
+      stop();
+      pauseClip();
+    };
+    hero.addEventListener("mouseenter", hold);
     hero.addEventListener("mouseleave", start);
     document.addEventListener("visibilitychange", function () {
-      if (document.hidden) stop(); else start();
+      if (document.hidden) hold(); else start();
     });
     window.addEventListener("resize", function () { setTransform(false); });
 

@@ -26,6 +26,19 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--
+      The page background lives on `body`, which is styled by the external
+      stylesheet — so until that parses the browser paints its own white
+      canvas and the load flashes. Setting it on `html` inline puts the colour
+      in place on the very first paint. `color-scheme` stops the same flash
+      happening in reverse for anyone browsing with a dark UA default.
+    -->
+    <style is:inline>
+      html {
+        background-color: #f9f7f2;
+        color-scheme: light;
+      }
+    </style>
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="theme-color" content="#F9F7F2" />

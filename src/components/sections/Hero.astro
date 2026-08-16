@@ -13,7 +13,7 @@ import { img, srcset } from "@/lib/helpers";
 >
   <!-- slides track (draggable) -->
   <div
-    class="hero-viewport relative overflow-hidden lg:min-h-[calc(100vh-8.5rem)]"
+    class="hero-viewport relative overflow-hidden lg:min-h-screen"
   >
     <div class="hero-track flex" data-hero-track>
       {
@@ -41,7 +41,7 @@ import { img, srcset } from "@/lib/helpers";
           // of one line and the cap top of the next. The 0.86 this replaces
           // was under the cap height itself — the two lines nearly touched.
           const headingType = slide.dark
-            ? "text-[clamp(2.5rem,12vw,9rem)] leading-[1.03] tracking-[-0.015em]"
+            ? "text-[clamp(2.5rem,12vw,9rem)] leading-[1.03] tracking-[-0.015em] [word-spacing:0.08em]"
             : "text-5xl leading-[1.05] sm:text-6xl lg:text-7xl text-balance";
           const copyWidth = slide.dark
             ? "max-w-xl lg:max-w-[min(68vw,1100px)]"
@@ -57,7 +57,7 @@ import { img, srcset } from "@/lib/helpers";
           // tied to the viewport — 1.8vw keeps it inside the column at every
           // desktop width instead of wrapping on the narrower ones.
           const descType = isVideo
-            ? "max-w-md text-[clamp(1rem,1.8vw,1.5rem)] lg:max-w-none"
+            ? "max-w-md text-[clamp(1rem,1.8vw,1.5rem)] font-semibold lg:max-w-none"
             : "max-w-md text-lg";
 
           return (
@@ -68,8 +68,11 @@ import { img, srcset } from "@/lib/helpers";
               aria-roledescription="slide"
               aria-label={`${i + 1} of ${heroSlides.length}`}
             >
-              {/* background — a looping clip when the slide has one, the
-                  photograph otherwise. Both land in the same box. */}
+              {/* background — a clip when the slide has one, the photograph
+                  otherwise. Both land in the same box. The clip preloads in
+                  full rather than `metadata`: it autoplays the instant the
+                  page lands, so deferring the body of the file only means the
+                  opening seconds play out of an empty buffer. */}
               {slide.video ? (
                 <video
                   data-hero-video
@@ -78,7 +81,7 @@ import { img, srcset } from "@/lib/helpers";
                   autoplay
                   muted
                   playsinline
-                  preload="metadata"
+                  preload="auto"
                   aria-label={`${slide.name} at Auresca Care`}
                   width="1920"
                   height="1080"
@@ -105,7 +108,7 @@ import { img, srcset } from "@/lib/helpers";
                   the one-third mark — so its copy sits at the foot of the slide
                   rather than centred, where the clear beige is widest. */}
               <div
-                class={`container-wide relative flex items-center py-10 lg:min-h-[calc(100vh-8.5rem)] lg:py-0 lg:pb-20 ${isVideo ? "lg:items-end" : ""}`}
+                class={`container-wide relative flex items-center py-10 lg:min-h-screen lg:py-0 lg:pb-20 ${isVideo ? "lg:items-end" : ""}`}
               >
                 <div class={`hero-copy ${copyWidth} ${align} lg:py-16`}>
                   <h1
