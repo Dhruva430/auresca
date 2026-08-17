@@ -235,7 +235,7 @@ export type ServiceGroup = {
 
 export type ServiceCategory = {
   slug: string;
-  /** Short label for the tab + the form's optgroup. */
+  /** Short label for the filter tab. */
   label: string;
   title: string;
   tagline: string;
@@ -589,35 +589,49 @@ export const whyUs = [
   },
 ];
 
-/** Time slots offered in the appointment form. */
-export const timeSlots = [
-  "9:00 AM",
-  "10:00 AM",
-  "11:00 AM",
-  "12:00 PM",
-  "1:00 PM",
-  "2:00 PM",
-  "3:00 PM",
-  "4:00 PM",
-  "5:00 PM",
-  "6:00 PM",
-  "7:00 PM",
+/**
+ * The "Treatment You're Planning" tick-boxes on the appointment form.
+ *
+ * These are the clinic's five broad groups rather than the full treatment menu,
+ * because every request lands in the clinic's Google Form and this is the
+ * question it asks. `src/lib/google-form.ts` maps each `value` onto the exact
+ * option string that form expects, so the two lists have to stay in step —
+ * adding one here without adding it there is caught at start-up.
+ *
+ * The hints are examples, not an exhaustive list; the visitor names the specific
+ * treatment they are after in "Your Concern".
+ */
+export const treatmentOptions = [
+  {
+    value: "laser-hair-reduction",
+    label: "Laser Hair Reduction",
+    hint: "Full body, full face, upper lips, beard shaping…",
+  },
+  {
+    value: "skin-treatment",
+    label: "Skin Treatment",
+    hint: "Medi-facial, Q-Switch, carbon facial, RF…",
+  },
+  {
+    value: "anti-ageing",
+    label: "Anti-Ageing",
+    hint: "Skin PRP, skin GFC, face exosomes, pigmentation peel…",
+  },
+  {
+    value: "hair-regeneration",
+    label: "Hair Regeneration",
+    hint: "Hair PRP, hair GFC, hair exosomes, QR678…",
+  },
+  {
+    value: "body-contouring",
+    label: "Body Contouring",
+    hint: "Cool-sculpt, curve expert, G5, tummy tuck…",
+  },
 ];
 
-/**
- * Grouped options for the appointment form — one <optgroup> per category. The
- * submitted value carries the category so a bare "Full Body" or "Back" is never
- * ambiguous in the clinic's inbox.
- */
-export const serviceOptions = serviceCategories.map((cat) => ({
-  label: cat.label,
-  options: cat.groups.flatMap((group) =>
-    group.items.map((item) => ({ label: item, value: `${cat.label}: ${item}` }))
-  ),
-}));
-
 /** Total number of treatments on the menu. */
-export const serviceCount = serviceOptions.reduce(
-  (total, group) => total + group.options.length,
+export const serviceCount = serviceCategories.reduce(
+  (total, cat) =>
+    total + cat.groups.reduce((n, group) => n + group.items.length, 0),
   0
 );

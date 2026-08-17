@@ -4,16 +4,20 @@
  * the site-wide pop-up, so the fields, the endpoint and the validation only
  * ever exist in one place.
  *
+ * The five fields mirror the clinic's Google Form, which is where every request
+ * lands (see `src/lib/google-form.ts`). Keep them in step: a field with nowhere
+ * to go on the form is a field whose answer the clinic never reads.
+ *
  * Both copies can sit on the same page (the home page has the section *and*
  * the pop-up), so every id is prefixed. `src/scripts/appointment.js` wires up
  * each `[data-appointment-form]` independently.
  */
-import { serviceOptions, timeSlots } from "@/data/site";
+import { treatmentOptions } from "@/data/site";
 
 interface Props {
   /** Prefix for field ids so two copies can coexist on one page. */
   idPrefix: string;
-  /** Drops the optional message field — keeps the pop-up short. */
+  /** Tightens the vertical rhythm — keeps the pop-up on one phone screen. */
   compact?: boolean;
   submitLabel?: string;
 }
@@ -26,15 +30,10 @@ const {
 
 const id = (field: string) => `${idPrefix}-${field}`;
 
-// Compact mode tightens the vertical rhythm and pairs date + time on phones,
-// so the pop-up's submit button stays within reach without scrolling.
 const formClass = compact ? "form-compact space-y-4" : "space-y-6";
 const gridClass = compact
   ? "grid gap-x-4 gap-y-3 sm:grid-cols-2"
   : "grid gap-x-6 gap-y-5 sm:grid-cols-2";
-const dateTimeClass = compact
-  ? "grid grid-cols-2 gap-x-4 gap-y-3 sm:contents"
-  : "contents";
 ---
 
 <!--
@@ -64,6 +63,19 @@ const dateTimeClass = compact
       />
     </div>
     <div>
+      <label for={id("phone")} class="field-label">Contact Number</label>
+      <input
+        id={id("phone")}
+        name="phone"
+        type="tel"
+        required
+        autocomplete="tel"
+        inputmode="tel"
+        class="field"
+        placeholder="e.g. +91 12345 67890"
+      />
+    </div>
+    <div class="sm:col-span-2">
       <label for={id("email")} class="field-label">Email</label>
       <input
         id={id("email")}
@@ -76,70 +88,72 @@ const dateTimeClass = compact
         placeholder="youremail@example.com"
       />
     </div>
-    <div>
-      <label for={id("phone")} class="field-label">Telephone Number</label>
-      <input
-        id={id("phone")}
-        name="phone"
-        type="tel"
-        required
-        autocomplete="tel"
-        inputmode="tel"
-        class="field"
-        placeholder="e.g. +91 12345 67890"
-      />
-    </div>
-    <div>
-      <label for={id("service")} class="field-label">Treatment Type</label>
-      <select id={id("service")} name="service" required class="field">
-        <option value="" disabled selected>Select treatment</option>
-        {
-          serviceOptions.map((group) => (
-            <optgroup label={group.label}>
-              {group.options.map((o) => (
-                <option value={o.value}>{o.label}</option>
-              ))}
-            </optgroup>
-          ))
-        }
-      </select>
-    </div>
-    <div class={dateTimeClass}>
-      <div>
-        <label for={id("preferredDate")} class="field-label">Date</label>
-        <input
-          id={id("preferredDate")}
-          name="preferredDate"
-          type="date"
-          class="field"
-        />
-      </div>
-      <div>
-        <label for={id("preferredTime")} class="field-label">Time</label>
-        <select id={id("preferredTime")} name="preferredTime" class="field">
-          <option value="" disabled selected>Select a time</option>
-          {timeSlots.map((t) => <option value={t}>{t}</option>)}
-        </select>
-      </div>
-    </div>
-    {
-      !compact && (
-        <div class="sm:col-span-2">
-          <label for={id("message")} class="field-label">
-            Message{" "}
-            <span class="font-normal text-charcoal/40">(optional)</span>
+  </div>
+
+  <!--
+    Tick-boxes rather than a dropdown: the question is genuinely multi-answer —
+    someone booking laser can be asking about anti-ageing in the same visit.
+    No `required` attribute, since on a checkbox that would demand *every* box
+    be ticked; the endpoint checks that at least one came through.
+  -->
+  <fieldset>
+    <legend class="field-label">Treatment You're Planning</legend>
+    <!-- One column in the pop-up: its form sits in a ~290px panel, too narrow
+         to split a label and its examples in two. -->
+    <div
+      class:list={[
+        "grid gap-x-4",
+        compact ? "gap-y-1.5" : "gap-y-2 sm:grid-cols-2",
+      ]}
+    >
+      {
+        treatmentOptions.map((t) => (
+          <label
+            class:list={[
+              "flex cursor-pointer items-start gap-2.5 rounded-xl border border-beige bg-ivory/70 transition hover:border-gold/70 hover:bg-white has-[:checked]:border-gold has-[:checked]:bg-white has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-gold/25",
+              compact ? "px-3 py-2" : "px-4 py-3",
+            ]}
+          >
+            <input
+              type="checkbox"
+              name="treatment"
+              value={t.value}
+              class="mt-0.5 h-4 w-4 shrink-0 accent-olive outline-none"
+            />
+            <span class="min-w-0">
+              <span
+                class:list={[
+                  "block font-medium leading-snug text-charcoal",
+                  compact ? "text-[13px]" : "text-sm",
+                ]}
+              >
+                {t.label}
+              </span>
+              <span
+                class:list={[
+                  "mt-0.5 block leading-snug text-charcoal/50",
+                  compact ? "text-[11px]" : "text-xs",
+                ]}
+              >
+                {t.hint}
+              </span>
+            </span>
           </label>
-          <textarea
-            id={id("message")}
-            name="message"
-            rows="3"
-            maxlength="1000"
-            class="field resize-none"
-            placeholder="Tell us about your skin goals or anything we should know…"
-          />
-        </div>
-      )
-    }
+        ))
+      }
+    </div>
+  </fieldset>
+
+  <div>
+    <label for={id("concern")} class="field-label">Your Concern</label>
+    <textarea
+      id={id("concern")}
+      name="concern"
+      rows={compact ? "2" : "3"}
+      required
+      maxlength="1000"
+      class="field resize-none"
+      placeholder="Tell us the treatment you have in mind, your skin or hair goals, and a time of day that suits you…"></textarea>
   </div>
 
   <p

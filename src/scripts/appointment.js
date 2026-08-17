@@ -18,6 +18,15 @@ document.querySelectorAll("[data-appointment-form]").forEach(function (form) {
     statusBox.classList.toggle("text-charcoal", !ok);
   };
 
+  // "Treatment" is a tick-box group, so it needs getAll — fromEntries would
+  // keep only the last box ticked.
+  var payload = function () {
+    var data = new FormData(form);
+    var body = Object.fromEntries(data.entries());
+    body.treatment = data.getAll("treatment");
+    return body;
+  };
+
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     var btn = form.querySelector('button[type="submit"]');
@@ -33,7 +42,7 @@ document.querySelectorAll("[data-appointment-form]").forEach(function (form) {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-      body: JSON.stringify(Object.fromEntries(new FormData(form).entries())),
+      body: JSON.stringify(payload()),
     })
       .then(function (r) {
         return r.json().then(function (data) {
