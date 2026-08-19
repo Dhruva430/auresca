@@ -60,12 +60,10 @@ import { img, srcset } from "@/lib/helpers";
           // wide as the words. `lg` only: below that the slide stacks and the
           // copy is already sitting on its own cream, in charcoal.
           const glass = !bleed && !!slide.video;
-          const glassPanel = glass
-            ? "lg:rounded-[2rem] lg:bg-charcoal/55 lg:backdrop-blur-md lg:ring-1 lg:ring-white/15 lg:shadow-card"
-            : "";
-          // One padding rule per slide — two `lg:py-*` utilities on the same
-          // element resolve by stylesheet order, not by the order written here.
-          const copyPad = glass ? "lg:px-10 lg:py-12" : "lg:py-16";
+          // `hero-glass` carries the tint, blur, radius and its own padding —
+          // all of it `lg`-only, which a gradient cannot be from an inline
+          // style. A slide without it keeps the plain vertical rhythm.
+          const copyPad = glass ? "hero-glass" : "lg:py-16";
 
           // A full-bleed slide carries the headline on its own — no buttons. It
           // stays ranged left like every other slide; the wrapper's
@@ -159,7 +157,7 @@ import { img, srcset } from "@/lib/helpers";
                 class={`container-wide relative flex items-center py-10 lg:min-h-screen lg:py-0 ${bleed ? "lg:items-end lg:pb-20" : ""}`}
               >
                 <div
-                  class={`hero-copy ${copyWidth} ${align} ${copyPad} ${glassPanel}`}
+                  class={`hero-copy ${copyWidth} ${align} ${copyPad}`}
                 >
                   {!bleed && (
                     <span class="eyebrow mb-4">

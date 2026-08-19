@@ -280,6 +280,42 @@
     }
   }
 
+  /* Smoked panel behind the copy on a clip slide. Tinted to the palette
+     rather than left neutral: olive falling to a deeper olive across the
+     diagonal, with the gold hairline the cards elsewhere on the page use.
+     The olive itself is too light to carry white type — it needs 69% over
+     the brightest frame these clips reach, which is a solid block, not
+     glass. Deepening it to #2E3428 gets there at half that and keeps the
+     movement showing through. `lg` only: below it the slide stacks onto
+     cream and the copy is back in olive on cream, needing no panel at all. */
+  @media (min-width: 1024px) {
+    .hero-glass {
+      border-radius: 2rem;
+      padding: 3rem 2.5rem;
+      background-image: linear-gradient(
+        135deg,
+        rgba(78, 86, 69, 0.72) 0%,
+        rgba(46, 52, 40, 0.62) 100%
+      );
+      /* Via the utility rather than hand-written: written out, the build
+         drops the unprefixed property and leaves only `-webkit-`, which is no
+         blur at all in Firefox. */
+      @apply backdrop-blur-md;
+      box-shadow:
+        inset 0 0 0 1px rgba(200, 157, 66, 0.35),
+        0 18px 50px -20px rgba(20, 24, 16, 0.45);
+    }
+    /* The eyebrow's antique gold is a mark for cream — against the panel it
+       measures 1.9:1 and reads as a smudge. The champagne step of the same
+       ramp is the one that works on a dark ground. */
+    .hero-glass .eyebrow {
+      @apply text-gold-champagne;
+    }
+    .hero-glass .eyebrow > span {
+      @apply bg-gold-champagne;
+    }
+  }
+
   .eyebrow {
     @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-gold;
   }
