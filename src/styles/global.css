@@ -202,9 +202,16 @@
   }
 
   /* The clip slide carries no call to action of its own, and the header's
-     stands down with it. Beats `sm:inline-flex` on specificity. */
-  .header-on-clip a[data-open-appointment] {
-    display: none;
+     stands down with it — but only while the bar is actually transparent over
+     the clip. Scrolled on, the header is back on solid ivory (and below `lg`
+     it never left it, and the slide stacks anyway), so the button has to come
+     back with it or the one call to action on the page is missing for the
+     whole of slide one. Scoped exactly like the rest of the stood-down
+     styling below. Beats `sm:inline-flex` on specificity. */
+  @media (min-width: 1024px) {
+    .header-on-clip:not(.is-scrolled) a[data-open-appointment] {
+      display: none;
+    }
   }
 
   @media (min-width: 1024px) {
