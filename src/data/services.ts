@@ -397,6 +397,292 @@ export const serviceDetails: ServiceDetail[] = [
       },
     ],
   },
+  {
+    slug: "body-contouring",
+    name: "Body Contouring & Slimming",
+    eyebrow: "Body & Shape",
+    headline: "Shape, not the number on the scale, treated area by area.",
+    intro:
+      "Non-invasive contouring for the pockets of fat that stay put whatever you do about them, supported by muscle work, lymphatic massage and traditional therapy. Medically assessed, no surgery, no downtime, and no pretence that any of it is a weight-loss programme.",
+    image: "/images/service-body-contouring.webp",
+    imageAlt: "Body contouring and slimming treatment at Auresca Care",
+    metaTitle: "Body Contouring & Slimming in Gurugram — Auresca Care",
+    metaDescription:
+      "Non-invasive body contouring and slimming in Gurugram: cryolipolysis, laser lipolysis, muscle stimulation and lymphatic work, matched to you at a free consultation.",
+
+    specs: [
+      { icon: "body", label: "Typical course", value: "1–3 rounds per area" },
+      { icon: "clock", label: "Session length", value: "30–60 min by area" },
+      { icon: "check", label: "Downtime", value: "None, resume your day" },
+      { icon: "sparkle", label: "Results show", value: "3 wks, settled by 12" },
+      { icon: "shield", label: "Best for", value: "Localised, pinchable fat" },
+      { icon: "stethoscope", label: "Supervision", value: "Medically led" },
+    ],
+
+    science: {
+      title: "What body contouring can and cannot do",
+      body: [
+        "Losing weight and changing a shape are two different problems. When you lose weight, the fat cells you already have get smaller, everywhere, in whatever order your body decides — which is why the last place you want to lose it is usually the last place that goes. Contouring works the other way round: it reduces the number of fat cells in one specific pocket, and leaves the rest of you alone.",
+        "Cryolipolysis, the most established of these treatments, works because fat crystallises at a higher temperature than skin, nerve and muscle do. Held at a controlled cold for a set time, the treated fat cells are damaged past recovery and cleared by your body over the following weeks, while the tissue above and around them comes through unharmed. A single round takes roughly 20–25% of the pinchable fat layer in the area it covers. It is gradual by design, and nothing about it is visible on the day.",
+        "What none of it is, is weight loss. The mass involved is small, the scale often does not move at all, and it is not a treatment for obesity or for the visceral fat that sits deep around the organs, which is the fat that actually matters to your health. That fat answers to diet, sleep, movement and time. Contouring is for the shape left over once those are in hand.",
+      ],
+    },
+
+    visit: {
+      title: "What a session looks like",
+      intro:
+        "The first appointment decides whether any of this is worth doing for you, which is a question worth answering honestly before anything is booked.",
+      steps: [
+        {
+          title: "Assessment & measurement",
+          desc: "We look at what you actually want changed, check whether the fat there is the pinchable kind that responds or the deep kind that does not, and go through your medical history. Photographs and measurements are taken at the start, because memory is a poor judge of a gradual change.",
+        },
+        {
+          title: "Mapping the plan",
+          desc: "Which treatment suits which area, how many rounds it is likely to take, and in what order. Some areas want fat reduction, some want muscle, and some want neither — you will be told if the honest answer is that the treatment has little to offer you.",
+        },
+        {
+          title: "The session",
+          desc: "Cooling applicators draw the area in and hold it cold: intense for the first few minutes, then numb for the rest. Laser and muscle programmes are painless, the latter felt as strong involuntary contractions. Most people read or work through it.",
+        },
+        {
+          title: "Massage & aftercare",
+          desc: "The area is massaged straight afterwards, which is not a comfort measure — it measurably improves the outcome after cryolipolysis. You leave with written aftercare and the next appointment at the interval the area needs.",
+        },
+      ],
+    },
+
+    areas: {
+      title: "Areas we treat",
+      intro:
+        "Rounds are per area, and how many you need depends on how much is there and how much you want changed. Your own plan is confirmed at consultation, after we have seen the area.",
+      note: "Pricing depends on the area, the number of applicators or programmes involved and the plan agreed at consultation. Your first consultation is complimentary, and you will have the full cost in writing before anything is booked.",
+      groups: [
+        {
+          title: "Fat reduction & sculpting",
+          rows: [
+            { area: "Abdomen (upper & lower)", sessions: "1–3 rounds" },
+            { area: "Flanks / love handles", sessions: "1–3 rounds" },
+            { area: "Inner thighs", sessions: "1–2 rounds" },
+            { area: "Outer thighs", sessions: "1–2 rounds" },
+            { area: "Upper arms", sessions: "1–2 rounds" },
+            { area: "Bra line & upper back", sessions: "1–2 rounds" },
+            { area: "Double chin (submental)", sessions: "1–2 rounds" },
+            { area: "Above the knees", sessions: "1–2 rounds" },
+          ],
+        },
+        {
+          title: "Tone, circulation & support",
+          rows: [
+            { area: "Muscle stimulation programme", sessions: "6–12" },
+            { area: "Mechanical & lymphatic massage", sessions: "6–10" },
+            { area: "Udhwarthana (Ayurvedic)", sessions: "7–14" },
+            { area: "Combination programme", sessions: "Set at consultation" },
+          ],
+        },
+      ],
+    },
+
+    technology: {
+      title: "What each treatment actually does",
+      intro:
+        "These are different tools for different problems, and they are not interchangeable. Fat, muscle and fluid are three separate reasons an outline looks the way it does, and only an assessment tells you which one you are dealing with.",
+      points: [
+        {
+          title: "Cryolipolysis",
+          desc: "Controlled cooling that damages fat cells past recovery while sparing everything around them. The evidence behind it is the strongest in this section: roughly 20–25% of the pinchable layer per round, cleared over 8–12 weeks. For a defined pocket you can hold between finger and thumb.",
+        },
+        {
+          title: "Laser lipolysis",
+          desc: "Low-level laser applied to the surface, which prompts fat cells to release part of their contents rather than destroying them. Gentler, painless, and asks something of you afterwards — the released content has to be used, so a session is followed by movement. Modest on its own; useful inside a programme.",
+        },
+        {
+          title: "Muscle stimulation",
+          desc: "Electrical stimulation driving contractions deeper and more often than voluntary training reaches. It builds and tones the muscle under the fat, which changes an outline — a flatter abdomen, a lifted seat — without removing a gram of fat. Different problem, different tool.",
+        },
+        {
+          title: "Mechanical & lymphatic massage",
+          desc: "Deep mechanical massage over the treated area to move fluid, ease heaviness and soften the look of dimpling. It supports the rest of the work and makes the settling more comfortable. It is not a fat-removal treatment and is not offered as one.",
+        },
+        {
+          title: "Udhwarthana",
+          desc: "A traditional Ayurvedic massage worked with herbal powders against the direction of the hair. It is offered here as supportive therapy — circulation, skin texture, the ritual of it — alongside the clinical treatments rather than as a substitute for them.",
+        },
+        {
+          title: "Loose skin is a separate question",
+          desc: "Skin that has lost its spring will not tighten because the volume beneath it has gone, and taking volume out of a lax area can make it look worse. We assess laxity before anything else and will tell you plainly if that, and not the fat, is what you are seeing.",
+        },
+      ],
+    },
+
+    suitability: {
+      title: "Is it right for you?",
+      goodTitle: "Usually a good fit",
+      good: [
+        "Within a few kilos of your usual weight, with a pocket that stays regardless of diet and training",
+        "Fat you can pinch and hold: soft and superficial, rather than a firm abdomen that will not give",
+        "Areas that resist training on almost everyone — flanks, inner thighs, the area under the chin",
+        "Shape changes after pregnancy, once you are cleared, no longer breastfeeding and settled at a stable weight",
+        "Anyone who wants a change of outline without surgery, anaesthetic or time away from work",
+      ],
+      waitTitle: "Wait, or talk to us first",
+      wait: [
+        "Looking for weight loss: this is not that treatment, and we would rather say so at the consultation than after your money is spent",
+        "A firm, non-pinchable abdomen, which usually means visceral fat — it sits too deep for any of this to reach",
+        "Pregnancy or breastfeeding",
+        "Cold-related conditions such as cryoglobulinaemia, cold agglutinin disease or paroxysmal cold haemoglobinuria, which rule out cryolipolysis entirely",
+        "A hernia at or near the area you want treated",
+        "A pacemaker, defibrillator or metal implant, which rules out muscle stimulation over that area",
+        "Active infection, broken skin, recent surgery or significant scarring in the area",
+        "Blood-thinning medication or a bleeding disorder: bring your full list, including supplements",
+        "Marked skin laxity in the area, where removing volume can make the loose skin more obvious rather than less",
+      ],
+    },
+
+    care: {
+      title: "Before & after your session",
+      intro:
+        "There is very little to do for this treatment, and most of what matters happens in the weeks afterwards rather than the hour itself.",
+      beforeTitle: "In the days before",
+      before: [
+        "Eat normally on the day. There is no fasting, and arriving hungry only makes a long session uncomfortable.",
+        "Drink water through the day before and the day itself: your body clears the treated fat through its own drainage.",
+        "Skip alcohol the night before, which leaves tissue more prone to bruising.",
+        "Wear something loose and comfortable that will go back on easily afterwards.",
+        "Tell us about implants and devices, any hernia, cold-related conditions, bleeding disorders and every medication and supplement you take.",
+        "Let us take the photographs and measurements. A gradual change over three months is exactly the kind your eye cannot judge from memory.",
+      ],
+      afterTitle: "For the days after",
+      after: [
+        "Redness, firmness, swelling, tingling and cramping in the area are normal after cryolipolysis and settle over days.",
+        "Numbness in the treated patch is common and can last one to three weeks. It resolves on its own.",
+        "Massage the area as shown, for the days we specify. It is uncomfortable for the first minute or so and it measurably improves the result.",
+        "Move after a laser session — a brisk walk the same day. That part is not optional, it is how the released content is actually used.",
+        "Back to your day immediately. There is no downtime, no dressing and nothing to keep you out of the gym beyond your own comfort.",
+        "Do not judge it at day three, or at week two. The earliest change shows around three weeks and the picture is not complete until eight to twelve.",
+        "Keep your weight steady while the course runs, or you will not be able to tell what the treatment did.",
+      ],
+    },
+
+    results: {
+      title: "What results look like, honestly",
+      lead: "This changes the shape of an area. It does not change what the scale says, and a clinic promising you both is promising something the treatment does not do.",
+      body: [
+        "A round of cryolipolysis removes roughly 20–25% of the pinchable fat layer under the applicator. That is a real, measurable change in an outline, and it is also nowhere near the whole of a pocket — which is why a second round on the same area is common rather than a sign something went wrong. The first change tends to show at three to four weeks, and the area is not finished settling until eight to twelve.",
+        "The fat cells cleared in a treated area are gone and do not regenerate. That is not the same as a permanent result. The cells you still have, there and everywhere else, expand and shrink with your weight exactly as before, so gaining weight afterwards still shows — it simply distributes differently than it used to. Holding the result is a matter of holding your weight.",
+        "Muscle stimulation and massage change an outline by a different route and on a different timeline, and combining them with fat reduction is common. What none of them do is act on health markers. If the goal is metabolic rather than cosmetic, the honest answer is that this is the wrong section of the menu, and we will tell you so.",
+      ],
+      points: [
+        {
+          title: "At 3–4 weeks",
+          desc: "The first visible change, usually noticed in how clothes sit rather than in the mirror. Measurements start to move before the eye catches up.",
+        },
+        {
+          title: "At 8–12 weeks",
+          desc: "The full picture for that round, and the point at which we compare against your starting photographs and decide together whether the area wants another.",
+        },
+        {
+          title: "Holding it",
+          desc: "A stable weight and some strength work. There is no maintenance session that substitutes for either, and we will not sell you one.",
+        },
+        {
+          title: "What changes the outcome",
+          desc: "How much is there to begin with, whether the fat is superficial or visceral, the condition of the skin above it, and keeping the course to its intervals.",
+        },
+      ],
+    },
+
+    faqGroups: [
+      {
+        id: "basics",
+        title: "The basics",
+        items: [
+          {
+            q: "What is non-invasive body contouring?",
+            a: "It is a group of treatments that change the shape of a specific area without surgery, anaesthetic or recovery time. Some reduce the fat in a defined pocket, some build the muscle beneath it, and some work on fluid and circulation. All of them are applied from the surface of the skin, and you walk out and carry on with your day.",
+          },
+          {
+            q: "Is body contouring the same as weight loss?",
+            a: "No, and it is the single most important thing to understand before booking. The mass involved is small enough that the scale often does not move at all. It changes the outline of one area rather than reducing your body weight, and it does nothing for the deep visceral fat that carries the actual health risk.",
+          },
+          {
+            q: "Does body contouring actually work?",
+            a: "Cryolipolysis has the strongest evidence of anything in this section, with a consistent reduction of roughly 20–25% of the pinchable fat layer per round in a treated area. The rest range from modest to supportive. We would rather be specific about which is which than describe the whole menu in the same confident terms.",
+          },
+          {
+            q: "Am I a suitable candidate?",
+            a: "Usually yes if you are close to your usual weight and there is a soft pocket you can pinch that has not shifted with diet or training. Usually no if you are looking for weight loss, or if the area is firm rather than pinchable, which generally means the fat sits too deep to reach. The consultation answers this properly.",
+          },
+        ],
+      },
+      {
+        id: "sessions",
+        title: "Sessions, schedule & cost",
+        items: [
+          {
+            q: "How many sessions will I need?",
+            a: "For fat reduction, one to three rounds per area, decided by how much is there and how much you want changed. Muscle and massage programmes run longer, typically six to twelve sessions. Your own plan is set at the consultation once we have seen and assessed the area, not before.",
+          },
+          {
+            q: "How far apart are the sessions?",
+            a: "The same area is not re-treated with cryolipolysis for eight to twelve weeks, because that is how long your body takes to clear the last round — treat it again sooner and you are guessing at a result you cannot yet see. Muscle and massage programmes run far closer together, usually once or twice a week.",
+          },
+          {
+            q: "How long does a session take?",
+            a: "Between about thirty and sixty minutes for most areas, depending on how many applicators or programmes are involved, plus the massage afterwards. Allow extra for the first appointment, which includes the assessment, photographs and measurements.",
+          },
+          {
+            q: "What does it cost?",
+            a: "It depends on the area, how many applicators or programmes it takes and how many rounds your plan calls for. Your first consultation is complimentary, and you will have the full cost in writing before anything is booked, including whether a package or individual sessions works out better for you.",
+          },
+        ],
+      },
+      {
+        id: "safety",
+        title: "Comfort & safety",
+        items: [
+          {
+            q: "Does it hurt?",
+            a: "Cryolipolysis is intense for the first few minutes as the applicator draws the area in and the cold sets in, after which the area goes numb and most people read or work through the rest. The massage afterwards is the part people mention. Laser sessions are painless, and muscle stimulation is felt as strong contractions rather than pain.",
+          },
+          {
+            q: "What are the side effects?",
+            a: "After cryolipolysis: redness, swelling, firmness, tenderness, cramping and bruising in the area, settling over days, with numbness in the treated patch that can last one to three weeks. Muscle programmes can leave the same soreness as a hard session at the gym. None of it requires time off.",
+          },
+          {
+            q: "Is there a risk of it going wrong?",
+            a: "The uncommon one worth knowing about is paradoxical adipose hyperplasia, where the treated area grows firmer and larger instead of smaller over the months afterwards. It is rare, it is not dangerous, and it does not resolve on its own — it needs correcting surgically. Any clinic offering cryolipolysis should raise this with you before you consent, and we do.",
+          },
+          {
+            q: "Who should not have these treatments?",
+            a: "Cryolipolysis is ruled out by cold-related conditions such as cryoglobulinaemia, cold agglutinin disease and paroxysmal cold haemoglobinuria, and by a hernia at the site. Muscle stimulation is ruled out over a pacemaker, defibrillator or metal implant. All of it is deferred in pregnancy and breastfeeding, and over active infection or broken skin.",
+          },
+        ],
+      },
+      {
+        id: "results",
+        title: "Results & afterwards",
+        items: [
+          {
+            q: "When will I see a difference?",
+            a: "The earliest change shows around three to four weeks, and the area is not finished settling until eight to twelve. Measurements usually move before your eye registers anything, which is exactly why the photographs and measurements at the first appointment matter more than they seem to at the time.",
+          },
+          {
+            q: "Are the results permanent?",
+            a: "The fat cells cleared from a treated area are gone and do not come back. What is not permanent is the outcome: every cell you still have expands and shrinks with your weight as it always did, so gaining weight afterwards still shows, just distributed differently. A stable weight is what holds the result.",
+          },
+          {
+            q: "Will I need more than one round?",
+            a: "Often, yes. One round takes roughly a fifth to a quarter of the pinchable layer, which is a visible change and not the whole of it. We compare against your starting photographs at eight to twelve weeks and decide then, on what the area actually did rather than on a package sold in advance.",
+          },
+          {
+            q: "Can I combine treatments?",
+            a: "Frequently that is the better plan, because fat, muscle and fluid are separate reasons an outline looks the way it does. A common combination is fat reduction for a pocket, muscle work for the tone underneath and lymphatic massage through the course. What the combination should be depends entirely on the assessment.",
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 /** Detail page for a category slug, when one has been written. */
