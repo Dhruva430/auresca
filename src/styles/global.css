@@ -201,13 +201,14 @@
     top: var(--announce-h, 2.25rem);
   }
 
-  /* The clip slide carries no call to action of its own, and the header's
-     stands down with it — but only while the bar is actually transparent over
-     the clip. Scrolled on, the header is back on solid ivory (and below `lg`
-     it never left it, and the slide stacks anyway), so the button has to come
-     back with it or the one call to action on the page is missing for the
-     whole of slide one. Scoped exactly like the rest of the stood-down
-     styling below. Beats `sm:inline-flex` on specificity. */
+  /* Over a clip the header stands down and its button goes with it — on
+     every clip slide, not just the opening one, so the bar reads the same
+     way whichever is on screen. Only while it is actually transparent,
+     though: scrolled on, the header is back on solid ivory (and below `lg`
+     it never left it, and the slide stacks anyway), so the button comes back
+     with it rather than leaving the page without its one call to action.
+     Scoped exactly like the rest of the stood-down styling below. Beats
+     `sm:inline-flex` on specificity. */
   @media (min-width: 1024px) {
     .header-on-clip:not(.is-scrolled) a[data-open-appointment] {
       display: none;
@@ -226,17 +227,17 @@
       margin-top: calc(var(--header-h, 121px) * -1);
     }
 
-    /* Every slide but the full-bleed one starts below the header instead of
-       running under it. The hero is pulled up so that one clip can fill the
-       frame behind a transparent bar — but everywhere else that bar is
-       opaque, so the top 121px of the picture is simply thrown away, which is
-       what was decapitating the models. Shifting the media down is not an
-       option: these are 16:9 files in a 16:9 box with no vertical headroom to
-       crop. The strip left behind is the slide's own `topColor`, painted by
-       the band in Hero.astro. Applies to a clip as much as a photograph —
-       only `hero-bleed` is exempt. Two classes beat the single-class
-       `lg:inset-0` utility on the element. */
-    .hero-img:not(.hero-bleed) {
+    /* Photographs start below the header instead of running under it. The
+       hero is pulled up so the clips can fill the frame behind a transparent
+       bar — but on a photograph that bar is opaque, so the top 121px of the
+       picture is simply thrown away, which is what was decapitating the
+       models. Shifting the image down is not an option: these are 16:9 files
+       in a 16:9 box with no vertical headroom to crop. The strip left behind
+       is the slide's own `topColor`, painted by the band in Hero.astro.
+       Clips are exempt by selector — running under the bar is the whole point
+       of standing it down. Specificity beats the `lg:inset-0` utility on the
+       element. */
+    img.hero-img {
       top: var(--header-h, 121px);
       height: calc(100% - var(--header-h, 121px));
     }
@@ -246,10 +247,14 @@
     .header-on-clip:not(.is-scrolled) {
       @apply border-transparent bg-transparent shadow-none backdrop-blur-none;
     }
-    /* The centred mark lands on the model's hair, where the olive artwork
-       measures 1.0:1 against it. Flattened to white it reads at 7.7:1. */
+    /* On the ritual clip the centred mark lands on the model's hair, where
+       the olive artwork measures 1.0:1 against it and white reads at 7.7:1.
+       The other two clips are pale up there — white alone measures 1.6:1 on
+       the hair regrowth wall — so the mark carries a shadow and the slide
+       lays a scrim under the bar. Neither reads as anything on the ritual,
+       which was already dark enough. */
     .header-on-clip:not(.is-scrolled) .site-logo {
-      filter: brightness(0) invert(1);
+      filter: brightness(0) invert(1) drop-shadow(0 2px 10px rgba(0, 0, 0, 0.5));
     }
 
     /* Nav in white over the clip. The hover state has to be overridden too —
@@ -257,6 +262,7 @@
        the hair the later items sit on. */
     .header-on-clip:not(.is-scrolled) .nav-link {
       @apply text-white;
+      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.55);
     }
     /* Hovered over the clip, a tab goes green — text and rule together.
        `bg-none` is needed as well as the colour: the rule's resting state is a
@@ -265,6 +271,8 @@
     .header-on-clip:not(.is-scrolled) .nav-link:hover,
     .header-on-clip:not(.is-scrolled) .nav-link:focus-visible {
       @apply text-olive;
+      /* A dark shadow under dark type is just a smudge. */
+      text-shadow: none;
     }
     .header-on-clip:not(.is-scrolled) .nav-link:hover::after,
     .header-on-clip:not(.is-scrolled) .nav-link:focus-visible::after {

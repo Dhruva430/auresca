@@ -101,7 +101,7 @@ import { img, srcset } from "@/lib/helpers";
                   aria-label={`${slide.name} at Auresca Care`}
                   width="1920"
                   height="1080"
-                  class={`hero-img ${bleed ? "hero-bleed " : ""}pointer-events-none relative h-[46vh] w-full object-cover lg:absolute lg:inset-0 lg:h-full ${slide.objectClass || "object-[70%_center] lg:object-center"}`}
+                  class={`hero-img pointer-events-none relative h-[46vh] w-full object-cover lg:absolute lg:inset-0 lg:h-full ${slide.objectClass || "object-[70%_center] lg:object-center"}`}
                 />
               ) : (
                 <img
@@ -119,18 +119,35 @@ import { img, srcset } from "@/lib/helpers";
                 />
               )}
 
-              {/* Fills the band the header sits over. The media starts below
-                  the header so it cannot be cropped, and without this the
-                  strip left behind is flat cream — which flashes as a white
-                  band across the top the moment the header goes transparent
-                  mid-transition. A full-bleed clip runs under the header
-                  instead and needs no band. `lg` only: below that the slide
-                  stacks and there is no band either. */}
-              {!bleed && slide.topColor && (
+              {/* Fills the band the header sits over. A photograph starts
+                  below the header so it cannot be cropped, and without this
+                  the strip left behind is flat cream — which flashes as a
+                  white band across the top the moment the header goes
+                  transparent mid-transition. A clip runs under the header
+                  instead and must not have a flat strip painted over it.
+                  `lg` only: below that the slide stacks and there is no band
+                  either. */}
+              {!slide.video && slide.topColor && (
                 <div
                   aria-hidden="true"
                   class="pointer-events-none hidden lg:absolute lg:inset-x-0 lg:top-0 lg:block lg:h-[var(--header-h,121px)]"
                   style={`background-color:${slide.topColor}`}
+                />
+              )}
+
+              {/* The bar goes transparent over every clip, and these two are
+                  pale where it sits — white nav measures 1.7:1 on the hair
+                  regrowth wall and the centred mark 1.6:1, which is no mark at
+                  all. This gives both something to sit on: darkest under the
+                  bar, gone by roughly twice its height, so it reads as the
+                  frame falling off rather than a band. The ritual is already
+                  dark up there and is left alone. `lg` only — below it the
+                  header is opaque and the slide stacks. */}
+              {!bleed && slide.video && (
+                <div
+                  aria-hidden="true"
+                  class="pointer-events-none hidden lg:absolute lg:inset-x-0 lg:top-0 lg:block"
+                  style="height:calc(var(--header-h,121px) * 2);background:linear-gradient(180deg,rgba(20,18,15,0.46) 0%,rgba(20,18,15,0.28) 45%,rgba(20,18,15,0) 100%)"
                 />
               )}
 

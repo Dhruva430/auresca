@@ -57,18 +57,16 @@ if (hero) {
         var still = document.createElement("img");
         still.src = v.getAttribute("poster") || "";
         still.alt = "";
-        // Everything the video wore, minus `hero-img` on a full-bleed clip.
-        // That class carries the offset that starts media below the header,
-        // and a full-bleed clip runs under the bar instead. Left on, its clone
-        // shows a band of bare slide along its top — the white flash on the
-        // wrap from the last slide back to the first, which is the only time
-        // this element is ever on screen. Every other clip does start below
-        // the header, so its stand-in has to keep the class.
-        var names = v.className.split(/\s+/);
-        still.className = (names.indexOf("hero-bleed") === -1
-          ? names
-          : names.filter(function (n) { return n !== "hero-img"; })
-        ).join(" ");
+        // Everything the video wore except `hero-img`. That class carries the
+        // offset that starts a *photograph* below the header, and this still
+        // is standing in for a clip, which runs full-bleed behind a
+        // transparent bar. Left on, the clone shows a band of bare slide along
+        // its top — the white flash on the wrap from the last slide back to
+        // the first, which is the only time this element is ever on screen.
+        still.className = v.className
+          .split(/\s+/)
+          .filter(function (n) { return n !== "hero-img"; })
+          .join(" ");
         still.setAttribute("aria-hidden", "true");
         still.setAttribute("draggable", "false");
         v.parentNode.replaceChild(still, v);
@@ -113,20 +111,14 @@ if (hero) {
       );
     }
 
-    // A full-bleed slide asks the header to stand down: no bar, white mark and
-    // nav, no booking button. Keyed to `hero-bleed` rather than to "has a
-    // clip" — the other clips are light enough that a white logo would vanish
-    // into them, and they start below the header like the photographs do, so
-    // there is nothing to stand down for. Safe to switch the instant the slide
-    // becomes active: the band the bar sits over is filled with the slide's
-    // own top colour, so there is nothing to show through mid-transition.
+    // Any clip slide asks the header to stand down: transparent bar, white
+    // mark and nav, and the booking button away until the page moves. Safe to
+    // switch the instant the slide becomes active — a photograph's band is
+    // filled with its own top colour and a clip runs under the bar, so there
+    // is nothing to show through mid-transition either way.
     function syncHeader() {
       if (!siteHeader) return;
-      var v = videoIn(logical());
-      siteHeader.classList.toggle(
-        "header-on-clip",
-        !!v && v.classList.contains("hero-bleed")
-      );
+      siteHeader.classList.toggle("header-on-clip", !!videoIn(logical()));
     }
 
     var setTransform = function (animate) {
