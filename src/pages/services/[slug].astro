@@ -249,7 +249,9 @@ const faqSchema = {
     <div class="container-content">
       <div class="reveal mx-auto max-w-2xl text-center">
         <span class="eyebrow justify-center"
-          ><span class="h-px w-6 bg-gold"></span>Areas &amp; Sessions<span
+          ><span class="h-px w-6 bg-gold"></span>{
+            service.areas.eyebrow || "Areas & Sessions"
+          }<span
             class="h-px w-6 bg-gold"></span
           ></span
         >
@@ -261,7 +263,14 @@ const faqSchema = {
         <p class="mt-4 text-charcoal/70">{service.areas.intro}</p>
       </div>
 
-      <div class="mt-10 grid gap-6 lg:grid-cols-2" data-stagger="90">
+      <div
+        class={`mt-10 grid gap-6 ${
+          service.areas.groups.length > 1
+            ? "lg:grid-cols-2"
+            : "mx-auto max-w-2xl"
+        }`}
+        data-stagger="90"
+      >
         {
           service.areas.groups.map((group) => (
             <div class="reveal reveal-scale overflow-hidden rounded-3xl bg-white shadow-soft ring-1 ring-beige">
@@ -275,7 +284,9 @@ const faqSchema = {
                 <table class="w-full min-w-[22rem] text-left text-sm">
                   <thead>
                     <tr class="text-[11px] uppercase tracking-[0.16em] text-charcoal/50">
-                      <th scope="col" class="px-6 py-3 font-medium">Area</th>
+                      <th scope="col" class="px-6 py-3 font-medium">
+                        {service.areas.columnLabel || "Area"}
+                      </th>
                       <th scope="col" class="px-3 py-3 font-medium">
                         Typical course
                       </th>
@@ -293,8 +304,13 @@ const faqSchema = {
                         >
                           {row.area}
                         </th>
+                        {/* A bare count takes the word; anything already
+                            phrased — "1–3 per area", "On assessment" — is left
+                            as it was written. */}
                         <td class="whitespace-nowrap px-3 py-3.5 text-charcoal/65">
-                          {row.sessions} sessions
+                          {/^[\d\u2013\u2014-]+$/.test(row.sessions)
+                            ? `${row.sessions} sessions`
+                            : row.sessions}
                         </td>
                         <td class="whitespace-nowrap px-6 py-3.5 text-right">
                           {row.priceFrom ? (

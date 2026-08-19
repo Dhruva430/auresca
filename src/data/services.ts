@@ -63,6 +63,13 @@ export type ServiceDetail = {
   visit: { title: string; intro: string; steps: Step[] };
   areas: {
     title: string;
+    /**
+     * Small-caps label over the heading, and the first column's header. Both
+     * default to the wording a list of body areas wants; a service whose menu
+     * is a list of treatments rather than areas overrides them.
+     */
+    eyebrow?: string;
+    columnLabel?: string;
     intro: string;
     note: string;
     groups: PriceGroup[];
@@ -453,31 +460,25 @@ export const serviceDetails: ServiceDetail[] = [
     },
 
     areas: {
-      title: "Areas we treat",
+      title: "What we offer",
+      eyebrow: "Treatments & Sessions",
+      columnLabel: "Treatment",
       intro:
-        "Rounds are per area, and how many you need depends on how much is there and how much you want changed. Your own plan is confirmed at consultation, after we have seen the area.",
-      note: "Pricing depends on the area, the number of applicators or programmes involved and the plan agreed at consultation. Your first consultation is complimentary, and you will have the full cost in writing before anything is booked.",
+        "The slimming and contouring menu as it stands. Which of these suits you, in what order and over how many sessions, is decided at your consultation once we have assessed the area — not from a list.",
+      note: "Pricing depends on the treatment, the area and the plan agreed at consultation. Your first consultation is complimentary, and you will have the full cost in writing before anything is booked.",
       groups: [
         {
-          title: "Fat reduction & sculpting",
+          title: "Slimming & contouring",
           rows: [
-            { area: "Abdomen (upper & lower)", sessions: "1–3 rounds" },
-            { area: "Flanks / love handles", sessions: "1–3 rounds" },
-            { area: "Inner thighs", sessions: "1–2 rounds" },
-            { area: "Outer thighs", sessions: "1–2 rounds" },
-            { area: "Upper arms", sessions: "1–2 rounds" },
-            { area: "Bra line & upper back", sessions: "1–2 rounds" },
-            { area: "Double chin (submental)", sessions: "1–2 rounds" },
-            { area: "Above the knees", sessions: "1–2 rounds" },
-          ],
-        },
-        {
-          title: "Tone, circulation & support",
-          rows: [
-            { area: "Muscle stimulation programme", sessions: "6–12" },
-            { area: "Mechanical & lymphatic massage", sessions: "6–10" },
-            { area: "Udhwarthana (Ayurvedic)", sessions: "7–14" },
-            { area: "Combination programme", sessions: "Set at consultation" },
+            { area: "Coolsculpt", sessions: "1–3 per area" },
+            { area: "Lipo Laser", sessions: "6–12" },
+            { area: "G5", sessions: "6–10" },
+            { area: "Udhwarthana", sessions: "7–14" },
+            { area: "Tummy Tuck", sessions: "On assessment" },
+            { area: "NMS", sessions: "6–12" },
+            { area: "FDS", sessions: "On assessment" },
+            { area: "Curve Expert", sessions: "On assessment" },
+            { area: "Slimzone", sessions: "On assessment" },
           ],
         },
       ],
