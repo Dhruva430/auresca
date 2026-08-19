@@ -33,6 +33,18 @@ if (resultTrack) {
     resultTrack.style.transition = animate === false ? "none" : "";
     resultTrack.style.transform = "translateX(-" + offset + "px)";
 
+    // Arrows only on a category that actually holds more than the two cards a
+    // desktop row shows. Below that they were parked on top of the
+    // photographs at 35% opacity pointing nowhere, which is what they did on
+    // every category here. Off the page entirely, rather than faded:
+    // `display:none` takes them out of the tab order too, so there is nothing
+    // to land on that does nothing. `maxIndex` is still in the test — a third
+    // card that a wide row already shows in full has nothing to page to
+    // either.
+    var pageable = cards.length > 2 && maxIndex > 0;
+    [rPrev, rNext].forEach(function (b) {
+      if (b) b.classList.toggle("result-arrow-idle", !pageable);
+    });
     // disable arrows at the ends
     if (rPrev) rPrev.classList.toggle("result-arrow-disabled", rIndex <= 0);
     if (rNext) rNext.classList.toggle("result-arrow-disabled", rIndex >= maxIndex);

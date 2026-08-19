@@ -344,6 +344,13 @@
   .result-arrow-disabled {
     @apply pointer-events-none opacity-35;
   }
+  /* Set by results.js on a category with too few cards to page through — the
+     button goes rather than greys out. Qualified by the element:
+     the buttons carry the `grid` utility, and @layer utilities beats
+     @layer components on a plain class. */
+  button.result-arrow-idle {
+    display: none;
+  }
 
   /* FAQ accordion — gold accent on the open item */
   .faq-trigger[aria-expanded="true"] .faq-q {
