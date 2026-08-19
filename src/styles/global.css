@@ -226,15 +226,17 @@
       margin-top: calc(var(--header-h, 121px) * -1);
     }
 
-    /* Photo slides start below the header instead of running under it. The
-       hero is pulled up so the clip can fill the frame behind a transparent
-       bar — but on a photo slide that bar is opaque, so the top 121px of the
-       picture is simply thrown away, which is what was decapitating the
-       models. Shifting the image down is not an option: these are 16:9 files
-       in a 16:9 box with no vertical headroom to crop. The strip left behind
-       is the slide's own cream, the colour the header is painted in anyway.
-       Specificity beats the `lg:inset-0` utility on the element. */
-    img.hero-img {
+    /* Every slide but the full-bleed one starts below the header instead of
+       running under it. The hero is pulled up so that one clip can fill the
+       frame behind a transparent bar — but everywhere else that bar is
+       opaque, so the top 121px of the picture is simply thrown away, which is
+       what was decapitating the models. Shifting the media down is not an
+       option: these are 16:9 files in a 16:9 box with no vertical headroom to
+       crop. The strip left behind is the slide's own `topColor`, painted by
+       the band in Hero.astro. Applies to a clip as much as a photograph —
+       only `hero-bleed` is exempt. Two classes beat the single-class
+       `lg:inset-0` utility on the element. */
+    .hero-img:not(.hero-bleed) {
       top: var(--header-h, 121px);
       height: calc(100% - var(--header-h, 121px));
     }

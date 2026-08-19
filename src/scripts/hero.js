@@ -57,16 +57,18 @@ if (hero) {
         var still = document.createElement("img");
         still.src = v.getAttribute("poster") || "";
         still.alt = "";
-        // Everything the video wore except `hero-img`. That class carries the
-        // offset that starts a *photograph* below the header, and this still
-        // is standing in for a clip, which runs full-bleed behind a
-        // transparent bar. Left on, the clone shows a band of bare slide along
-        // its top — the white flash on the wrap from the last slide back to
-        // the first, which is the only time this element is ever on screen.
-        still.className = v.className
-          .split(/\s+/)
-          .filter(function (n) { return n !== "hero-img"; })
-          .join(" ");
+        // Everything the video wore, minus `hero-img` on a full-bleed clip.
+        // That class carries the offset that starts media below the header,
+        // and a full-bleed clip runs under the bar instead. Left on, its clone
+        // shows a band of bare slide along its top — the white flash on the
+        // wrap from the last slide back to the first, which is the only time
+        // this element is ever on screen. Every other clip does start below
+        // the header, so its stand-in has to keep the class.
+        var names = v.className.split(/\s+/);
+        still.className = (names.indexOf("hero-bleed") === -1
+          ? names
+          : names.filter(function (n) { return n !== "hero-img"; })
+        ).join(" ");
         still.setAttribute("aria-hidden", "true");
         still.setAttribute("draggable", "false");
         v.parentNode.replaceChild(still, v);
@@ -93,15 +95,38 @@ if (hero) {
       });
       syncVideos();
       syncHeader();
+      loadCurrent();
     };
 
-    // A clip slide asks the header to stand down: no bar, no booking button.
-    // Safe to switch the instant the slide becomes active — the band the bar
-    // sits over is filled with the photograph's own top colour, so there is
-    // nothing to show through mid-transition.
+    // Every photograph but the opening slide's ships `loading="lazy"`, so a
+    // reload fetches one picture instead of six. Waiting on the lazy loader to
+    // notice the slide has been translated into view is a heuristic, though,
+    // and a beat of bare cream is exactly what it costs when it guesses late.
+    // Flipping the attribute is defined to start the fetch there and then, so
+    // the picture is asked for the moment its slide is the one on screen.
+    function loadCurrent() {
+      var slide = all[pos];
+      if (!slide) return;
+      Array.prototype.forEach.call(
+        slide.querySelectorAll("img.hero-img[loading='lazy']"),
+        function (im) { im.loading = "eager"; }
+      );
+    }
+
+    // A full-bleed slide asks the header to stand down: no bar, white mark and
+    // nav, no booking button. Keyed to `hero-bleed` rather than to "has a
+    // clip" — the other clips are light enough that a white logo would vanish
+    // into them, and they start below the header like the photographs do, so
+    // there is nothing to stand down for. Safe to switch the instant the slide
+    // becomes active: the band the bar sits over is filled with the slide's
+    // own top colour, so there is nothing to show through mid-transition.
     function syncHeader() {
       if (!siteHeader) return;
-      siteHeader.classList.toggle("header-on-clip", !!videoIn(logical()));
+      var v = videoIn(logical());
+      siteHeader.classList.toggle(
+        "header-on-clip",
+        !!v && v.classList.contains("hero-bleed")
+      );
     }
 
     var setTransform = function (animate) {
@@ -166,6 +191,13 @@ if (hero) {
       if (reduce) return;
       var v = videoIn(logical());
       if (!v) return;
+      // Nothing but the opening clip is fetched at page load — the rest ship
+      // `preload="none"` and hold their poster, so a reload pulls one clip and
+      // not three. A slide's own clip starts downloading here, the moment it
+      // becomes the slide on screen. `play()` would trigger the fetch on its
+      // own; lifting `preload` first is what lets the browser keep buffering
+      // ahead of playback rather than stopping at what it needs right now.
+      if (v.preload === "none") v.preload = "auto";
       // Played out while the carousel was held: send it back to the top.
       if (v.ended) {
         try { v.currentTime = 0; } catch (e) { /* not seekable yet */ }

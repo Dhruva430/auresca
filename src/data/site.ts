@@ -65,6 +65,14 @@ export type HeroSlide = {
    * visitor has asked for reduced motion.
    */
   video?: string;
+  /**
+   * Full-bleed treatment: the media runs behind a stood-down transparent
+   * header and the copy carries the slide on its own — no eyebrow, no
+   * buttons, headline at display size. Only worth it on a clip shot dark
+   * enough to take white type and a white logo. A clip without this behaves
+   * exactly like a photograph slide, just moving.
+   */
+  bleed?: boolean;
   local?: boolean;
   primary?: boolean;
   headingClass?: string; // override heading colour for legibility on this image
@@ -105,6 +113,7 @@ export const heroSlides: HeroSlide[] = [
     eyebrow: "The Ritual",
     image: "/images/hero-ritual.webp",
     video: "/videos/hero-ritual.webm",
+    bleed: true,
     local: true,
     primary: true,
     // Set over the clip rather than beside it, so the type carries the slide.
@@ -140,10 +149,15 @@ export const heroSlides: HeroSlide[] = [
     name: "Hair Regrowth",
     eyebrow: "Hair Regrowth",
     image: "/images/hero-hair.webp",
+    video: "/videos/hero-hair-regrowth.webm",
     local: true,
-    headingClass: "text-olive",
-    objectClass: "object-[75%_center] lg:object-center",
-    topColor: "#a79f95",
+    // The copy sits on its own smoked panel over the clip from `lg` up, so it
+    // sets in white there; below that the slide stacks onto cream and the
+    // olive comes back.
+    dark: true,
+    headingClass: "text-olive lg:text-white",
+    objectClass: "object-[32%_center] lg:object-center",
+    topColor: "#bebcbb",
     lead: "Restore Your",
     accent: "Natural",
     tail: "Hair",
@@ -154,10 +168,15 @@ export const heroSlides: HeroSlide[] = [
     name: "Anti-Ageing Injectables",
     eyebrow: "Anti-Ageing",
     image: "/images/hero-antiageing.webp",
+    video: "/videos/hero-antiageing.webm",
     local: true,
-    headingClass: "text-olive",
-    objectClass: "object-[75%_center] lg:object-center",
-    topColor: "#e7e7ec",
+    // The copy sits on its own smoked panel over the clip from `lg` up, so it
+    // sets in white there; below that the slide stacks onto cream and the
+    // olive comes back.
+    dark: true,
+    headingClass: "text-olive lg:text-white",
+    objectClass: "object-[48%_center] lg:object-center",
+    topColor: "#849196",
     lead: "Turn Back",
     accent: "Time,",
     tail: "Gracefully",

@@ -20,7 +20,10 @@ import { img, srcset } from "@/lib/helpers";
         heroSlides.map((slide, i) => {
           const src = img(slide.image, 1680, 980);
           const sset = srcset(slide.image, [900, 1280, 1680], 980);
-          const eager = !!slide.primary;
+          // Only the slide actually on screen at load. Every other
+          // photograph waits for its turn in the carousel rather than
+          // competing with it for bandwidth on the way in.
+          const eager = i === 0;
           // `dark` means "this slide sets its copy over the media". That only
           // happens from `lg` up: below it the slide stacks, the copy lands on
           // cream, and light text would be invisible. Hence the breakpoint on
@@ -30,30 +33,43 @@ import { img, srcset } from "@/lib/helpers";
             : "text-charcoal/70";
           const strong = slide.dark ? "text-olive lg:text-white" : "text-olive";
 
-          // The clip slide leads, so it gets the larger setting; the five
-          // photographs keep the sizes this face was drawn against. Its old
-          // uppercase big type could not come back with it — "WHERE SCIENCE"
-          // is 7.64em in Cormorant against 5.13em in the condensed face it was
-          // built on, which at 9rem measured 1100px into a 1100px column.
-          // 5.5rem is as far as the longest headline goes before `text-balance`
-          // has to break it over three lines.
-          // The clip slide leads, so it gets the larger setting; the five
+          // The full-bleed slide leads, so it gets the larger setting; the five
           // photographs keep the sizes this face was drawn against. Only its
           // own headline has to fit, and "Where Science" — the longer of the
           // two lines — is 5.74em, so 7rem needs 643px and the column widens
           // to 2xl to take it. Leading tightens as the size grows, the way it
           // should. Its old uppercase big type could not come back: the same
           // words are 7.64em in caps, which at 9rem overflowed a 1100px column.
-          const headingType = slide.video
+          // Keyed to `bleed`, not to "has a clip". Only a slide shot dark
+          // enough to run behind a stood-down header gets the display setting
+          // and the stripped-back copy; the other clips are photograph slides
+          // that happen to move, and read as such.
+          const bleed = !!slide.bleed;
+          const headingType = bleed
             ? "text-[3.5rem] leading-[1.02] sm:text-[5rem] lg:text-[7rem] lg:leading-[0.95] text-balance"
             : "text-5xl leading-[1.05] sm:text-6xl lg:text-7xl text-balance";
-          const copyWidthSlide = slide.video ? "max-w-xl lg:max-w-2xl" : "max-w-xl";
+          const copyWidthSlide = bleed ? "max-w-xl lg:max-w-2xl" : "max-w-xl";
           const copyWidth = copyWidthSlide;
 
-          // A clip slide carries the headline on its own — no buttons. It stays
-          // ranged left like every other slide; the wrapper's `items-center`
-          // is what centres it vertically.
-          const isVideo = !!slide.video;
+          // A clip slide has no clear ground for its copy. The five
+          // photographs were all shot with the model right of frame and half
+          // the picture left empty; both clips put their subject left of
+          // centre, straight under the headline. The copy gets its own smoked
+          // panel instead — dark enough to carry white type over a light
+          // clip, blurred so the movement still reads through it, and only as
+          // wide as the words. `lg` only: below that the slide stacks and the
+          // copy is already sitting on its own cream, in charcoal.
+          const glass = !bleed && !!slide.video;
+          const glassPanel = glass
+            ? "lg:rounded-[2rem] lg:bg-charcoal/55 lg:backdrop-blur-md lg:ring-1 lg:ring-white/15 lg:shadow-card"
+            : "";
+          // One padding rule per slide — two `lg:py-*` utilities on the same
+          // element resolve by stylesheet order, not by the order written here.
+          const copyPad = glass ? "lg:px-10 lg:py-12" : "lg:py-16";
+
+          // A full-bleed slide carries the headline on its own — no buttons. It
+          // stays ranged left like every other slide; the wrapper's
+          // `items-center` is what centres it vertically.
           const align = slide.align === "right" ? "lg:ml-auto lg:text-left" : "";
           const descType = "max-w-md text-lg";
 
@@ -66,23 +82,26 @@ import { img, srcset } from "@/lib/helpers";
               aria-label={`${i + 1} of ${heroSlides.length}`}
             >
               {/* background — a clip when the slide has one, the photograph
-                  otherwise. Both land in the same box. The clip preloads in
-                  full rather than `metadata`: it autoplays the instant the
-                  page lands, so deferring the body of the file only means the
-                  opening seconds play out of an empty buffer. */}
+                  otherwise. Both land in the same box. Only the opening clip
+                  preloads in full: it autoplays the instant the page lands, so
+                  deferring the body of that file only means the first seconds
+                  play out of an empty buffer. The clips further down the
+                  carousel would be megabytes fetched before anyone has seen
+                  slide one — they hold their poster and hero.js warms each one
+                  a slide ahead of its turn. */}
               {slide.video ? (
                 <video
                   data-hero-video
                   src={slide.video}
                   poster={src}
-                  autoplay
+                  autoplay={bleed}
                   muted
                   playsinline
-                  preload="auto"
+                  preload={bleed ? "auto" : "none"}
                   aria-label={`${slide.name} at Auresca Care`}
                   width="1920"
                   height="1080"
-                  class={`hero-img pointer-events-none relative h-[46vh] w-full object-cover lg:absolute lg:inset-0 lg:h-full ${slide.objectClass || "object-[70%_center] lg:object-center"}`}
+                  class={`hero-img ${bleed ? "hero-bleed " : ""}pointer-events-none relative h-[46vh] w-full object-cover lg:absolute lg:inset-0 lg:h-full ${slide.objectClass || "object-[70%_center] lg:object-center"}`}
                 />
               ) : (
                 <img
@@ -100,13 +119,14 @@ import { img, srcset } from "@/lib/helpers";
                 />
               )}
 
-              {/* Fills the band the header sits over. The photograph starts
-                  below the header so it cannot be cropped, and without this
-                  the strip left behind is flat cream — which flashes as a
-                  white band across the top the moment the header goes
-                  transparent mid-transition. `lg` only: below that the slide
-                  stacks and there is no band. */}
-              {!slide.video && slide.topColor && (
+              {/* Fills the band the header sits over. The media starts below
+                  the header so it cannot be cropped, and without this the
+                  strip left behind is flat cream — which flashes as a white
+                  band across the top the moment the header goes transparent
+                  mid-transition. A full-bleed clip runs under the header
+                  instead and needs no band. `lg` only: below that the slide
+                  stacks and there is no band either. */}
+              {!bleed && slide.topColor && (
                 <div
                   aria-hidden="true"
                   class="pointer-events-none hidden lg:absolute lg:inset-x-0 lg:top-0 lg:block lg:h-[var(--header-h,121px)]"
@@ -114,15 +134,17 @@ import { img, srcset } from "@/lib/helpers";
                 />
               )}
 
-              {/* copy. The clip's subject reaches furthest left across the top
+              {/* copy. The ritual clip's subject reaches furthest left across the top
                   of the frame — 33% at the very top, pulling back to 47% below
                   the one-third mark — so its copy sits at the foot of the slide
                   rather than centred, where the clear beige is widest. */}
               <div
-                class={`container-wide relative flex items-center py-10 lg:min-h-screen lg:py-0 ${isVideo ? "lg:items-end lg:pb-20" : ""}`}
+                class={`container-wide relative flex items-center py-10 lg:min-h-screen lg:py-0 ${bleed ? "lg:items-end lg:pb-20" : ""}`}
               >
-                <div class={`hero-copy ${copyWidth} ${align} lg:py-16`}>
-                  {!isVideo && (
+                <div
+                  class={`hero-copy ${copyWidth} ${align} ${copyPad} ${glassPanel}`}
+                >
+                  {!bleed && (
                     <span class="eyebrow mb-4">
                       <span class="h-px w-6 bg-gold" />
                       {slide.eyebrow}
@@ -139,7 +161,7 @@ import { img, srcset } from "@/lib/helpers";
                     {slide.desc}
                   </p>
 
-                  {!isVideo && (
+                  {!bleed && (
                     <div class="mt-7 flex flex-wrap items-center gap-3">
                       <a href={heroMeta.primaryCta.href} class="btn-primary">
                         {heroMeta.primaryCta.label}
@@ -159,7 +181,7 @@ import { img, srcset } from "@/lib/helpers";
                   )}
 
                   {/* feature checks (desktop only) */}
-                  {!isVideo && (
+                  {!bleed && (
                     <div
                       class={`mt-6 hidden flex-wrap gap-x-5 gap-y-2 text-sm lg:flex ${muted}`}
                     >
