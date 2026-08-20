@@ -152,9 +152,21 @@ import { img, srcset } from "@/lib/helpers";
               {/* copy. The ritual clip's subject reaches furthest left across the top
                   of the frame — 33% at the very top, pulling back to 47% below
                   the one-third mark — so its copy sits at the foot of the slide
-                  rather than centred, where the clear beige is widest. */}
+                  rather than centred, where the clear beige is widest.
+
+                  The top padding is the band the header sits over. The hero is
+                  pulled up under the bar, so a box of `min-h-screen` centred
+                  its copy in the whole window — header band included — and the
+                  clearance left over was `(100vh - copy) / 2 - header`. On the
+                  clip slides, whose panel is the tallest copy here, that is
+                  near nothing at an ordinary window height and gone the moment
+                  the window loses any: leaving fullscreen with F11 took the
+                  headline straight up behind the nav. Reserving the band
+                  centres the copy in the part of the slide anyone can actually
+                  see, at every height. Border-box, so the slide is still
+                  exactly one screen tall. */}
               <div
-                class={`container-wide relative flex items-center py-10 lg:min-h-screen lg:py-0 ${bleed ? "lg:items-end lg:pb-20" : ""}`}
+                class={`container-wide relative flex items-center py-10 lg:min-h-screen lg:pb-0 lg:pt-[var(--header-h,121px)] ${bleed ? "lg:items-end lg:pb-20" : ""}`}
               >
                 <div
                   class={`hero-copy ${copyWidth} ${align} ${copyPad}`}

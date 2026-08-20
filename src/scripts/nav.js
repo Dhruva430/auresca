@@ -75,5 +75,23 @@ if (header) {
   measure();
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", measure, { passive: true });
+  // Read again on the next frame as well as on the event itself. Entering or
+  // leaving fullscreen with F11 is a resize the browser can report before the
+  // window chrome has finished going, and a height read at that moment is the
+  // old one — which leaves the hero pulled up by the wrong amount until
+  // something else resizes the page.
+  window.addEventListener(
+    "resize",
+    function () {
+      measure();
+      window.requestAnimationFrame(measure);
+    },
+    { passive: true }
+  );
+  // And whenever the bar's own box changes for any reason a resize never
+  // reports — the mobile menu opening, a font landing late, the nav wrapping.
+  // `--header-h` drives the hero, not the header, so this cannot feed itself.
+  if (window.ResizeObserver) {
+    new window.ResizeObserver(measure).observe(header);
+  }
 }
