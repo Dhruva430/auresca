@@ -3,6 +3,18 @@ import Icon from "@/components/Icon.astro";
 import { serviceCategories, serviceCount } from "@/data/site";
 import { detailSlugs } from "@/data/services";
 import { img, srcset } from "@/lib/helpers";
+
+interface Props {
+  /**
+   * Which category tab opens active. Defaults to the first in the menu — the
+   * appointment page overrides it to lead with hair regeneration. The client
+   * script reads the initial `is-active`/`hidden` state from the markup, so
+   * setting it here is all that's needed.
+   */
+  activeSlug?: string;
+}
+
+const { activeSlug = serviceCategories[0].slug } = Astro.props;
 ---
 
 <!-- ======================= SERVICES ======================= -->
@@ -34,14 +46,14 @@ import { img, srcset } from "@/lib/helpers";
       data-stagger="60"
     >
       {
-        serviceCategories.map((cat, i) => (
+        serviceCategories.map((cat) => (
           <button
             type="button"
             role="tab"
             data-service-tab
             data-cat={cat.slug}
-            class={`service-tab reveal reveal-scale${i === 0 ? " is-active" : ""}`}
-            aria-current={i === 0 ? "true" : undefined}
+            class={`service-tab reveal reveal-scale${cat.slug === activeSlug ? " is-active" : ""}`}
+            aria-current={cat.slug === activeSlug ? "true" : undefined}
           >
             {cat.label}
           </button>
@@ -51,13 +63,13 @@ import { img, srcset } from "@/lib/helpers";
 
     <!-- one panel per category: feature image + the full menu -->
     {
-      serviceCategories.map((cat, i) => {
+      serviceCategories.map((cat) => {
         const sset = srcset(cat.image, [480, 760], 720);
         return (
           <div
             data-service-panel
             data-cat={cat.slug}
-            class={`reveal mt-12 grid gap-10 lg:grid-cols-12 lg:gap-14${i === 0 ? "" : " hidden"}`}
+            class={`reveal mt-12 grid gap-10 lg:grid-cols-12 lg:gap-14${cat.slug === activeSlug ? "" : " hidden"}`}
           >
             {/* left: the category at a glance */}
             <div class="group lg:col-span-5">
@@ -79,7 +91,7 @@ import { img, srcset } from "@/lib/helpers";
                 {cat.tagline}
               </p>
               <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
-                <a href="/#appointment" class="btn-primary">
+                <a href="/appointment" class="btn-primary">
                   Book a free consultation
                   <Icon name="move-right" cls="w-4 h-4" />
                 </a>
@@ -156,7 +168,7 @@ import { img, srcset } from "@/lib/helpers";
           Not sure where to start? Your first consultation is complimentary.
         </span>{" "}
         <a
-          href="/#appointment"
+          href="/appointment"
           class="font-semibold text-olive underline decoration-gold underline-offset-4 transition-colors hover:text-gold"
         >
           Book a free consultation

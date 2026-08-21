@@ -52,7 +52,7 @@ export const nav = [
   { label: "Reviews", href: "/#reviews" },
   { label: "Blog", href: "/#blog" },
   { label: "FAQ", href: "/#faq" },
-  { label: "Appointments", href: "/#appointment" },
+  { label: "Appointments", href: "/appointment" },
 ];
 
 export type HeroSlide = {
